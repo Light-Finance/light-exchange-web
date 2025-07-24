@@ -1,0 +1,16 @@
+.mining-intro{
+    background-image: url("../../../assets/imgs/home/background.jpg");
+    background-position: center;
+    background-size: cover;
+    background-color: rgba(100, 100, 100,0.8);
+    background-blend-mode: multiply;
+    min-height: 99vh;
+}
+.youtube{
+    border-radius: 10px;
+    min-height: 25rem;
+}
+.link{
+    color: white;
+    text-decoration: none;
+}

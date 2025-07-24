@@ -1,0 +1,15 @@
+.logo-image{
+    background-color: #8039DD;
+    border-radius: 50%;
+    padding: 1rem;
+}
+.background-gradient{
+    background-color: #1f2532;
+    box-shadow: 1px 3px 3px rgb(200,200,200);
+}
+.nav-bottom-border{
+    border-bottom: 3px solid #8039DD;
+}
+.font-weight{
+    font-weight: 600;
+}

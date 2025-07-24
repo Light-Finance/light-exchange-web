@@ -1,0 +1,16 @@
+.marketing-price{
+    text-decoration: line-through;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: red;
+}
+.price{
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #8039DD;
+}
+.price-container{
+    background-color: rgb(230,230,230);
+    border-radius: 6px;
+    padding: 1rem;
+}

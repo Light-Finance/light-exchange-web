@@ -1,0 +1,22 @@
+.sub-footer{
+    background-color: #222222;
+}
+.font-size-small{
+    font-size: 0.8rem;
+}
+.footer{
+    background-image: linear-gradient(to right, #8766f2, #8039DD);
+}
+.footer-link a {
+    color: rgb(210,210,210);
+}
+.footer-link a:hover{
+    color: white;
+}
+.footer-link {
+    color: rgb(210,210,210);
+}
+.footer-link:hover{
+color: white;
+font-weight: bold;
+}

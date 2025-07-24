@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.text-secondary1{
+  color: #8039DD;
+}
+.btn-secondary1{
+  background-color: #8039DD;
+  color:white;
+}
+.pointer{
+  cursor: pointer;
+}
+a{
+  text-decoration: none;
+}

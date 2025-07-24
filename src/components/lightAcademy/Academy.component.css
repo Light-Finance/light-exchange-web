@@ -1,0 +1,11 @@
+.academy-item{
+    background-color: rgb(248,249,251);
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0px 0px 5px rgb(200,200,200);
+    
+}
+.academy-item:hover{
+    cursor: pointer;
+    background-color: #8039DD;
+}
