@@ -1,0 +1,26 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Holds the GitHub Packages auth token needed to install @light-finance/*.
+# Never commit it — copy .npmrc.example and paste your own token.
+.npmrc
+
+.env
+.env.*
+!.env.example
+
+.vercel/
+
+.DS_Store
+Thumbs.db
+
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.vscode/*
+!.vscode/extensions.json
+.idea/

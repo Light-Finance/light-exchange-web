@@ -1,0 +1,5 @@
+# Copy to .npmrc and replace the placeholder with a GitHub personal access token
+# that has read:packages. The real .npmrc is gitignored so the token stays out
+# of the repository.
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN_HERE
+@light-finance:registry=https://npm.pkg.github.com
