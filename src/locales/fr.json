@@ -1,0 +1,436 @@
+{
+  "app": {
+    "nameTxt": "Light Exchange"
+  },
+  "welcome": {
+    "welcomeTxt": "Bienvenue"
+  },
+  "contactUs": {
+    "whatsappError": "Installer WhatsApp"
+  },
+  "signIn": {
+    "emailPhTxt": "Votre email",
+    "forgetPassBtn": "Mot de passe oublié ?",
+    "logInBtn": "Connexion",
+    "signUpBtn": "S'inscrire"
+  },
+  "password": {
+    "passwordPhTxt": "Mot de passe"
+  },
+  "emailConfirmation": {
+    "codeTxt": "Code de vérification",
+    "verificationCodeBtn": "Obtenir le code",
+    "sendBtn": "Code envoyé",
+    "verifyCodeTxt": "Confirmer le code",
+    "resendCodeBtn": "Renvoyer le code"
+  },
+  "signOutConfirmation": {
+    "titleSignOutTxt": "Déconnexion",
+    "signOutConfirmationTxt": "Confirmer la déconnexion ?",
+    "signOutAppConfirmBtn": "Confirmer",
+    "signOutAppCancelBtn": "Annuler"
+  },
+  "googleButton": {
+    "logInGoogleBtn": "Connexion avec Google",
+    "signUpGoogleBtn": "Inscription avec Google"
+  },
+  "signUp": {
+    "emailPhTxt": "Votre email",
+    "referalCodeTxt": "Code de parrainage (facultatif)",
+    "conditionTxt": "En s'inscrivant, j'accepte les termes",
+    "signUpBtn": "S'inscrire",
+    "logInBtn": "Connexion"
+  },
+  "resetPassword": {
+    "codeTxt": "Code de vérification",
+    "verificationCodeBtn": "Obtenir le code",
+    "resetBtn": "Réinitialiser",
+    "verifyCodeTxt": "Confirmer le code",
+    "emptyEmailTxt": "Email incorrect",
+    "codeIncorrectTxt": "Code incorrect",
+    "newPasswordTxt": "Nouveau mot de passe"
+  },
+  "profil": {
+    "nameTxt": "Votre nom",
+    "phoneTxt": "Votre téléphone",
+    "affiliateBtn": "Programme d'affiliation",
+    "shareBtn": "Partager l'App",
+    "merchantBtn": "Devenir Marchand LFC",
+    "tutorialsBtn": "Tutoriels",
+    "shareReferralCode": "Utilisez mon code de parrainage :",
+    "shareCopied": "Lien & code copié !",
+    "signOutBtn": "Se déconnecter",
+    "idVerification": "Vérification d'identité",
+    "idAccepted": "Carte nationale d'identité, permis de conduire, passeport, carte d'électeur…",
+    "idVerified": "Identité vérifiée",
+    "idPending": "En attente de vérification",
+    "id_front": "Recto ID",
+    "id_back": "Verso ID",
+    "id_selfie": "Selfie avec ID",
+    "idUploadSuccess": "Document envoyé",
+    "idRequestVerification": "Demander la vérification",
+    "idTapToChange": "Appuyer pour changer",
+    "idRefreshStatus": "Actualiser le statut",
+    "idVerificationRequested": "Demande envoyée à l'admin",
+    "countryTriesLeft": "{{count}} modification(s) restante(s)"
+  },
+  "lfcMerchant": {
+    "title": "Marchand LFC",
+    "headline": "Devenez Marchand LFC",
+    "description": "Notre programme Marchand LFC vous permet d'acheter des LFC directement chez nous à un prix préférentiel, pour les revendre et gagner une marge.",
+    "priceLabel": "Prix préférentiel",
+    "priceUnit": "pour 1 LFC",
+    "conditionsTitle": "Conditions pour devenir marchand",
+    "condition1": "Expérimenté dans le trading P2P sur d'autres plateformes",
+    "condition2": "Avoir utilisé au moins un produit sur Light Exchange",
+    "description2": "Intéressé ? Contactez-nous sur WhatsApp et notre équipe vous guidera.",
+    "contactBtn": "Nous contacter sur WhatsApp"
+  },
+  "affiliateProgram": {
+    "affiliateProgramTxt": "Programme d'affiliation",
+    "codeRecommendation": "Appuyez pour copier le code",
+    "affiliationJoin": "Rejoindre l'affiliation",
+    "recommendationTxt": "Partagez votre code & gagnez",
+    "shareBtn": "Partager",
+    "codeUsed": "Vos affiliés :",
+    "toastTxt": "Code copié",
+    "shareTxt": "Inscris-toi sur Light Exchange avec mon code : ",
+    "kycDone": "Ont fait le KYC",
+    "kycNot": "Sans KYC",
+    "tapToSee": "Voir les emails",
+    "close": "Fermer",
+    "noReferrals": "Aucun filleul"
+  },
+  "trading": {
+    "feesTxt": "Frais",
+    "spendTxt": "Tu dépenses",
+    "receivedTxt": "Tu reçois",
+    "transactionsTxt": "Transactions",
+    "confirmTxt": "Copier & procéder",
+    "receiveFundsTxt": "Fonds en route",
+    "confirmCashoutTxt": "Paiement de : ",
+    "ongoingPaymentTxt": "Paiement en cours : ",
+    "received2Txt": "contactez-nous",
+    "transactionHistory": "Historique",
+    "newTransaction": "Nouvelle transaction",
+    "networkTxt": "Réseau",
+    "paymentTxt": "Paiement",
+    "dateTxt": "Date",
+    "amountTxt": "Montant",
+    "idTxt": "Id",
+    "chooseWallet": "Choisir le wallet",
+    "spendPlaceholder": "0 - 1 000 000",
+    "receivePlaceholder": "0 - 1 000 000",
+    "typeTxt": "Type",
+    "statusTxt": "Statut",
+    "userNumberTxt": "Numéro",
+    "walletTxt": "Portefeuille",
+    "title": "Trading",
+    "tradeBtn": "Échanger",
+    "fromTxt": "De",
+    "toTxt": "À"
+  },
+  "phone": {
+    "phoneNumberTxt": "Numéro de téléphone",
+    "phoneInput": "Votre numéro"
+  },
+  "fiat": {
+    "makePayment": "Entrer le montant",
+    "spendPlaceholder": "0 - 1 000 000",
+    "spendPlaceholderForFiatDeposit": "0 - 1 000 000"
+  },
+  "userNumber": {
+    "goBack": "Retour"
+  },
+  "userNumberPicker": {
+    "paymentMethodTxt": "Méthode de paiement",
+    "addNewBtn": "Ajouter"
+  },
+  "crypto": {
+    "WalletAddressTxt": "Adresse du portefeuille",
+    "walletAddressCrypto": "Adresse du portefeuille",
+    "walletAddressFiat": "Numéro de compte",
+    "spendPlaceholder": "0 - 1 000 000"
+  },
+  "transactionHistoryC": {
+    "history": "Historique"
+  },
+  "tradingTradeCrypto": {
+    "titleTxt": "Échanger"
+  },
+  "transactionPending": {
+    "titleTxt": "Transaction en cours...",
+    "thankYou": "Merci",
+    "transactionFailedTxt": "Nouvelle transaction",
+    "issueTxt": "Problème ? Contactez-nous"
+  },
+  "notificationList": {
+    "title": "Notifications"
+  },
+  "updateNotification": {
+    "titleTxt": "Mise à jour disponible",
+    "updateTxt": "Mise à jour requise",
+    "updateAppBtn": "Play Store"
+  },
+  "paymentMethod": {
+    "titleTxt": "Méthodes de paiement",
+    "addBtn": "Ajouter un numéro",
+    "addSuccessTxt": "Numéro ajouté",
+    "noticeTxt": "Appuyez plus haut"
+  },
+  "recharge": {
+    "titleTxt": "Recharger le compte",
+    "paymentMethodTxt": "Méthode de paiement",
+    "addPhoneNumberTxt": "Ajouter un numéro"
+  },
+  "rechargeInitialization": {
+    "rechargeBtn": "Recharge"
+  },
+  "rechargeCrypto": {
+    "rechargeBtn": "Recharge terminée",
+    "warningTxt": "Envoyez uniquement à cette adresse",
+    "actionTxt": "Appuyez plus haut après l'envoi",
+    "amountPh": "Montant envoyé",
+    "amountInvalid": "Saisissez le montant que vous avez envoyé"
+  },
+  "errorMessages": {
+    "serverError": "Serveur injoignable",
+    "networkError": "Pas d'internet",
+    "loadingError": "Erreur de chargement",
+    "signIn": "Email ou mot de passe incorrect",
+    "creationError": "Une erreur s'est produite",
+    "server": "Erreur serveur",
+    "processingError": "Erreur de traitement",
+    "signUp": "Erreur, vérifier les données",
+    "passwordGetCode": "Erreur d'envoi du code",
+    "passwordUpdate": "Erreur de réinitialisation",
+    "depositCrypto": "Erreur de dépôt, réessayer",
+    "emailValidation": "Email invalide",
+    "nameValidation": "Nom invalide",
+    "passWordValidation": "Min. 5 caractères",
+    "amountValidation": "Montant insuffisant",
+    "phoneValidation": "Numéro incorrect",
+    "walletValidation": "Wallet incorrect",
+    "codeValidation": "Code invalide",
+    "spendValidation": "Montant : 1 – 1 000 000",
+    "amountToWithdrawValidation": "Montant min. : 13",
+    "emailConfirmation": "Code incorrect",
+    "investment": "Erreur, contactez-nous"
+  },
+  "successMessages": {
+    "signIn": "Connexion réussie",
+    "signUp": "Inscription réussie",
+    "passwordGetCode": "Code envoyé",
+    "phoneUpdate": "Numéro mis à jour, 1 essai restant",
+    "phoneUpdate1": "Numéro mis à jour, 0 essai restant",
+    "nameUpdate": "Nom mis à jour, 1 essai restant",
+    "nameUpdate1": "Nom mis à jour, 0 essai restant",
+    "paswordUpdate": "Mot de passe modifié",
+    "emailConfirmation": "Email confirmé",
+    "codeCopied": "Copié",
+    "countryUpdate": "Pays mis à jour, 1 modif. restante",
+    "countryUpdate1": "Pays mis à jour, aucune modif. restante"
+  },
+  "walletHome": {
+    "title": "Accueil",
+    "rechargeBtn": "Acheter & Vendre",
+    "transferBtn": "Transfert",
+    "withdrawBtn": "Retrait",
+    "convertBtn": "Convertir",
+    "depositBtn": "Ajouter des fonds",
+    "comingSoonTxt": "Bientôt disponible",
+    "worldwideBtn": "Transfert international",
+    "learnBtn": "Comment fonctionne Light Exchange",
+    "contactBtn": "Contactez-nous",
+    "balanceLabel": "Solde"
+  },
+  "walletTrading": {
+    "tokensTxt": "Choisir une crypto",
+    "paymentMethodTxt": "Méthode de paiement",
+    "buyBtn": "Acheter",
+    "sellBtn": "Vendre",
+    "buyTxt": "Taux achat",
+    "sellTxt": "Taux vente",
+    "title": "Acheter & Vendre",
+    "noticeTxt": "Voir infos plus haut",
+    "warningTxt": "Taux peut varier selon le marché",
+    "search": "Recherche"
+  },
+  "walletConvert": {
+    "title": "Convertir",
+    "convertBtn": "Convertir",
+    "token1Txt": "Crypto à convertir",
+    "token2Txt": "Crypto à recevoir",
+    "amountSpentTxt": "Montant à convertir",
+    "amountReceivedTxt": "Montant à recevoir",
+    "rateTxt": "Taux",
+    "noWalletTxt": "Déposez d'abord pour convertir"
+  },
+  "walletDeposit": {
+    "tokensTxt": "Choisir une crypto",
+    "paymentMethodTxt": "Méthode de paiement",
+    "buyBtn": "Acheter",
+    "sellBtn": "Vendre",
+    "buyTxt": "Taux achat",
+    "sellTxt": "Taux vente",
+    "title": "Ajouter des fonds",
+    "noticeTxt": "Voir infos plus haut"
+  },
+  "tradingHome": {
+    "title": "Trading",
+    "buyCryptoBtn": "Acheter crypto",
+    "sellCryptoBtn": "Vendre crypto",
+    "toWalletBtn": "Aller au Wallet"
+  },
+  "rate": {
+    "rateTxt": "1"
+  },
+  "transactionComplete": {
+    "goBackHomeTxt": "Retour à l'accueil",
+    "successful": "Transaction réussie !",
+    "failed": "Transaction échouée",
+    "issueTxt": "Problème ? Contactez-nous",
+    "failedDescription": "Erreur lors de la transaction",
+    "successfulDescription": "Transaction effectuée",
+    "pendingDescription": "En cours — email envoyé quand terminé"
+  },
+  "transactionConfirmation": {
+    "titleTxt": "Confirmer la transaction",
+    "confirmationMessageTxt": "Confirmer cette transaction ?",
+    "confirmBtn": "Confirmer",
+    "cancelBtn": "Annuler"
+  },
+  "transactionDetail": {
+    "statusTxt": "Vérifier le statut",
+    "receiverTxt": "Destinataire"
+  },
+  "walletWithdraw": {
+    "titleTxt": "Retrait",
+    "lfcTransferOnly": "Le LFC ne peut pas être retiré directement. Envoyez-le à un autre utilisateur via Transfert, ou convertissez-le d'abord en USDT.",
+    "goToTransfer": "Aller au Transfert",
+    "amountToWithdrawInput": "Montant à retirer",
+    "addressToWithdrawInput": "Adresse externe",
+    "withdrawBtn": "Retrait",
+    "withdrawTxt": "Retrait",
+    "feesTxt": "Frais",
+    "fiat": "LFC : utiliser Transfert",
+    "transfer": "Transfert"
+  },
+  "walletWithdrawC": {
+    "transferWarningTxt": "Transfert interne : aller sur Transfert"
+  },
+  "fiatWitdraw": {
+    "withdrawBtn": "Retrait",
+    "amountErrorMsg": "Solde insuffisant"
+  },
+  "walletTransfer": {
+    "titleTxt": "Transfert"
+  },
+  "transfer": {
+    "spendPlaceholder": "0 - 1 000 000",
+    "transferBtn": "Transfert",
+    "confirmTransferBtn": "Confirmer le transfert",
+    "cancelBtn": "Annuler"
+  },
+  "userByEmail": {
+    "emailPh": "xxxx@gmail.com",
+    "emailTxt": "Email du destinataire",
+    "nameErrorTxt": "Destinataire sans pseudo"
+  },
+  "uxStore": {
+    "isNotConnected": "Serveur injoignable",
+    "isNotInternet": "Pas d'internet"
+  },
+  "rechargeCryptoCompleted": {
+    "successful": "Dépôt en cours",
+    "successfulDescription": "Vérifier dans l'historique",
+    "goBackHomeTxt": "Retour à l'accueil",
+    "issueTxt": "Problème ? Contactez-nous"
+  },
+  "comingSoon": {
+    "comingSoonTxt": "Bientôt disponible"
+  },
+  "walletLayout": {
+    "chooseWallet": "Choisir le wallet"
+  },
+  "rechargeGetWallet": {
+    "acquireLF": "Utilisez votre email pour recevoir LFC"
+  },
+  "notification": {},
+  "aiTrading": {
+    "title": "AI Trading",
+    "spinHistory": "Mon historique de spins",
+    "spinStake": "Mise",
+    "spinPayout": "Gain",
+    "spinHistoryEmpty": "Aucun spin pour le moment.",
+    "history": "Robots en cours",
+    "botsAvailable": "robots disponibles",
+    "btcPrice": "Prix BTC",
+    "currentPnl": "PnL actuel",
+    "runningFor": "Depuis",
+    "finalPnl": "PnL final",
+    "closed": "CLÔTURÉ",
+    "amountLabel": "Montant (LFC)",
+    "amountPlaceholder": "Min. %{min} LFC",
+    "available": "Disponible :",
+    "leverageLabel": "Levier",
+    "estimatedReturn": "Retour estimé (30j)",
+    "liquidationThreshold": "Prix de liquidation",
+    "liquidationWarning": "Si le prix de liquidation est atteint, position clôturée à 0.",
+    "confirmCopy": "Copier le Bot",
+    "insufficientBalance": "Solde LFC insuffisant",
+    "invalidAmount": "Montant invalide",
+    "unsubscribeSuccess": "Position clôturée",
+    "runningBotsTitle": "Robots en cours",
+    "noBots": "Aucun robot en cours",
+    "invested": "Investi",
+    "entryPrice": "Prix d'entrée",
+    "currentPrice": "Prix actuel",
+    "closePosition": "Clôturer",
+    "contactAdmin": "Contacter l'admin",
+    "contactAdminStop": "Contacter l'admin",
+    "adminPnl": "Profit (admin)",
+    "summaryTitle": "Résumé de tous les bots",
+    "closedProfit": "Profits clôturés",
+    "currentPnlTotal": "PnL en cours",
+    "totalPnl": "Total",
+    "vaultTitle": "Coffre Auto Copy",
+    "vaultNavBtn": "Coffre",
+    "vaultDescription": "Les fonds ici sont automatiquement investis en totalité dès qu'un nouveau bot démarre.",
+    "vaultBalanceLabel": "Solde du coffre",
+    "vaultAmountPlaceholder": "Montant (LFC)",
+    "vaultDepositBtn": "Déposer",
+    "vaultWithdrawBtn": "Retirer",
+    "vaultDepositSuccess": "Déposé dans le coffre",
+    "vaultWithdrawSuccess": "Retiré du coffre",
+    "vaultInsufficientBalance": "Solde du coffre insuffisant",
+    "thresholdsTitle": "Take profit / Stop loss (facultatif)",
+    "thresholdsHintLong": "Bot LONG : le take profit doit etre au-dessus du prix actuel, le stop loss en dessous.",
+    "thresholdsHintShort": "Bot SHORT : le take profit doit etre en dessous du prix actuel, le stop loss au-dessus.",
+    "takeProfitLabel": "Take profit (USDT)",
+    "stopLossLabel": "Stop loss (USDT)",
+    "optional": "Facultatif",
+    "invalidTakeProfit": "Take profit invalide",
+    "invalidStopLoss": "Stop loss invalide",
+    "tpBelowSlLong": "Le take profit doit etre superieur au stop loss",
+    "tpAboveSlShort": "Le take profit doit etre inferieur au stop loss",
+    "tpMustBeAbove": "Le take profit doit etre au-dessus du prix actuel",
+    "slMustBeBelow": "Le stop loss doit etre en dessous du prix actuel",
+    "tpMustBeBelow": "Le take profit doit etre en dessous du prix actuel",
+    "slMustBeAbove": "Le stop loss doit etre au-dessus du prix actuel"
+  },
+  "bot": {
+    "copyBtn": "Copier",
+    "closedTxt": "Trade clôturé"
+  },
+  "tabs": {
+    "wallet": "Portefeuille",
+    "aiTrading": "AI Bot",
+    "spin": "Tourner & Gagner",
+    "tutorials": "Tutoriels",
+    "profile": "Profil",
+    "notifications": "Notifications",
+    "userNumbers": "Numéros de paiement",
+    "sendWorldwide": "Envoyer de l'argent dans le monde"
+  }
+}

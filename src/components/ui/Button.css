@@ -1,0 +1,69 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--height-button);
+  padding: 0 var(--space-large);
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  font-size: var(--font-normal);
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.15s ease, background 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn:not(:disabled):hover {
+  filter: brightness(1.08);
+}
+
+.btn:not(:disabled):active {
+  filter: brightness(0.94);
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--primary {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.btn--secondary {
+  background: transparent;
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  min-height: auto;
+  padding: 6px 10px;
+}
+
+.btn--danger {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+.btn__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.7s linear infinite;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

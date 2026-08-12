@@ -1,0 +1,212 @@
+/* ---- hero card ---- */
+
+.bot-hero {
+  background: var(--color-secondary);
+  color: var(--color-white);
+  border-radius: 18px;
+  padding: var(--space-large) var(--space-large) 0;
+  overflow: hidden;
+  box-shadow: var(--shadow-raised);
+}
+
+.bot-hero__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-small);
+}
+
+.bot-hero__badge {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.bot-hero__pill {
+  background: rgba(255, 255, 255, 0.18);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: var(--font-small);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.bot-hero__label {
+  margin-top: var(--space-medium);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-normal);
+}
+
+.bot-hero__equity {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.bot-hero__target {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: var(--font-small);
+  font-weight: 600;
+}
+
+/* Bleed the chart to the card edges, as mobile does with negative margins. */
+.bot-hero__chart {
+  margin: var(--space-medium) calc(-1 * var(--space-large)) 0;
+}
+
+/* ---- stats ---- */
+
+.bot-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: var(--space-medium);
+}
+
+.bot-stat {
+  background: var(--color-white3);
+  border-radius: var(--radius-small);
+  padding: var(--space-medium);
+}
+
+.bot-stat__label {
+  font-size: var(--font-small);
+  color: var(--color-text-muted);
+}
+
+.bot-stat__value {
+  margin-top: 4px;
+  font-size: var(--font-medium);
+  font-weight: 800;
+}
+
+/* ---- callouts ---- */
+
+.bot-orders-btn {
+  width: 100%;
+  margin-top: var(--space-medium);
+  padding: var(--space-medium);
+  background: rgba(128, 57, 221, 0.08);
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-small);
+  color: var(--color-secondary-dark);
+  font-size: var(--font-medium);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.bot-orders-btn:hover {
+  background: rgba(128, 57, 221, 0.16);
+}
+
+.bot-available {
+  margin-top: var(--space-medium);
+  text-align: center;
+}
+
+.bot-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: var(--space-small);
+}
+
+.bot-note {
+  margin-top: var(--space-medium);
+  padding: var(--space-medium);
+  border-radius: 12px;
+  border: 1px solid;
+}
+
+.bot-note--info {
+  background: #eaf3ff;
+  border-color: #3b82f6;
+  color: #1e3a8a;
+}
+
+.bot-note--info .bot-note__title {
+  color: #1d4ed8;
+}
+
+.bot-note--promo {
+  background: #fff4e5;
+  border-color: #f7931a;
+  color: #8a5200;
+}
+
+.bot-note--promo .bot-note__title {
+  color: #b26a00;
+}
+
+.bot-note__title {
+  font-weight: 800;
+  font-size: var(--font-medium);
+  margin-bottom: 2px;
+}
+
+/* These callouts keep their own light palette in dark mode — they are
+   deliberately coloured panels, so only the text is nudged for contrast. */
+@media (prefers-color-scheme: dark) {
+  .bot-note--info {
+    background: #16233d;
+    color: #bfd4f5;
+  }
+  .bot-note--promo {
+    background: #34240d;
+    color: #f0cfa0;
+  }
+}
+
+/* ---- orders ---- */
+
+.orders-summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.order-card {
+  padding: var(--space-small) var(--space-medium);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.order-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-small);
+  flex-wrap: wrap;
+}
+
+.order-card__pair {
+  font-weight: 700;
+}
+
+.order-status {
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: var(--font-small);
+  font-weight: 700;
+}
+
+.order-card__date {
+  font-size: var(--font-small);
+  color: var(--color-text-muted);
+}
+
+.order-card__pnl {
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .bot-stats,
+  .orders-summary {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .bot-actions {
+    max-width: 420px;
+  }
+}

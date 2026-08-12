@@ -1,10 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 import gql from 'graphql-tag';
-import { Service } from '../services/service';
-import { authStore } from './auth.store';
+import { RootStore } from './root.store';
+import { Service } from '../services/service.service';
 
-// managedAccount is defined locally in the app (not published in the npm pkg),
-// same as in the mobile app.
 const MANAGED_ACCOUNT = gql`
   query managedAccount($userId: ID!) {
     managedAccount(userId: $userId) {
@@ -53,46 +51,43 @@ export interface IManagedAccount {
 }
 
 export class ManagedStore {
+  rootStore: RootStore;
   account: IManagedAccount | null = null;
-  loading = false;
+  isLoading = false;
 
-  constructor() {
+  constructor(rootStore: RootStore) {
+    this.rootStore = rootStore;
     makeAutoObservable(this);
   }
 
   async load() {
-    const userId = authStore.user?.id;
+    const userId = this.rootStore.authStore.user?.id;
     if (!userId) return;
-    this.loading = true;
-    try {
-      const res = await Service.query({ userId }, MANAGED_ACCOUNT);
-      if (res?.data?.managedAccount) this.account = res.data.managedAccount;
-    } finally {
-      this.loading = false;
-    }
+    this.isLoading = true;
+    const r = await Service.query({ userId }, MANAGED_ACCOUNT, false);
+    this.isLoading = false;
+    if (r?.data?.managedAccount) this.account = r.data.managedAccount;
   }
 
   async deposit(amount: number): Promise<boolean> {
-    const userId = authStore.user?.id;
+    const userId = this.rootStore.authStore.user?.id;
     if (!userId) return false;
-    const res = await Service.mutation({ userId, amount }, MANAGED_DEPOSIT);
-    if (res?.data?.managedDeposit) {
-      await this.load();
+    const r = await Service.mutation({ userId, amount }, MANAGED_DEPOSIT, true);
+    if (r?.data?.managedDeposit) {
+      await Promise.all([this.load(), this.rootStore.walletStore.getWallets()]);
       return true;
     }
     return false;
   }
 
   async withdraw(amount: number): Promise<boolean> {
-    const userId = authStore.user?.id;
+    const userId = this.rootStore.authStore.user?.id;
     if (!userId) return false;
-    const res = await Service.mutation({ userId, amount }, MANAGED_WITHDRAW);
-    if (res?.data?.managedWithdraw) {
-      await this.load();
+    const r = await Service.mutation({ userId, amount }, MANAGED_WITHDRAW, true);
+    if (r?.data?.managedWithdraw) {
+      await Promise.all([this.load(), this.rootStore.walletStore.getWallets()]);
       return true;
     }
     return false;
   }
 }
-
-export const managedStore = new ManagedStore();

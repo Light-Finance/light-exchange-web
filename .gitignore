@@ -26,3 +26,7 @@ yarn-error.log*
 .idea/
 
 .vercel
+
+# Local build artifacts from scripts/build-cpanel.mjs
+dist.zip
+deploy/

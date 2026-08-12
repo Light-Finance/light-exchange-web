@@ -1,0 +1,436 @@
+{
+  "app": {
+    "nameTxt": "Light Exchange"
+  },
+  "welcome": {
+    "welcomeTxt": "Welcome"
+  },
+  "contactUs": {
+    "whatsappError": "Install WhatsApp"
+  },
+  "signIn": {
+    "emailPhTxt": "Your email",
+    "forgetPassBtn": "Forgot password?",
+    "logInBtn": "Log In",
+    "signUpBtn": "Sign Up"
+  },
+  "password": {
+    "passwordPhTxt": "Your password"
+  },
+  "emailConfirmation": {
+    "codeTxt": "Verification code",
+    "verificationCodeBtn": "Get code",
+    "sendBtn": "Code sent",
+    "verifyCodeTxt": "Confirm code",
+    "resendCodeBtn": "Resend code"
+  },
+  "signOutConfirmation": {
+    "titleSignOutTxt": "Sign out",
+    "signOutConfirmationTxt": "Confirm sign out?",
+    "signOutAppConfirmBtn": "Confirm",
+    "signOutAppCancelBtn": "Cancel"
+  },
+  "googleButton": {
+    "logInGoogleBtn": "Sign in with Google",
+    "signUpGoogleBtn": "Sign up with Google"
+  },
+  "signUp": {
+    "emailPhTxt": "Your email",
+    "referalCodeTxt": "Referral code (optional)",
+    "conditionTxt": "By signing up you accept our terms",
+    "signUpBtn": "Sign Up",
+    "logInBtn": "Login"
+  },
+  "resetPassword": {
+    "codeTxt": "Verification code",
+    "verificationCodeBtn": "Get code",
+    "resetBtn": "Reset password",
+    "verifyCodeTxt": "Confirm code",
+    "emptyEmailTxt": "Enter a valid email",
+    "codeIncorrectTxt": "Incorrect code",
+    "newPasswordTxt": "New password"
+  },
+  "profil": {
+    "nameTxt": "Your name",
+    "phoneTxt": "Your phone number",
+    "affiliateBtn": "Affiliate Program",
+    "shareBtn": "Share the App",
+    "merchantBtn": "Be LFC Merchant",
+    "tutorialsBtn": "Tutorials",
+    "shareReferralCode": "Use my referral code:",
+    "shareCopied": "Link & referral code copied!",
+    "signOutBtn": "Sign Out",
+    "idVerification": "ID Verification",
+    "idAccepted": "National ID card, driver's licence, passport, electoral card…",
+    "idVerified": "Identity verified",
+    "idPending": "Pending admin verification",
+    "id_front": "ID front",
+    "id_back": "ID back",
+    "id_selfie": "Selfie with ID",
+    "idUploadSuccess": "Document uploaded",
+    "idRequestVerification": "Request Verification",
+    "idTapToChange": "Tap to change",
+    "idRefreshStatus": "Refresh Status",
+    "idVerificationRequested": "Request sent to admin",
+    "countryTriesLeft": "{{count}} change(s) remaining"
+  },
+  "lfcMerchant": {
+    "title": "LFC Merchant",
+    "headline": "Become an LFC Merchant",
+    "description": "Our LFC Merchant program lets you buy LFC directly from us at a preferential price, so you can resell it and earn a margin.",
+    "priceLabel": "Preferential price",
+    "priceUnit": "per 1 LFC",
+    "conditionsTitle": "Conditions to become a merchant",
+    "condition1": "Experienced with P2P trading on other platforms",
+    "condition2": "Have used at least one product on Light Exchange",
+    "description2": "Interested? Contact us on WhatsApp and our team will guide you through the process.",
+    "contactBtn": "Contact us on WhatsApp"
+  },
+  "affiliateProgram": {
+    "AffiliateProgramTxt": "Affiliate Program",
+    "codeRecommendation": "Tap to copy your code",
+    "affiliationJoin": "Join the affiliate program",
+    "recommendationTxt": "Share your code & earn bonuses",
+    "shareBtn": "Share",
+    "codeUsed": "Using your code:",
+    "toastTxt": "Code copied",
+    "shareTxt": "Sign up on Light Exchange with my referral code: ",
+    "kycDone": "Completed KYC",
+    "kycNot": "No KYC",
+    "tapToSee": "See emails",
+    "close": "Close",
+    "noReferrals": "No referrals"
+  },
+  "trading": {
+    "feesTxt": "Fees",
+    "spendTxt": "You Spend",
+    "receivedTxt": "You Get",
+    "transactionsTxt": "Transactions",
+    "confirmTxt": "Copy & proceed",
+    "receiveFundsTxt": "Funds arriving shortly",
+    "confirmCashoutTxt": "Proceed payment of: ",
+    "ongoingPaymentTxt": "Ongoing payment: ",
+    "received2Txt": "contact us",
+    "transactionHistory": "History",
+    "newTransaction": "New transaction",
+    "networkTxt": "Network",
+    "paymentTxt": "Payment",
+    "dateTxt": "Date",
+    "amountTxt": "Amount",
+    "idTxt": "Id",
+    "chooseWallet": "Choose wallet",
+    "spendPlaceholder": "0 - 1 000 000",
+    "receivePlaceholder": "0 - 1 000 000",
+    "typeTxt": "Type",
+    "statusTxt": "Status",
+    "userNumberTxt": "Number",
+    "walletTxt": "Wallet",
+    "tradeBtn": "Trade",
+    "fromTxt": "From",
+    "toTxt": "To"
+  },
+  "phone": {
+    "phoneNumberTxt": "Phone number",
+    "phoneInput": "Your number"
+  },
+  "fiat": {
+    "makePayment": "Enter amount",
+    "spendPlaceholder": "0 - 1 000 000",
+    "spendPlaceholderForFiatDeposit": "0 - 1 000 000"
+  },
+  "userNumber": {
+    "goBack": "Go back"
+  },
+  "userNumberPicker": {
+    "paymentMethodTxt": "Payment Method",
+    "addNewBtn": "Add new"
+  },
+  "crypto": {
+    "WalletAddressTxt": "Address / Account number",
+    "walletAddressCrypto": "Enter wallet address",
+    "walletAddressFiat": "Enter account number",
+    "spendPlaceholder": "0 - 1 000 000"
+  },
+  "transactionHistoryC": {
+    "history": "History"
+  },
+  "tradingTradeCrypto": {
+    "titleTxt": "Trade"
+  },
+  "transactionPending": {
+    "titleTxt": "Transaction in progress...",
+    "thankYou": "Thank you",
+    "transactionFailedTxt": "Please start a new transaction",
+    "issueTxt": "Issue? Contact us"
+  },
+  "notificationList": {
+    "title": "Notifications"
+  },
+  "updateNotification": {
+    "titleTxt": "Update available",
+    "updateTxt": "Please update the app",
+    "updateAppBtn": "Go to Store"
+  },
+  "paymentMethod": {
+    "titleTxt": "Payment method",
+    "addBtn": "Add a number",
+    "addSuccessTxt": "Number added",
+    "noticeTxt": "Tap above to proceed"
+  },
+  "recharge": {
+    "titleTxt": "Recharge account",
+    "paymentMethodTxt": "Payment method",
+    "addPhoneNumberTxt": "Add a number"
+  },
+  "rechargeInitialization": {
+    "rechargeBtn": "Recharge"
+  },
+  "rechargeCrypto": {
+    "rechargeBtn": "Recharge Completed",
+    "warningTxt": "Send only to this address",
+    "actionTxt": "Tap above after sending funds",
+    "amountPh": "Amount sent",
+    "amountInvalid": "Enter the amount you sent"
+  },
+  "errorMessages": {
+    "serverError": "Server unreachable",
+    "networkError": "No internet",
+    "loadingError": "Loading error",
+    "signIn": "Email or password incorrect",
+    "creationError": "An error occurred, try again",
+    "server": "Server error",
+    "processingError": "Processing error",
+    "signUp": "Error, check the data",
+    "passwordGetCode": "Error sending code",
+    "passwordUpdate": "Error resetting password",
+    "depositCrypto": "Deposit error, try again",
+    "emailValidation": "Invalid email",
+    "nameValidation": "Invalid name",
+    "passWordValidation": "Min. 5 characters",
+    "phoneValidation": "Invalid phone number",
+    "phoneValidationPaymentMethodMtn": "Enter MTN number",
+    "phoneValidationPaymentMethodOrange": "Enter Orange number",
+    "walletValidation": "Invalid wallet",
+    "codeValidation": "Invalid code",
+    "spendValidation": "Amount: 1 – 1 000 000",
+    "amountToWithdrawValidation": "Min. amount: 13",
+    "emailConfirmation": "Incorrect code",
+    "investment": "Error, contact us"
+  },
+  "successMessages": {
+    "signIn": "Login successful",
+    "signUp": "Registration successful",
+    "passwordGetCode": "Code sent",
+    "phoneUpdate": "Number updated, 1 try left",
+    "phoneUpdate1": "Number updated, 0 tries left",
+    "nameUpdate": "Name updated, 1 try left",
+    "nameUpdate1": "Name updated, 0 tries left",
+    "paswordUpdate": "Password updated",
+    "emailConfirmation": "Email confirmed",
+    "codeCopied": "Copied",
+    "countryUpdate": "Country updated, 1 change left",
+    "countryUpdate1": "Country updated, no changes left"
+  },
+  "walletHome": {
+    "title": "Home",
+    "rechargeBtn": "Buy & Sell",
+    "transferBtn": "Transfer",
+    "withdrawBtn": "Withdraw",
+    "convertBtn": "Convert",
+    "depositBtn": "Add Funds",
+    "comingSoonTxt": "Coming soon",
+    "worldwideBtn": "International transfer",
+    "learnBtn": "Learn how Light Exchange works",
+    "contactBtn": "Contact us",
+    "balanceLabel": "Balance"
+  },
+  "walletTrading": {
+    "tokensTxt": "Choose a crypto",
+    "paymentMethodTxt": "Payment method",
+    "buyBtn": "Buy",
+    "sellBtn": "Sell",
+    "buyTxt": "Buy rate",
+    "sellTxt": "Sell rate",
+    "title": "Buy & Sell",
+    "noticeTxt": "Use info above to proceed",
+    "warningTxt": "Rate may vary due to market volatility",
+    "search": "Search"
+  },
+  "walletConvert": {
+    "title": "Convert",
+    "convertBtn": "Convert",
+    "token1Txt": "Crypto to convert",
+    "token2Txt": "Crypto to receive",
+    "amountSpentTxt": "Amount to convert",
+    "amountReceivedTxt": "Amount to receive",
+    "rateTxt": "Rate",
+    "noWalletTxt": "Deposit first to convert"
+  },
+  "walletDeposit": {
+    "tokensTxt": "Choose a crypto",
+    "paymentMethodTxt": "Payment method",
+    "buyBtn": "Buy",
+    "sellBtn": "Sell",
+    "buyTxt": "Buy rate",
+    "sellTxt": "Sell rate",
+    "title": "Add funds",
+    "noticeTxt": "Use info above to proceed"
+  },
+  "tradingHome": {
+    "title": "Trading",
+    "buyCryptoBtn": "Buy crypto",
+    "sellCryptoBtn": "Sell crypto",
+    "toWalletBtn": "Go to Wallet"
+  },
+  "rate": {
+    "rateTxt": "1"
+  },
+  "transactionComplete": {
+    "goBackHomeTxt": "Go back home",
+    "successful": "Transaction successful!",
+    "failed": "Transaction failed!",
+    "issueTxt": "Issue? Contact us",
+    "failedDescription": "Transaction processing error",
+    "successfulDescription": "Transaction completed",
+    "pendingDescription": "Processing — email sent when done"
+  },
+  "transactionConfirmation": {
+    "titleTxt": "Confirm transaction",
+    "confirmationMessageTxt": "Confirm this transaction?",
+    "confirmBtn": "Confirm",
+    "cancelBtn": "Cancel"
+  },
+  "transactionDetail": {
+    "statusTxt": "Check Status",
+    "receiverTxt": "Receiver"
+  },
+  "walletWithdraw": {
+    "titleTxt": "Withdraw",
+    "lfcTransferOnly": "LFC cannot be withdrawn directly. Send it to another user via Transfer, or convert it to USDT first.",
+    "goToTransfer": "Go to Transfer",
+    "amountToWithdrawInput": "Withdrawal amount",
+    "addressToWithdrawInput": "External wallet address",
+    "withdrawBtn": "Withdraw",
+    "withdrawTxt": "Withdrawal",
+    "feesTxt": "Fees",
+    "fiat": "LFC withdrawal: use Transfer",
+    "transfer": "Transfer"
+  },
+  "walletWithdrawC": {
+    "transferWarningTxt": "Internal transfer: use Transfer tab"
+  },
+  "fiatWitdraw": {
+    "withdrawBtn": "Withdraw",
+    "amountErrorMsg": "Insufficient balance"
+  },
+  "walletTransfer": {
+    "titleTxt": "Transfer"
+  },
+  "transfer": {
+    "spendPlaceholder": "0 - 1 000 000",
+    "transferBtn": "Transfer",
+    "confirmTransferBtn": "Confirm transfer",
+    "cancelBtn": "Cancel"
+  },
+  "userByEmail": {
+    "emailPh": "xxxx@gmail.com",
+    "emailTxt": "Recipient email",
+    "nameErrorTxt": "Recipient has no username"
+  },
+  "uxStore": {
+    "isNotConnected": "Server unreachable",
+    "isNotInternet": "No internet"
+  },
+  "rechargeCryptoCompleted": {
+    "successful": "Deposit in progress",
+    "successfulDescription": "Check status in history",
+    "goBackHomeTxt": "Go back home",
+    "issueTxt": "Issue? Contact us"
+  },
+  "comingSoon": {
+    "comingSoonTxt": "Coming Soon"
+  },
+  "walletLayout": {
+    "chooseWallet": "Select wallet"
+  },
+  "rechargeGetWallet": {
+    "acquireLF": "Use your email to receive LFC"
+  },
+  "notification": {},
+  "aiTrading": {
+    "title": "AI Trading",
+    "spinHistory": "My spin history",
+    "spinStake": "Stake",
+    "spinPayout": "Payout",
+    "spinHistoryEmpty": "No spins yet.",
+    "history": "Running bots",
+    "botsAvailable": "bots available",
+    "btcPrice": "BTC Price",
+    "currentPnl": "Current PnL",
+    "runningFor": "Running for",
+    "finalPnl": "Final PnL",
+    "closed": "CLOSED",
+    "amountLabel": "Amount (LFC)",
+    "amountPlaceholder": "Min. %{min} LFC",
+    "available": "Available:",
+    "leverageLabel": "Leverage",
+    "estimatedReturn": "Est. return (30 days)",
+    "liquidationThreshold": "Liquidation price",
+    "liquidationWarning": "If liquidation price is hit, position closes at 0 profit.",
+    "confirmCopy": "Copy Bot",
+    "insufficientBalance": "Insufficient LFC balance",
+    "invalidAmount": "Enter a valid amount",
+    "unsubscribeSuccess": "Position closed",
+    "runningBotsTitle": "Running Bots",
+    "noBots": "No running bots",
+    "invested": "Invested",
+    "entryPrice": "Entry price",
+    "currentPrice": "Current price",
+    "closePosition": "Close Position",
+    "contactAdmin": "Contact Admin",
+    "contactAdminStop": "Contact admin to stop",
+    "adminPnl": "Admin profit",
+    "summaryTitle": "All bots summary",
+    "closedProfit": "Closed profits",
+    "currentPnlTotal": "Current PnL",
+    "totalPnl": "Total",
+    "vaultTitle": "Auto Copy Vault",
+    "vaultNavBtn": "Vault",
+    "vaultDescription": "Funds here are automatically invested in full whenever a new bot starts.",
+    "vaultBalanceLabel": "Vault balance",
+    "vaultAmountPlaceholder": "Amount (LFC)",
+    "vaultDepositBtn": "Deposit",
+    "vaultWithdrawBtn": "Withdraw",
+    "vaultDepositSuccess": "Deposited to vault",
+    "vaultWithdrawSuccess": "Withdrawn from vault",
+    "vaultInsufficientBalance": "Insufficient vault balance",
+    "thresholdsTitle": "Take profit / Stop loss (optional)",
+    "thresholdsHintLong": "LONG bot: take profit must be above the current price, stop loss below.",
+    "thresholdsHintShort": "SHORT bot: take profit must be below the current price, stop loss above.",
+    "takeProfitLabel": "Take profit (USDT)",
+    "stopLossLabel": "Stop loss (USDT)",
+    "optional": "Optional",
+    "invalidTakeProfit": "Invalid take profit",
+    "invalidStopLoss": "Invalid stop loss",
+    "tpBelowSlLong": "Take profit must be above stop loss",
+    "tpAboveSlShort": "Take profit must be below stop loss",
+    "tpMustBeAbove": "Take profit must be above the current price",
+    "slMustBeBelow": "Stop loss must be below the current price",
+    "tpMustBeBelow": "Take profit must be below the current price",
+    "slMustBeAbove": "Stop loss must be above the current price"
+  },
+  "bot": {
+    "copyBtn": "Copy",
+    "closedTxt": "Trade closed"
+  },
+  "tabs": {
+    "wallet": "Wallet",
+    "aiTrading": "AI Bot",
+    "spin": "Spin & Win",
+    "tutorials": "Tutorials",
+    "profile": "Profile",
+    "notifications": "Notifications",
+    "userNumbers": "Payment numbers",
+    "sendWorldwide": "Send money worldwide"
+  }
+}

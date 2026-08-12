@@ -1,0 +1,71 @@
+/*
+ * CSS mirror of theme.style.ts (the mobile THEME object), so components can
+ * style in plain CSS while keeping a single source of truth for the brand.
+ * Mobile's scale is tuned for a phone; the web sizes step up one notch since
+ * desktop viewing distance is longer, but the ratios and colors are identical.
+ */
+:root {
+  /* colors — verbatim from THEME.COLOR */
+  --color-primary: white;
+  --color-secondary: #8039dd;
+  --color-secondary-dark: #410096;
+  --color-red: rgb(170, 0, 0);
+  --color-green: green;
+  --color-white: white;
+  --color-gray: rgb(200, 200, 200);
+  --color-black: rgb(20, 20, 20);
+  --color-white2: rgb(180, 180, 180);
+  --color-white3: rgb(230, 230, 230);
+  --color-blue: blue;
+  --color-blue1: #001261;
+  --color-blue2: #8f98b7;
+
+  /* surfaces derived for the web shell */
+  --color-bg: #f4f2f8;
+  --color-surface: #ffffff;
+  --color-border: rgb(230, 230, 230);
+  --color-text: rgb(20, 20, 20);
+  --color-text-muted: #6b6b7b;
+
+  /* type scale — THEME.FONT_SIZE + 2px for desktop legibility */
+  --font-small: 10px;
+  --font-normal: 14px;
+  --font-medium: 18px;
+  --font-large: 22px;
+  --font-xlarge: 28px;
+
+  /* spacing — THEME.SPACE */
+  --space-small: 10px;
+  --space-medium: 16px;
+  --space-large: 20px;
+
+  /* radii — THEME.BORDER_RADIUS */
+  --radius-small: 6px;
+  --radius-medium: 10px;
+  --radius-large: 16px;
+
+  /* control sizing — THEME.HEIGHT */
+  --height-input: 50px;
+  --height-button: 50px;
+
+  /* shell metrics */
+  --tabbar-height: 60px;
+  --sidebar-width: 240px;
+  --content-max-width: 1100px;
+
+  --shadow-card: 0 1px 3px rgba(20, 20, 20, 0.08);
+  --shadow-raised: 0 4px 16px rgba(65, 0, 150, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #131118;
+    --color-surface: #1e1b26;
+    --color-border: #2f2a3a;
+    --color-text: #f2f0f6;
+    --color-text-muted: #a39fb0;
+    --color-white3: #2f2a3a;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-raised: 0 4px 16px rgba(0, 0, 0, 0.5);
+  }
+}

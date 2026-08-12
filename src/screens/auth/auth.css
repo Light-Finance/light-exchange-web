@@ -1,0 +1,155 @@
+.auth {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: var(--space-medium);
+  background: var(--color-secondary);
+}
+
+.auth__panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-medium);
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.auth__illustration {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+}
+
+.auth__app-name {
+  color: var(--color-white);
+  font-size: var(--font-large);
+  font-weight: 700;
+}
+
+.auth__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+  width: 100%;
+}
+
+/* Inputs sit directly on the purple field, as they do on mobile. */
+.auth__form .field__label {
+  color: var(--color-white2);
+}
+
+.auth__link {
+  background: none;
+  border: none;
+  padding: 4px;
+  color: var(--color-white);
+  font-size: var(--font-normal);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.auth__link:hover {
+  color: var(--color-white3);
+}
+
+/* Password field with its reveal toggle. */
+.auth__password {
+  position: relative;
+}
+
+.auth__password-toggle {
+  position: absolute;
+  right: 6px;
+  bottom: 0;
+  height: var(--height-input);
+  padding: 0 10px;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+/* Google button — white pill with the wordmark, matching mobile. */
+.auth__google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: var(--height-button);
+  padding: 0 var(--space-medium);
+  background: var(--color-white);
+  color: var(--color-black);
+  border: none;
+  border-radius: var(--radius-small);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth__google:hover {
+  background: var(--color-white3);
+}
+
+.auth__google img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.auth__footer {
+  margin-top: var(--space-medium);
+  color: var(--color-white);
+  font-size: var(--font-small);
+  font-weight: 600;
+}
+
+/* ---- welcome ---- */
+
+.welcome__logo {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.welcome__title {
+  color: var(--color-white);
+  font-size: var(--font-xlarge);
+  font-weight: 700;
+}
+
+.welcome__text {
+  color: var(--color-white);
+  font-size: var(--font-medium);
+  font-weight: 700;
+}
+
+/* ---- splash ---- */
+
+.splash {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-large);
+  background: var(--color-secondary-dark);
+  background-size: cover;
+  background-position: center;
+}
+
+.splash__logo {
+  width: 250px;
+  height: 250px;
+  max-width: 60vw;
+  max-height: 60vw;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray);
+  object-fit: cover;
+}
+
+.splash__site {
+  color: var(--color-white);
+  font-weight: 700;
+}

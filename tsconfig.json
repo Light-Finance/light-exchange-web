@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "useDefineForClassFields": true,
+    // MobX legacy decorators (@observable/@action) come over from the mobile
+    // stores as-is; both flags below are what MobX requires for them to work.
+    "useDefineForClassFields": false,
+    "experimentalDecorators": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,

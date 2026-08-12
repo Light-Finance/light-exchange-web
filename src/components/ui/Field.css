@@ -1,0 +1,47 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.field__label {
+  font-size: var(--font-small);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.field__control {
+  width: 100%;
+  height: var(--height-input);
+  padding: 0 var(--space-small);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-small);
+  transition: border-color 0.15s ease;
+}
+
+.field__control:focus {
+  border-color: var(--color-secondary);
+}
+
+.field__control--error {
+  border-color: var(--color-red);
+}
+
+.field__error {
+  font-size: var(--font-small);
+  color: var(--color-red);
+}
+
+.field__hint {
+  font-size: var(--font-small);
+  color: var(--color-text-muted);
+}
+
+select.field__control {
+  cursor: pointer;
+}
