@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -52,6 +53,14 @@ const tabLabel = (key: string) => {
  */
 export const Shell = observer(({ children }: { children: ReactNode }) => {
   const user = appRootStore.authStore.user;
+  const unread = appRootStore.notifStore.unreadCount;
+  const location = useLocation();
+
+  // Keep the badge current on every navigation; the store throttles this to one
+  // request per minute, so this is cheap even though it fires on each route change.
+  useEffect(() => {
+    appRootStore.notifStore.refreshBadge();
+  }, [location.pathname]);
 
   return (
     <div className="shell">
@@ -83,6 +92,9 @@ export const Shell = observer(({ children }: { children: ReactNode }) => {
               aria-label={ROUTES.mainNavigation.profilNavigation.notification}
             >
               <FontAwesomeIcon icon={faBell} />
+              {unread > 0 ? (
+                <span className="shell__badge">{unread > 99 ? '99+' : unread}</span>
+              ) : null}
             </NavLink>
             <NavLink
               to={ROUTE_PATHS[ROUTES.mainNavigation.profilNavigation.profil]}

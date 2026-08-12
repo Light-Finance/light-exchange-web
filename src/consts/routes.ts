@@ -24,6 +24,8 @@ export const ROUTES = {
         aiTrading: 'aiTrading',
         runningBots: 'runningBots',
         orders: 'orders',
+        history: 'history',
+        myTeam: 'myTeam',
       },
       spinNavigation: {
         navigator: 'Spin & Win',

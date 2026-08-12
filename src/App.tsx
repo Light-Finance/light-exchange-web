@@ -23,6 +23,16 @@ import { PaymentMethod } from './screens/wallet/PaymentMethod.screen';
 import { ManagedBot } from './screens/aiTrading/ManagedBot.screen';
 import { RunningBots } from './screens/aiTrading/RunningBots.screen';
 import { Orders } from './screens/aiTrading/Orders.screen';
+import { MyTeam } from './screens/aiTrading/MyTeam.screen';
+import { ManagedHistory } from './screens/aiTrading/ManagedHistory.screen';
+import { SpinWheel } from './screens/aiTrading/SpinWheel.screen';
+import { NotificationList } from './screens/notification/NotificationList.screen';
+import { Profil } from './screens/profil/Profil.screen';
+import { AffiliateProgram } from './screens/profil/AffiliateProgram.screen';
+import { LfcMerchant } from './screens/profil/LfcMerchant.screen';
+import { TutorialList } from './screens/tutorials/TutorialList.screen';
+import { TutorialDetail } from './screens/tutorials/TutorialDetail.screen';
+import { SendWorldwide } from './screens/wallet/SendWorldwide.screen';
 import { ComingSoon } from './screens/ComingSoon.screen';
 
 /** Routes that require a signed-in user; everything else bounces to /welcome. */
@@ -76,19 +86,21 @@ export const App = observer(() => {
           <Route path="/ai-trading" element={<ManagedBot />} />
           <Route path="/ai-trading/running-bots" element={<RunningBots />} />
           <Route path="/ai-trading/orders" element={<Orders />} />
+          <Route path="/ai-trading/my-team" element={<MyTeam />} />
+          <Route path="/ai-trading/history" element={<ManagedHistory />} />
 
           {/* Ported in a later pass; routed now so the tabs and any store
               redirect land somewhere real instead of 404-ing. */}
-          <Route path="/spin" element={<ComingSoon titleKey="tabs.spin" />} />
+          <Route path="/spin" element={<SpinWheel />} />
           <Route path="/trade" element={<ComingSoon titleKey="tradingTradeCrypto.titleTxt" />} />
-          <Route path="/tutorials" element={<ComingSoon titleKey="tabs.tutorials" />} />
-          <Route path="/tutorials/detail" element={<ComingSoon titleKey="tabs.tutorials" />} />
-          <Route path="/notifications" element={<ComingSoon titleKey="tabs.notifications" />} />
-          <Route path="/profile" element={<ComingSoon titleKey="tabs.profile" />} />
-          <Route path="/affiliate" element={<ComingSoon titleKey="affiliateProgram.AffiliateProgramTxt" />} />
-          <Route path="/lfc-merchant" element={<ComingSoon titleKey="lfcMerchant.title" />} />
+          <Route path="/tutorials" element={<TutorialList />} />
+          <Route path="/tutorials/detail" element={<TutorialDetail />} />
+          <Route path="/notifications" element={<NotificationList />} />
+          <Route path="/profile" element={<Profil />} />
+          <Route path="/affiliate" element={<AffiliateProgram />} />
+          <Route path="/lfc-merchant" element={<LfcMerchant />} />
           <Route path="/user-numbers" element={<ComingSoon titleKey="tabs.userNumbers" />} />
-          <Route path="/wallet/send-worldwide" element={<ComingSoon titleKey="tabs.sendWorldwide" />} />
+          <Route path="/wallet/send-worldwide" element={<SendWorldwide />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

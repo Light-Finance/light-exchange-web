@@ -1,0 +1,50 @@
+.ww-rate {
+  color: var(--color-secondary);
+  font-weight: 800;
+  font-size: var(--font-large);
+}
+.ww-rate-error {
+  color: var(--color-red);
+}
+.ww-label {
+  font-weight: 600;
+  margin-bottom: -6px;
+}
+.ww-select {
+  width: 100%;
+  border: 1px solid var(--color-white3);
+  border-radius: 6px;
+  padding: 10px;
+  background: var(--color-white);
+  color: var(--color-black);
+  font-size: var(--font-medium);
+}
+.ww-select:disabled {
+  opacity: 0.7;
+}
+.ww-receptor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-white3);
+  border-radius: 6px;
+  padding: var(--space-small) var(--space-medium);
+}
+.ww-receptor__label {
+  opacity: 0.75;
+  font-size: var(--font-normal);
+}
+.ww-receptor__value {
+  font-weight: 700;
+  font-size: var(--font-medium);
+}
+.ww-receive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ww-receive__value {
+  color: var(--color-secondary);
+  font-weight: 800;
+  font-size: var(--font-medium);
+}

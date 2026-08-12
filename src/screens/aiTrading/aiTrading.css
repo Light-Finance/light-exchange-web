@@ -39,6 +39,25 @@
   font-size: var(--font-normal);
 }
 
+.bot-hero__labelrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-small);
+}
+
+.bot-hero__iconbtn {
+  margin-top: var(--space-medium);
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--color-white);
+  border: none;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: var(--font-small);
+  font-weight: 600;
+  cursor: pointer;
+}
+
 .bot-hero__equity {
   font-size: 34px;
   font-weight: 800;

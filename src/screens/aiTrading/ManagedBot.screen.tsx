@@ -84,7 +84,16 @@ export const ManagedBot = observer(() => {
           </span>
         </div>
 
-        <p className="bot-hero__label">Valeur de votre bot</p>
+        <div className="bot-hero__labelrow">
+          <p className="bot-hero__label">Valeur de votre bot</p>
+          <button
+            type="button"
+            className="bot-hero__iconbtn"
+            onClick={() => navigate('/ai-trading/history')}
+          >
+            Historique
+          </button>
+        </div>
         <p className="bot-hero__equity">{equity.toFixed(2)} LFC</p>
         {monthRate != null ? (
           <p className="bot-hero__target">Objectif du mois · {(monthRate * 100).toFixed(1)}%</p>
@@ -103,7 +112,7 @@ export const ManagedBot = observer(() => {
           <div className="bot-stat__value">{principal.toFixed(2)} LFC</div>
         </div>
         <div className="bot-stat">
-          <div className="bot-stat__label">Gain / Perte total</div>
+          <div className="bot-stat__label">Gain / Perte latente total</div>
           <div
             className="bot-stat__value"
             style={{ color: up ? 'var(--color-secondary)' : 'var(--color-red)' }}
@@ -120,6 +129,14 @@ export const ManagedBot = observer(() => {
         onClick={() => navigate('/ai-trading/orders')}
       >
         📊 Voir les ordres du bot
+      </button>
+
+      <button
+        type="button"
+        className="bot-orders-btn"
+        onClick={() => navigate('/ai-trading/my-team')}
+      >
+        👥 Mon équipe
       </button>
 
       <p className="bot-available">

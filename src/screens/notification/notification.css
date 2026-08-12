@@ -1,0 +1,36 @@
+.notif-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  background: var(--color-white3);
+  border-radius: var(--radius-medium, 12px);
+  padding: var(--space-medium);
+}
+.notif-card__icon {
+  background: var(--color-white);
+  border-radius: 999px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.notif-card__body {
+  flex: 1;
+  min-width: 0;
+}
+.notif-card__title {
+  font-weight: 600;
+  font-size: var(--font-medium);
+}
+.notif-card__desc {
+  color: var(--color-black);
+  font-size: var(--font-normal);
+  margin: 2px 0;
+}
+.notif-card__date {
+  text-align: right;
+  font-size: var(--font-small);
+  font-weight: 500;
+}

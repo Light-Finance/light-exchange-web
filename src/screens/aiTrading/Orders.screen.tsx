@@ -41,7 +41,9 @@ function buildOrders(account: any): IOrder[] {
     // Keep this month's orders (they build toward the monthly %).
     if (d.getFullYear() !== y || d.getMonth() !== m) continue;
 
-    const dayPnl = exit - entry;
+    // Use the server's per-day gain (units revalued by the NAV change), not the
+    // value delta — value steps on deposits/withdrawals, which aren't gains.
+    const dayPnl = curve[i].pnl ?? (exit - entry);
     // For the current (partial) day, only show orders up to the elapsed time.
     const isToday = dayEnd >= nowMs - 60000;
     let count = ORDERS_PER_DAY;

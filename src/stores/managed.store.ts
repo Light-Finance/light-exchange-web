@@ -16,6 +16,7 @@ const MANAGED_ACCOUNT = gql`
       curve {
         t
         value
+        pnl
       }
     }
   }
@@ -39,6 +40,61 @@ const MANAGED_WITHDRAW = gql`
   }
 `;
 
+const MANAGED_HISTORY = gql`
+  query managedHistory($userId: ID!) {
+    managedHistory(userId: $userId) {
+      id
+      type
+      amount
+      units
+      nav
+      at
+    }
+  }
+`;
+const REFERRAL_TEAM = gql`
+  query referralTeam($userId: ID!) {
+    referralTeam(userId: $userId) {
+      totalBonus
+      memberCount
+      verifiedCount
+      members {
+        userId
+        email
+        name
+        idVerified
+        joinedAt
+        bonusEarned
+      }
+    }
+  }
+`;
+
+export interface IManagedEntry {
+  id: string;
+  type: 'deposit' | 'withdraw' | 'referralBonus' | string;
+  amount: number;
+  units: number;
+  nav: number;
+  at: string;
+}
+
+export interface ITeamMember {
+  userId: string;
+  email?: string | null;
+  name?: string | null;
+  idVerified: boolean;
+  joinedAt?: string | null;
+  bonusEarned: number;
+}
+
+export interface IReferralTeam {
+  totalBonus: number;
+  memberCount: number;
+  verifiedCount: number;
+  members: ITeamMember[];
+}
+
 export interface IManagedAccount {
   principal: number;
   units: number;
@@ -47,13 +103,17 @@ export interface IManagedAccount {
   monthRate?: number | null;
   monthPct: number;
   allTimePnl: number;
-  curve: { t: string; value: number }[];
+  curve: { t: string; value: number; pnl: number }[];
 }
 
 export class ManagedStore {
   rootStore: RootStore;
   account: IManagedAccount | null = null;
   isLoading = false;
+  history: IManagedEntry[] = [];
+  isLoadingHistory = false;
+  team: IReferralTeam | null = null;
+  isLoadingTeam = false;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -67,6 +127,24 @@ export class ManagedStore {
     const r = await Service.query({ userId }, MANAGED_ACCOUNT, false);
     this.isLoading = false;
     if (r?.data?.managedAccount) this.account = r.data.managedAccount;
+  }
+
+  async loadHistory() {
+    const userId = this.rootStore.authStore.user?.id;
+    if (!userId) return;
+    this.isLoadingHistory = true;
+    const r = await Service.query({ userId }, MANAGED_HISTORY, false);
+    this.isLoadingHistory = false;
+    if (r?.data?.managedHistory) this.history = r.data.managedHistory;
+  }
+
+  async loadTeam() {
+    const userId = this.rootStore.authStore.user?.id;
+    if (!userId) return;
+    this.isLoadingTeam = true;
+    const r = await Service.query({ userId }, REFERRAL_TEAM, false);
+    this.isLoadingTeam = false;
+    if (r?.data?.referralTeam) this.team = r.data.referralTeam;
   }
 
   async deposit(amount: number): Promise<boolean> {

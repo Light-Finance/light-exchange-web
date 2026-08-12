@@ -1,0 +1,394 @@
+.profil-card {
+  border: 1px solid var(--color-white3);
+}
+.profil-cardtitle {
+  font-weight: 700;
+  font-size: var(--font-medium);
+  margin-bottom: var(--space-small);
+}
+.profil-section {
+  color: var(--color-text-muted);
+  font-size: var(--font-normal);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: var(--space-small) 0 calc(-1 * var(--space-small)) 2px;
+}
+
+/* identity */
+.profil-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-medium);
+}
+.profil-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.profil-identity__body {
+  flex: 1;
+  min-width: 0;
+}
+.profil-email {
+  color: var(--color-text-muted);
+  font-size: var(--font-normal);
+  margin-top: 2px;
+}
+.profil-name {
+  color: var(--color-secondary-dark);
+  font-weight: 700;
+  font-size: calc(var(--font-medium) + 2px);
+}
+.profil-editrow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.profil-iconbtn {
+  background: none;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+}
+.profil-nameinput,
+.profil-valueinput {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid var(--color-secondary);
+  background: transparent;
+  font-size: var(--font-medium);
+  color: var(--color-black);
+  outline: none;
+}
+.profil-nameinput {
+  font-weight: 700;
+}
+.profil-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid;
+  border-radius: 999px;
+  padding: 3px 10px;
+  margin-top: var(--space-small);
+  font-size: var(--font-normal);
+  font-weight: 600;
+}
+.profil-pill--ok {
+  color: var(--color-green, #1d9e75);
+  border-color: var(--color-green, #1d9e75);
+}
+.profil-pill--pending {
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}
+.profil-pill--off {
+  color: var(--color-text-muted);
+  border-color: var(--color-text-muted);
+}
+
+/* detail rows */
+.profil-detailrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  padding: var(--space-small) 0;
+  border-bottom: 1px solid var(--color-white3);
+}
+.profil-detailrow.is-last {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.profil-detailicon,
+.profil-menuicon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-small);
+  background: color-mix(in srgb, var(--color-secondary) 10%, transparent);
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.profil-detailbody {
+  flex: 1;
+  min-width: 0;
+}
+.profil-detaillabel {
+  color: var(--color-text-muted);
+  font-size: var(--font-small);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+.profil-value {
+  font-size: var(--font-medium);
+}
+.profil-select {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: var(--font-medium);
+  color: var(--color-black);
+  padding: 2px 0;
+  outline: none;
+  cursor: pointer;
+}
+
+/* menu rows */
+.profil-menurow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  padding: var(--space-small) 0;
+  border-bottom: 1px solid var(--color-white3);
+}
+.profil-menurow.is-last {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.profil-menulabel {
+  flex: 1;
+  font-size: var(--font-medium);
+  font-weight: 500;
+}
+.profil-chevron {
+  color: var(--color-text-muted);
+}
+
+/* buttons */
+.profil-primarybtn,
+.profil-secondarybtn {
+  width: 100%;
+  border-radius: var(--radius-medium, 10px);
+  padding: 10px;
+  font-weight: 700;
+  font-size: var(--font-medium);
+  margin-top: var(--space-medium);
+  cursor: pointer;
+}
+.profil-primarybtn {
+  background: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+}
+.profil-secondarybtn {
+  background: transparent;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+}
+.profil-signout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-small);
+  width: 100%;
+  background: color-mix(in srgb, var(--color-red) 8%, transparent);
+  border: 1px solid var(--color-red);
+  color: var(--color-red);
+  border-radius: var(--radius-medium, 12px);
+  padding: 12px;
+  font-weight: 700;
+  font-size: var(--font-medium);
+  cursor: pointer;
+}
+.profil-version {
+  color: var(--color-text-muted);
+  font-size: var(--font-normal);
+  text-align: center;
+  margin-top: var(--space-medium);
+}
+
+/* id verification */
+.profil-idslots {
+  display: flex;
+  gap: var(--space-small);
+  margin-top: var(--space-small);
+}
+.profil-idslot {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.profil-idthumb {
+  width: 72px;
+  height: 72px;
+  border: 1px dashed var(--color-secondary);
+  border-radius: var(--radius-medium, 10px);
+  background: color-mix(in srgb, var(--color-secondary) 10%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0;
+}
+.profil-idthumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.profil-idplus {
+  font-size: var(--font-large);
+  color: var(--color-secondary);
+}
+.profil-idlabel {
+  font-size: var(--font-normal);
+  text-align: center;
+}
+
+/* ---- affiliate ---- */
+.aff {
+  text-align: center;
+}
+.aff-code {
+  align-self: center;
+  min-width: 160px;
+  border: 2px solid var(--color-secondary);
+  background: transparent;
+  color: var(--color-secondary);
+  font-weight: 800;
+  font-size: var(--font-large);
+  letter-spacing: 2px;
+  border-radius: var(--radius-medium, 10px);
+  padding: 14px 20px;
+  cursor: pointer;
+}
+.aff-text {
+  color: var(--color-black);
+  font-size: var(--font-normal);
+}
+.aff-text--bold {
+  font-weight: 700;
+}
+.aff-share {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-small);
+  background: var(--color-secondary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-medium, 10px);
+  padding: 10px 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.aff-title {
+  font-weight: 700;
+  color: var(--color-secondary-dark);
+  font-size: var(--font-medium);
+}
+.aff-kycrow {
+  display: flex;
+  gap: var(--space-medium);
+  justify-content: center;
+}
+.aff-kyc {
+  flex: 1;
+  max-width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-small);
+  padding: var(--space-medium);
+  background: transparent;
+  cursor: pointer;
+}
+.aff-kycnum {
+  font-size: calc(var(--font-medium) * 2);
+  font-weight: 800;
+}
+.aff-kyclabel {
+  font-weight: 700;
+  font-size: var(--font-small);
+}
+.aff-kychint {
+  color: var(--color-secondary);
+  font-size: var(--font-small);
+}
+.aff-emaillist {
+  max-height: 320px;
+  overflow-y: auto;
+}
+.aff-emailrow {
+  padding: var(--space-small) 0;
+  border-bottom: 1px solid var(--color-white3);
+  text-align: left;
+}
+
+/* ---- merchant ---- */
+.merchant {
+  text-align: center;
+  align-items: center;
+}
+.merchant-icon {
+  color: var(--color-secondary);
+  font-size: 56px;
+  margin: var(--space-large) 0;
+}
+.merchant-headline {
+  font-size: var(--font-large);
+}
+.merchant-desc {
+  color: var(--color-black);
+  font-size: var(--font-normal);
+  line-height: 1.5;
+}
+.merchant-price {
+  background: var(--color-white3);
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--radius-medium, 10px);
+  padding: var(--space-large);
+  width: 100%;
+}
+.merchant-price__value {
+  color: var(--color-secondary);
+  font-size: calc(var(--font-large) * 1.3);
+  font-weight: 800;
+}
+.merchant-conditions {
+  background: var(--color-white3);
+  border-radius: var(--radius-medium, 10px);
+  padding: var(--space-large);
+  width: 100%;
+  text-align: left;
+  line-height: 1.6;
+}
+.merchant-conditions__title {
+  font-weight: 700;
+  font-size: var(--font-medium);
+  margin-bottom: var(--space-small);
+}
+.merchant-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-small);
+  background: #25d366;
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-medium, 10px);
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: var(--font-medium);
+  width: 100%;
+  cursor: pointer;
+}
