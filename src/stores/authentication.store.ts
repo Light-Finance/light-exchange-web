@@ -170,7 +170,7 @@ export class AuthStore {
       GoogleSignin.configure({
         webClientId: APP.INFO.WEB_CLIENT_ID,
       });
-      const play = await GoogleSignin.hasPlayServices();
+      await GoogleSignin.hasPlayServices();
       const isSignedIn = await GoogleSignin.hasPreviousSignIn();
       if (isSignedIn) {
         await GoogleSignin.signOut();
@@ -181,6 +181,9 @@ export class AuthStore {
         email: userInfo.data?.user.email,
         password: '',
         fcmToken: token,
+        // Proof of the identity above; the API verifies it with Google and
+        // ignores the email we claim here.
+        accessToken: userInfo.data?.accessToken,
       };
       let response = await Service.mutation(
         values,
@@ -199,7 +202,18 @@ export class AuthStore {
         );
       }
     } catch (e) {
-      console.log(e);
+      // Server-side failures are already surfaced by Service's toastService;
+      // this covers the browser-side ones (popup blocked, GIS unreachable,
+      // origin not authorised) that would otherwise leave the button looking
+      // dead. Cancelling deliberately isn't worth a toast.
+      const message = e instanceof Error ? e.message : String(e);
+      if (!/cancelled/i.test(message)) {
+        ToastService.show(
+          translate('errorMessages.signInGoogle'),
+          ToastService.ERROR,
+        );
+      }
+      console.error('Google sign-in failed:', e);
     }
   }
   @action async signUp(): Promise<any> {

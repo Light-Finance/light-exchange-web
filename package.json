@@ -18,7 +18,7 @@
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.7",
     "i18n-js": "^4.5.3",
-    "light-exchange": "npm:@light-finance/light-exchange-npm@^1.0.501",
+    "light-exchange": "npm:@light-finance/light-exchange-npm@^1.0.505",
     "lodash.memoize": "^4.1.2",
     "mobx": "^6.12.0",
     "mobx-persist-store": "^1.1.8",

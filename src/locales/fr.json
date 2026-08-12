@@ -198,6 +198,7 @@
     "networkError": "Pas d'internet",
     "loadingError": "Erreur de chargement",
     "signIn": "Email ou mot de passe incorrect",
+    "signInGoogle": "Échec de la connexion Google, réessayez",
     "creationError": "Une erreur s'est produite",
     "server": "Erreur serveur",
     "processingError": "Erreur de traitement",

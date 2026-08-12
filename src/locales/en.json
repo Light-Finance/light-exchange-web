@@ -197,6 +197,7 @@
     "networkError": "No internet",
     "loadingError": "Loading error",
     "signIn": "Email or password incorrect",
+    "signInGoogle": "Google sign-in failed, try again",
     "creationError": "An error occurred, try again",
     "server": "Server error",
     "processingError": "Processing error",
