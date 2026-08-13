@@ -1,0 +1,106 @@
+# Apache config for serving the Light Exchange web client on cPanel.
+# This is the equivalent of the `rewrites` block in vercel.json: the app is a
+# single-page app, so every path that is not a real file must return index.html
+# and let react-router resolve the route on the client.
+#
+# Deployed to the same directory as index.html (public_html, or the subfolder
+# the app lives in).
+
+# ---------------------------------------------------------------------------
+# HTTPS
+# ---------------------------------------------------------------------------
+# Not optional for this app. The browser only exposes navigator.clipboard
+# (deposit address copy), navigator.share (referral sharing) and Google
+# Identity Services in a secure context, and the GraphQL API is https — a
+# page served over http would be blocked as mixed content.
+#
+# LEAVE THIS BLOCK COMMENTED OUT UNTIL THE CERTIFICATE IS VALID. Redirecting to
+# https while cPanel still has its self-signed placeholder cert sends every
+# visitor into a browser security warning with no way back to a working page.
+# Enable it only once `https://lightexchange.io` loads clean.
+#
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   # Never redirect the ACME path — cPanel AutoSSL proves domain ownership by
+#   # fetching a file from here over plain http, and a redirect into an invalid
+#   # cert can fail that check, which is what stops the cert being issued.
+#   RewriteCond %{REQUEST_URI} !^/\.well-known/
+#   RewriteCond %{HTTPS} !=on
+#   RewriteCond %{HTTP:X-Forwarded-Proto} !https
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ---------------------------------------------------------------------------
+# SPA fallback
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # If the app is served from a subfolder, set RewriteBase to that folder,
+  # e.g. RewriteBase /app/ — and build with VITE_BASE=/app/.
+  RewriteBase /
+
+  # Leave the ACME challenge directory alone so AutoSSL renewals keep working.
+  RewriteRule ^\.well-known/ - [L]
+
+  # Never rewrite a request that maps to a real file or directory. This is
+  # what keeps /assets/* serving the actual JS/CSS/images.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Everything else is a client-side route.
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Caching
+# ---------------------------------------------------------------------------
+# Asset filenames carry a content hash (index-DuXJoCS8.js), so they can be
+# cached forever. index.html must never be cached, or a returning user keeps
+# booting the previous release and requesting asset hashes that no longer exist.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|css|png|jpe?g|gif|svg|woff2?|ttf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Compression
+# ---------------------------------------------------------------------------
+# The main bundle is ~893 kB raw but ~269 kB gzipped, so this matters a lot on
+# mobile connections. Without it cPanel serves the full uncompressed bundle.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/json image/svg+xml
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# MIME types
+# ---------------------------------------------------------------------------
+# Older Apache builds on shared hosting can serve .js as text/plain, which a
+# browser refuses to execute as a module.
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType text/css .css
+  AddType image/svg+xml .svg
+  AddType application/json .json
+  AddType font/woff2 .woff2
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Hardening
+# ---------------------------------------------------------------------------
+Options -Indexes
+
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
