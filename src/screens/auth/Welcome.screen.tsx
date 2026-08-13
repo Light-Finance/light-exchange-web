@@ -13,6 +13,13 @@ export const Welcome = () => {
       <div className="auth__panel">
         <img className="welcome__logo" src={logo} alt="" />
         <h1 className="welcome__title">{lightexchange.app.INFO.APP_NAME}</h1>
+        <button
+          type="button"
+          className="welcome__tutorials-link"
+          onClick={() => navigate('/welcome/tutorials')}
+        >
+          {translate('welcome.tutorialsBtn')}
+        </button>
         <p className="welcome__text">{translate('welcome.welcomeTxt')}</p>
         <Button block onClick={() => navigate('/signin')}>
           {translate('signIn.logInBtn')}

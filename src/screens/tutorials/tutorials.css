@@ -3,6 +3,17 @@
   align-items: center;
   justify-content: space-between;
 }
+.tut-header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+}
+.tut-public-page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-medium);
+  min-height: 100vh;
+}
 .tut-refresh {
   background: var(--color-secondary);
   color: #fff;

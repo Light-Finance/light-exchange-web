@@ -3,7 +3,8 @@
     "nameTxt": "Light Exchange"
   },
   "welcome": {
-    "welcomeTxt": "Bienvenue"
+    "welcomeTxt": "Bienvenue",
+    "tutorialsBtn": "Comment fonctionne Light Exchange ?"
   },
   "contactUs": {
     "whatsappError": "Installer WhatsApp"

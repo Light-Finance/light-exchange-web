@@ -132,37 +132,59 @@ export class AuthStore {
     }
   }
   /* resolvers from api */
-  @action async signIn(): Promise<any> {
-    const token = await messaging().getToken();
-    const values = {
-      email: this.user?.email,
-      password: this.user?.password,
-      fcmToken: token,
-    };
-    if (!(await checkForm(values))) {
-      return;
+  // Firebase can reject (no Play Services, denied permission, offline) — a push
+  // token is not worth failing sign-in/up over, so treat any failure as "no
+  // device token" rather than letting it bubble up as a silent crash.
+  async getFcmTokenSafe(): Promise<string> {
+    try {
+      return await messaging().getToken();
+    } catch (e) {
+      console.log('getFcmToken error', e);
+      return '';
     }
-    const response = await Service.mutation(
-      values,
-      lightexchange.graphql.mutation.SIGN_IN,
-    );
-    if (response.data && response.data.signIn) {
-      if (response.data.signIn.emailConfirmation === false) {
-        navigate(ROUTES.authNavigation.emailConfirmation);
-      } else {
-        this.setUser({
-          ...this.user,
-          ...response.data.signIn,
-          connected: true,
-        });
-        replace(ROUTES.mainNavigation.navigator, {
-          screen: ROUTES.mainNavigation.tabNavigation.walletNavigation.walletHome,
-        });
-        ToastService.show(
-          translate('successMessages.signIn'),
-          ToastService.SUCCESS,
-        );
+  }
+
+  @action async signIn(): Promise<any> {
+    try {
+      const token = await this.getFcmTokenSafe();
+      const values = {
+        email: this.user?.email,
+        password: this.user?.password,
+        fcmToken: token,
+      };
+      if (!(await checkForm(values))) {
+        return;
       }
+      const response = await Service.mutation(
+        values,
+        lightexchange.graphql.mutation.SIGN_IN,
+      );
+      if (response.data && response.data.signIn) {
+        if (response.data.signIn.emailConfirmation === false) {
+          navigate(ROUTES.authNavigation.emailConfirmation);
+        } else {
+          this.setUser({
+            ...this.user,
+            ...response.data.signIn,
+            connected: true,
+          });
+          replace(ROUTES.mainNavigation.navigator, {
+            screen:
+              ROUTES.mainNavigation.tabNavigation.walletNavigation.walletHome,
+          });
+          ToastService.show(
+            translate('successMessages.signIn'),
+            ToastService.SUCCESS,
+          );
+        }
+      }
+    } catch (e) {
+      // Never let sign-in fail silently — the user must see something readable.
+      console.log('signIn error', e);
+      ToastService.show(
+        translate('errorMessages.processingError'),
+        ToastService.ERROR,
+      );
     }
   }
   @action async signInGoogle(): Promise<any> {
@@ -217,7 +239,7 @@ export class AuthStore {
     }
   }
   @action async signUp(): Promise<any> {
-    const token = await messaging().getToken();
+    const token = await this.getFcmTokenSafe();
     const values = {
       email: this.user?.email,
       password: this.user?.password,

@@ -68,6 +68,15 @@ export const App = observer(() => {
         <Route path="/" element={<Splash />} />
 
         <Route path="/welcome" element={<PublicOnly><Welcome /></PublicOnly>} />
+        {/* Public preview of the tutorials, reachable before sign-up. */}
+        <Route
+          path="/welcome/tutorials"
+          element={<PublicOnly><div className="tut-public-page"><TutorialList publicView /></div></PublicOnly>}
+        />
+        <Route
+          path="/welcome/tutorials/detail"
+          element={<PublicOnly><div className="tut-public-page"><TutorialDetail /></div></PublicOnly>}
+        />
         <Route path="/signin" element={<PublicOnly><SignIn /></PublicOnly>} />
         <Route path="/signup" element={<PublicOnly><SignUp /></PublicOnly>} />
         <Route path="/forgot-password" element={<PublicOnly><ForgotPassword /></PublicOnly>} />

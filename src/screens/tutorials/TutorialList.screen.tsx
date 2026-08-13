@@ -11,10 +11,12 @@ const getYoutubeId = (url: string): string | null => {
   return match ? match[1] : null;
 };
 
-export const TutorialList = observer(() => {
+export const TutorialList = observer(({ publicView = false }: { publicView?: boolean }) => {
   const navigate = useNavigate();
   const { tutorialStore } = appRootStore;
   const { tutorials, isLoading } = tutorialStore;
+
+  const detailBase = publicView ? '/welcome/tutorials/detail' : '/tutorials/detail';
 
   useEffect(() => {
     tutorialStore.tutorialList();
@@ -23,7 +25,14 @@ export const TutorialList = observer(() => {
   return (
     <div className="stack">
       <div className="tut-header">
-        <h1 className="screen-title" style={{ margin: 0 }}>Tutoriels</h1>
+        <div className="tut-header-left">
+          {publicView && (
+            <button type="button" className="tut-back" onClick={() => navigate('/welcome')}>
+              ←
+            </button>
+          )}
+          <h1 className="screen-title" style={{ margin: 0 }}>Tutoriels</h1>
+        </div>
         <button type="button" className="tut-refresh" onClick={() => tutorialStore.tutorialList()}>
           <FontAwesomeIcon icon={faSync} />
         </button>
@@ -43,7 +52,7 @@ export const TutorialList = observer(() => {
                 type="button"
                 className="tut-card"
                 key={item.id}
-                onClick={() => navigate(`/tutorials/detail?id=${encodeURIComponent(item.id)}`)}
+                onClick={() => navigate(`${detailBase}?id=${encodeURIComponent(item.id)}`)}
               >
                 <div className="tut-thumb">
                   {thumb ? <img src={thumb} alt={item.title} /> : <span className="muted">No preview</span>}

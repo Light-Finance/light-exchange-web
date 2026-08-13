@@ -125,6 +125,17 @@
   font-weight: 700;
 }
 
+.welcome__tutorials-link {
+  margin-top: var(--space-small);
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: var(--font-medium);
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 /* ---- splash ---- */
 
 .splash {
