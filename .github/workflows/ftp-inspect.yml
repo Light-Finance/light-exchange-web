@@ -1,7 +1,7 @@
 name: FTP inspect (diagnostic)
 
-# One-off helper: connect with the saved FTP secrets and print the landing
-# directory + a shallow listing so we can find the real docroot. Read-only.
+# One-off helper: use basic-ftp (same lib the deploy uses, so passive mode works)
+# to map the server and find where index.html files live. Read-only.
 on:
   workflow_dispatch: {}
 
@@ -9,30 +9,53 @@ jobs:
   inspect:
     runs-on: ubuntu-latest
     steps:
-      - name: Install lftp
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
-
-      - name: Show FTP landing dir and shallow listing
-        timeout-minutes: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Map FTP tree
+        timeout-minutes: 3
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
         run: |
-          echo "Configured FTP_SERVER_DIR secret = [${FTP_SERVER_DIR}]"
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "ftps://$FTP_SERVER" <<'EOF'
-          set ssl:verify-certificate no
-          set net:timeout 15
-          set net:max-retries 2
-          set net:reconnect-interval-base 3
-          echo === PWD (where the login lands) ===
-          pwd
-          echo === LS landing dir ===
-          ls
-          echo === LS public_html ===
-          cls -l public_html || echo "(no public_html in landing dir)"
-          echo === LS the configured deploy dir ===
-          cls -l "$FTP_SERVER_DIR" || echo "(configured dir not found)"
-          bye
-          EOF
+          npm i basic-ftp@5 >/dev/null 2>&1
+          cat > inspect.mjs <<'JS'
+          import { Client } from 'basic-ftp';
+          const c = new Client(30000);
+          c.ftp.verbose = false;
+          try {
+            await c.access({
+              host: process.env.FTP_SERVER,
+              user: process.env.FTP_USERNAME,
+              password: process.env.FTP_PASSWORD,
+              secure: true,
+              secureOptions: { rejectUnauthorized: false },
+            });
+            const root = await c.pwd();
+            console.log('LANDING PWD =', root);
+            async function walk(dir, depth) {
+              if (depth < 0) return;
+              let list;
+              try { list = await c.list(dir); } catch (e) { console.log('  (cannot list', dir, ')'); return; }
+              for (const f of list) {
+                const p = dir.replace(/\/$/, '') + '/' + f.name;
+                if (f.isDirectory) {
+                  console.log('DIR ', p);
+                  // only descend into likely web roots to stay fast
+                  if (/^(public_html|www|htdocs|httpdocs|lightexchange|domains|assets)/i.test(f.name) || depth >= 2) {
+                    await walk(p, depth - 1);
+                  }
+                } else if (/^index\.html$/i.test(f.name) || /^index-.*\.(js|css)$/i.test(f.name)) {
+                  console.log('FILE', p, f.size, 'bytes', f.modifiedAt || '');
+                }
+              }
+            }
+            await walk(root, 3);
+          } catch (e) {
+            console.log('ERROR', e.message);
+          } finally {
+            c.close();
+          }
+          JS
+          node inspect.mjs
