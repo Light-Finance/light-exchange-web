@@ -83,7 +83,19 @@ export const SpinWheel = observer(() => {
 
       <ActivityTicker />
 
-      <div className="spin-wheelwrap">
+      <div
+        className="spin-wheelwrap"
+        role="button"
+        tabIndex={0}
+        style={{ cursor: canSpin ? 'pointer' : 'default' }}
+        onClick={() => canSpin && spin()}
+        onKeyDown={e => {
+          if (canSpin && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            spin();
+          }
+        }}
+      >
         <div className="spin-pointer" />
         <div
           className="spin-wheel"
