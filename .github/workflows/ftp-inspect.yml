@@ -1,8 +1,7 @@
 name: FTP inspect (diagnostic)
 
-# One-off helper: connect with the saved FTP secrets and print the directory
-# layout so we can find the real docroot for lightexchange.io. Safe — it only
-# lists directories and greps index.html, never writes. Delete after use.
+# One-off helper: connect with the saved FTP secrets and print the landing
+# directory + a shallow listing so we can find the real docroot. Read-only.
 on:
   workflow_dispatch: {}
 
@@ -13,7 +12,8 @@ jobs:
       - name: Install lftp
         run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
 
-      - name: List FTP tree and locate index.html
+      - name: Show FTP landing dir and shallow listing
+        timeout-minutes: 2
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
@@ -21,13 +21,18 @@ jobs:
           FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
         run: |
           echo "Configured FTP_SERVER_DIR secret = [${FTP_SERVER_DIR}]"
-          echo "----- ftps, explicit, port 21 -----"
-          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" \
-               -e "set ssl:verify-certificate no; set ftp:ssl-protect-data true; \
-                   echo '== pwd =='; pwd; \
-                   echo '== ls landing dir =='; ls; \
-                   echo '== find index.html (3 levels) =='; \
-                   find -d 3 | grep -i 'index.html' || true; \
-                   echo '== ls public_html if present =='; (cd public_html && pwd && ls) || echo 'no public_html here'; \
-                   bye" \
-               "ftps://$FTP_SERVER" || echo "ftps failed"
+          lftp -u "$FTP_USERNAME","$FTP_PASSWORD" "ftps://$FTP_SERVER" <<'EOF'
+          set ssl:verify-certificate no
+          set net:timeout 15
+          set net:max-retries 2
+          set net:reconnect-interval-base 3
+          echo === PWD (where the login lands) ===
+          pwd
+          echo === LS landing dir ===
+          ls
+          echo === LS public_html ===
+          cls -l public_html || echo "(no public_html in landing dir)"
+          echo === LS the configured deploy dir ===
+          cls -l "$FTP_SERVER_DIR" || echo "(configured dir not found)"
+          bye
+          EOF
