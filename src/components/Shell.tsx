@@ -11,6 +11,7 @@ import {
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import lightexchange from 'light-exchange';
+import { APP } from '../consts/app';
 import { appRootStore } from '../stores/root.store';
 import { translate } from '../helpers/localization';
 import { ROUTE_PATHS } from '../navigations/app.navigation';
@@ -65,7 +66,10 @@ export const Shell = observer(({ children }: { children: ReactNode }) => {
   return (
     <div className="shell">
       <aside className="shell__sidebar">
-        <div className="shell__brand">{lightexchange.app.INFO.APP_NAME}</div>
+        <div className="shell__brand">
+          {lightexchange.app.INFO.APP_NAME}
+          <span className="shell__version">{APP.INFO.APP_VERSION}</span>
+        </div>
         <nav className="shell__nav" aria-label="Main">
           {TABS.map(tab => (
             <NavLink
@@ -84,6 +88,7 @@ export const Shell = observer(({ children }: { children: ReactNode }) => {
         <header className="shell__topbar">
           <div className="shell__brand shell__brand--mobile">
             {lightexchange.app.INFO.APP_NAME}
+            <span className="shell__version">{APP.INFO.APP_VERSION}</span>
           </div>
           <div className="shell__topbar-actions">
             <NavLink
