@@ -1,0 +1,61 @@
+name: Deploy web to lightexchange.io
+
+# Push to master -> build the cPanel bundle and FTP it to the LiteSpeed docroot.
+# Mirrors what `npm run build:cpanel` + a manual upload used to do by hand.
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+
+# Needed so the built-in GITHUB_TOKEN can pull @light-finance/* from GitHub
+# Packages during `npm ci` (the dep is private to the org).
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: deploy-cpanel
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Authenticate npm to GitHub Packages for the @light-finance scope.
+      - name: Configure npm auth for GitHub Packages
+        run: |
+          {
+            echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}"
+            echo "@light-finance:registry=https://npm.pkg.github.com"
+          } > .npmrc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Produces dist/ (app) + dist/.htaccess (Apache/LiteSpeed rewrite rules).
+      - name: Build cPanel bundle
+        run: npm run build:cpanel
+
+      - name: Deploy to cPanel over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # cPanel/LiteSpeed usually accepts explicit FTPS on port 21. If your
+          # host only offers plain FTP, change this to `ftp`.
+          protocol: ftps
+          port: 21
+          # Trailing slashes are required by the action.
+          local-dir: ./dist/
+          # The site docroot, e.g. `public_html/` or `public_html/lightexchange.io/`.
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
