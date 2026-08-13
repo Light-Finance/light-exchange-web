@@ -71,6 +71,14 @@
   </FilesMatch>
 </IfModule>
 
+# LiteSpeed's server cache (LSCache) ignores the headers above and serves a
+# stale snapshot of the docroot after a deploy. Disable it for the whole site
+# so new releases show immediately (assets are hash-named + browser-cached, so
+# there's nothing to gain from caching them server-side).
+<IfModule LiteSpeed>
+  CacheDisable public /
+</IfModule>
+
 # ---------------------------------------------------------------------------
 # Compression
 # ---------------------------------------------------------------------------
