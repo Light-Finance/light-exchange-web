@@ -71,6 +71,17 @@
   </FilesMatch>
 </IfModule>
 
+# LiteSpeed's server cache (LSCache) is a separate layer that ignores the
+# mod_headers rules above and will keep serving a stale index.html for hours
+# after a deploy — which makes new releases look like they never shipped.
+# Disable LSCache for the HTML shell (the root and /index.html) so every deploy
+# is picked up immediately. Hash-named assets are still cached normally.
+<IfModule LiteSpeed>
+  RewriteEngine On
+  RewriteRule ^$ - [E=Cache-Control:no-cache]
+  RewriteRule ^index\.html$ - [E=Cache-Control:no-cache]
+</IfModule>
+
 # ---------------------------------------------------------------------------
 # Compression
 # ---------------------------------------------------------------------------

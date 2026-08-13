@@ -31,10 +31,8 @@
 
 .shell__version {
   margin-left: 0.4em;
-  font-size: 0.62em;
-  font-weight: 600;
+  font-weight: 700;
   opacity: 0.7;
-  vertical-align: middle;
 }
 
 .shell__nav {
