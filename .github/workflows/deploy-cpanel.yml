@@ -29,14 +29,17 @@ jobs:
           cache: npm
 
       # Authenticate npm to GitHub Packages for the @light-finance scope.
+      # Prefer a dedicated PAT secret (NPM_PKG_TOKEN, needs read:packages) if set;
+      # otherwise fall back to the built-in GITHUB_TOKEN, which only works if the
+      # light-exchange-npm package grants this repo read access in its settings.
       - name: Configure npm auth for GitHub Packages
         run: |
           {
-            echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}"
+            echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}"
             echo "@light-finance:registry=https://npm.pkg.github.com"
           } > .npmrc
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PKG_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Install dependencies
         run: npm ci
