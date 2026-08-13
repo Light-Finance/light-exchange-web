@@ -23,9 +23,13 @@ export const SpinWheel = observer(() => {
   const [spinning, setSpinning] = useState(false);
   const [lastPayout, setLastPayout] = useState<number | null>(null);
   const [historyOpen, setHistoryOpen] = useState(false);
+  // The server settles the stake/payout up front, but the balance shouldn't
+  // visibly change until the wheel stops — freeze it to its pre-spin value.
+  const [frozenBalance, setFrozenBalance] = useState<number | null>(null);
   const turns = useRef(0);
 
   const balance = walletStore.getLFCWallet()?.balance ?? 0;
+  const shownBalance = frozenBalance != null ? frozenBalance : balance;
   const canSpin = !spinning && balance >= WHEEL_STAKE;
 
   const openHistory = () => {
@@ -38,12 +42,14 @@ export const SpinWheel = observer(() => {
     if (balance < WHEEL_STAKE) return;
     setSpinning(true);
     setLastPayout(null);
+    setFrozenBalance(balance); // pre-spin value, shown until the wheel stops
 
     // The server debits the stake, picks the segment and credits the payout
     // before the wheel moves; we only animate to what it decided.
     const res = await rewardsStore.spinWheel();
     if (!res) {
       setSpinning(false);
+      setFrozenBalance(null);
       return;
     }
     await walletStore.getWallets();
@@ -56,6 +62,7 @@ export const SpinWheel = observer(() => {
 
     window.setTimeout(() => {
       setSpinning(false);
+      setFrozenBalance(null); // wheel stopped — reveal the settled balance
       setLastPayout(res.payout);
       if (res.payout >= WHEEL_NOTIFY_MIN) displayWinNotification(res.payout);
     }, 5000);
@@ -67,7 +74,7 @@ export const SpinWheel = observer(() => {
 
       <div className="spin-balance">
         <span className="spin-balance__label">{translate('aiTrading.available')}</span>
-        <span className="spin-balance__value">{balance.toFixed(2)} LFC</span>
+        <span className="spin-balance__value">{shownBalance.toFixed(2)} LFC</span>
       </div>
 
       <button type="button" className="spin-historylink" onClick={openHistory}>
