@@ -134,6 +134,14 @@ export const ManagedBot = observer(() => {
       <button
         type="button"
         className="bot-orders-btn"
+        onClick={() => navigate('/ai-trading/analysis')}
+      >
+        🧠 Analyse de marché
+      </button>
+
+      <button
+        type="button"
+        className="bot-orders-btn"
         onClick={() => navigate('/ai-trading/my-team')}
       >
         👥 Mon équipe

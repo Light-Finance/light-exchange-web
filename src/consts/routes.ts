@@ -26,6 +26,7 @@ export const ROUTES = {
         orders: 'orders',
         history: 'history',
         myTeam: 'myTeam',
+        analysis: 'analysis',
       },
       spinNavigation: {
         navigator: 'Spin & Win',

@@ -165,7 +165,12 @@
     "issueTxt": "Issue? Contact us"
   },
   "notificationList": {
-    "title": "Notifications"
+    "title": "Notifications",
+    "empty": "No notifications",
+    "emptyHint": "Your alerts and confirmations will show up here.",
+    "newBadge": "New",
+    "today": "Today",
+    "yesterday": "Yesterday"
   },
   "updateNotification": {
     "titleTxt": "Update available",
@@ -434,5 +439,19 @@
     "notifications": "Notifications",
     "userNumbers": "Payment numbers",
     "sendWorldwide": "Send money worldwide"
+  },
+  "transactionStatus": {
+    "initiated": "Initiated",
+    "pending": "Pending",
+    "successful": "Successful",
+    "failed": "Failed"
+  },
+  "walletHistory": {
+    "all": "All",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "empty": "No transactions",
+    "emptyHint": "Your operations will show up here.",
+    "emptyFiltered": "No transaction of this type."
   }
 }

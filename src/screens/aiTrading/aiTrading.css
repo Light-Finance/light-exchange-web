@@ -229,3 +229,131 @@
     max-width: 420px;
   }
 }
+
+/* ---- market analysis ---- */
+
+.an-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.an-tab {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  border-radius: 20px;
+  background: var(--color-white3);
+  color: var(--color-black);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.an-tab--on {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.an-signal {
+  border: 1.5px solid var(--color-secondary);
+  border-radius: 12px;
+  padding: var(--space-small);
+  text-align: center;
+}
+
+.an-signal__label {
+  font-size: 0.8rem;
+  color: var(--color-black);
+}
+
+.an-signal__value {
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.an-conf {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-white3);
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.an-conf__fill {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+}
+
+.an-conf__txt {
+  color: var(--color-black);
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.an-summary {
+  margin: 0;
+  line-height: 1.5;
+  color: var(--color-black);
+}
+
+.an-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.an-gauge__track {
+  position: relative;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--color-white3);
+  overflow: hidden;
+}
+
+.an-gauge__zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.an-gauge__dot {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--color-secondary-dark);
+}
+
+.an-gauge__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  font-size: 0.66rem;
+  color: var(--color-black);
+}
+
+.an-section {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-black);
+}
+
+.an-reasons {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--color-black);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+.an-updated {
+  text-align: center;
+  color: var(--color-black);
+  font-size: 0.7rem;
+}

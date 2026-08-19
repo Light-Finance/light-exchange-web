@@ -44,6 +44,7 @@ export const ROUTE_PATHS: Record<string, string> = {
   [TAB.aiTradingNavigation.orders]: '/ai-trading/orders',
   [TAB.aiTradingNavigation.history]: '/ai-trading/history',
   [TAB.aiTradingNavigation.myTeam]: '/ai-trading/my-team',
+  [TAB.aiTradingNavigation.analysis]: '/ai-trading/analysis',
 
   // trading
   [TAB.tradeNavigation.navigator]: '/trade',

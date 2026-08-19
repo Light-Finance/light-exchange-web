@@ -166,7 +166,12 @@
     "issueTxt": "Problème ? Contactez-nous"
   },
   "notificationList": {
-    "title": "Notifications"
+    "title": "Notifications",
+    "empty": "Aucune notification",
+    "emptyHint": "Vos alertes et confirmations apparaîtront ici.",
+    "newBadge": "Nouveau",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier"
   },
   "updateNotification": {
     "titleTxt": "Mise à jour disponible",
@@ -434,5 +439,19 @@
     "notifications": "Notifications",
     "userNumbers": "Numéros de paiement",
     "sendWorldwide": "Envoyer de l'argent dans le monde"
+  },
+  "transactionStatus": {
+    "initiated": "Initiée",
+    "pending": "En attente",
+    "successful": "Réussie",
+    "failed": "Échouée"
+  },
+  "walletHistory": {
+    "all": "Tout",
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "empty": "Aucune transaction",
+    "emptyHint": "Vos opérations apparaîtront ici.",
+    "emptyFiltered": "Aucune transaction de ce type."
   }
 }
