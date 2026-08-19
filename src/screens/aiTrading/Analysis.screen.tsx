@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
+import { observer } from 'mobx-react-lite';
 import { BtcSparkline } from './BtcSparkline';
+import { WhatIf } from './WhatIf';
+import { appRootStore } from '../../stores/root.store';
 import {
   analyse,
   fetchCandles,
@@ -34,7 +37,8 @@ function summary(a: IAnalysis): string {
   )} et une résistance à ${a.resistance.toFixed(2)}.`;
 }
 
-export function Analysis() {
+export const Analysis = observer(() => {
+  const { managedStore } = appRootStore;
   const [data, setData] = useState<IAnalysis[]>([]);
   const [selected, setSelected] = useState(PAIRS[0].symbol);
   const [loading, setLoading] = useState(true);
@@ -59,7 +63,10 @@ export function Analysis() {
 
   useEffect(() => {
     load();
-  }, [load]);
+    // The what-if card needs the global NAV, which lives on the managed
+    // account — this screen is reachable without visiting the bot screen first.
+    if (!managedStore.account) managedStore.load();
+  }, [load, managedStore]);
 
   const a = data.find(d => d.symbol === selected);
 
@@ -143,6 +150,11 @@ export function Analysis() {
 
       <p className="an-summary">{summary(a)}</p>
 
+      <WhatIf
+        nav={managedStore.account?.nav ?? 0}
+        monthRate={managedStore.account?.monthRate}
+      />
+
       <div className="an-grid">
         <div className="bot-stat">
           <div className="bot-stat__label">RSI (14)</div>
@@ -213,4 +225,4 @@ export function Analysis() {
       </div>
     </div>
   );
-}
+});

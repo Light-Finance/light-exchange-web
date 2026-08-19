@@ -357,3 +357,98 @@
   color: var(--color-black);
   font-size: 0.7rem;
 }
+
+/* ---- what-if card ---- */
+
+.whatif {
+  background: #f2ecff;
+  border: 1px solid var(--color-secondary);
+  border-radius: 12px;
+  padding: var(--space-small);
+}
+
+.whatif__title {
+  color: var(--color-secondary-dark);
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.whatif__chips {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.whatif__chip {
+  flex: 1;
+  padding: 6px 0;
+  border: none;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--color-black);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.whatif__chip--on {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+.whatif__line {
+  margin: 0;
+  color: var(--color-black);
+  line-height: 1.5;
+}
+
+.whatif__big {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--color-secondary-dark);
+}
+
+.whatif__gain {
+  color: var(--color-secondary);
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.whatif__projtitle {
+  color: var(--color-black);
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-top: var(--space-small);
+  margin-bottom: 4px;
+}
+
+.whatif__projrow {
+  display: flex;
+  gap: 6px;
+}
+
+.whatif__proj {
+  flex: 1;
+  background: #fff;
+  border-radius: var(--space-small);
+  padding: 6px 0;
+  text-align: center;
+}
+
+.whatif__projlabel {
+  color: var(--color-black);
+  font-size: 0.68rem;
+}
+
+.whatif__projvalue {
+  color: var(--color-secondary-dark);
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.whatif__disclaimer {
+  color: var(--color-black);
+  font-size: 0.66rem;
+  line-height: 1.4;
+  margin-top: 6px;
+}
