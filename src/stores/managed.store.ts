@@ -124,9 +124,9 @@ const BOT_BILLING = gql`
     }
   }
 `;
-const BOT_SUBSCRIBE = gql`
-  mutation botSubscribe($userId: ID!, $plan: Float!) {
-    botSubscribe(userId: $userId, plan: $plan) {
+const AI_BOT_SUBSCRIBE = gql`
+  mutation aiBotSubscribe($userId: ID!, $plan: Float!) {
+    aiBotSubscribe(userId: $userId, plan: $plan) {
       id
       plan
       startAt
@@ -193,8 +193,8 @@ export class ManagedStore {
   async subscribe(plan: number): Promise<boolean> {
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return false;
-    const r = await Service.mutation({ userId, plan }, BOT_SUBSCRIBE, true);
-    return !!r?.data?.botSubscribe;
+    const r = await Service.mutation({ userId, plan }, AI_BOT_SUBSCRIBE, true);
+    return !!r?.data?.aiBotSubscribe;
   }
 
   async loadHistory() {
