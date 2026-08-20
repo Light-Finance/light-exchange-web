@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/ui/Button';
+import { Modal } from '../../components/ui/Modal';
 import { BtcSparkline } from './BtcSparkline';
 import { WhatIf } from './WhatIf';
 import { appRootStore } from '../../stores/root.store';
+import lightexchange from 'light-exchange';
+import { Linking } from '../../platform/linking';
 import {
   analyse,
   fetchCandles,
@@ -39,6 +44,9 @@ function summary(a: IAnalysis): string {
 
 export const Analysis = observer(() => {
   const { managedStore } = appRootStore;
+  const navigate = useNavigate();
+  const [question, setQuestion] = useState('');
+  const [askModal, setAskModal] = useState(false);
   const [data, setData] = useState<IAnalysis[]>([]);
   const [selected, setSelected] = useState(PAIRS[0].symbol);
   const [loading, setLoading] = useState(true);
@@ -63,10 +71,31 @@ export const Analysis = observer(() => {
 
   useEffect(() => {
     load();
-    // The what-if card needs the global NAV, which lives on the managed
-    // account — this screen is reachable without visiting the bot screen first.
+    // The estimate card runs on the monthly rate the admin sets in the
+    // dashboard, which rides along on the managed account.
     if (!managedStore.account) managedStore.load();
   }, [load, managedStore]);
+
+  // Subscribers get a human on WhatsApp with their question already typed in;
+  // everyone else gets the subscribe prompt.
+  const ask = async () => {
+    const text = question.trim();
+    if (!text) return;
+    if ((managedStore.account?.principal ?? 0) <= 0) {
+      setAskModal(true);
+      return;
+    }
+    const number = await appRootStore.systemStore.systemGetNumbers(
+      lightexchange.app.NUMBERS_TYPE.CUSTOMER_SUPPORT,
+    );
+    const url = `whatsapp://send?text=${encodeURIComponent(
+      `[LE AI BOT] ${text}`,
+    )}&phone=${number}`;
+    if (await Linking.canOpenURL(url)) {
+      await Linking.openURL(url);
+      setQuestion('');
+    }
+  };
 
   const a = data.find(d => d.symbol === selected);
 
@@ -150,61 +179,23 @@ export const Analysis = observer(() => {
 
       <p className="an-summary">{summary(a)}</p>
 
-      <WhatIf
-        nav={managedStore.account?.nav ?? 0}
-        monthRate={managedStore.account?.monthRate}
-      />
+      <WhatIf monthRate={managedStore.account?.monthRate} />
 
-      <div className="an-grid">
-        <div className="bot-stat">
-          <div className="bot-stat__label">RSI (14)</div>
-          <div className="bot-stat__value">{a.rsi.toFixed(1)}</div>
+      <div className="an-ask">
+        <div className="an-ask__title">🤖 Posez votre question au bot</div>
+        <div className="an-ask__hint">
+          Ex. « Est-ce le bon moment pour acheter du BTC ? »
         </div>
-        <div className="bot-stat">
-          <div className="bot-stat__label">Volatilité 30j</div>
-          <div className="bot-stat__value">{a.volatility.toFixed(2)}%</div>
-        </div>
-        <div className="bot-stat">
-          <div className="bot-stat__label">EMA 20</div>
-          <div className="bot-stat__value">{a.ema20.toFixed(2)}</div>
-        </div>
-        <div className="bot-stat">
-          <div className="bot-stat__label">EMA 50</div>
-          <div className="bot-stat__value">{a.ema50.toFixed(2)}</div>
-        </div>
-        <div className="bot-stat">
-          <div className="bot-stat__label">Support</div>
-          <div className="bot-stat__value">{a.support.toFixed(2)}</div>
-        </div>
-        <div className="bot-stat">
-          <div className="bot-stat__label">Résistance</div>
-          <div className="bot-stat__value">{a.resistance.toFixed(2)}</div>
-        </div>
+        <textarea
+          className="an-ask__input"
+          placeholder="Votre question..."
+          value={question}
+          onChange={e => setQuestion(e.target.value)}
+        />
+        <Button block disabled={!question.trim()} onClick={ask}>
+          Envoyer au LE AI BOT
+        </Button>
       </div>
-
-      {/* RSI 0-100 on a bar; the 30/70 zones are where the votes flip. */}
-      <div className="an-gauge">
-        <div className="an-gauge__track">
-          <span className="an-gauge__zone" style={{ left: 0, width: '30%', background: '#DFF5E9' }} />
-          <span className="an-gauge__zone" style={{ left: '70%', width: '30%', background: '#FCE8E8' }} />
-          <span
-            className="an-gauge__dot"
-            style={{ left: `${Math.max(0, Math.min(100, a.rsi))}%` }}
-          />
-        </div>
-        <div className="an-gauge__labels">
-          <span>Survente</span>
-          <span>Neutre</span>
-          <span>Surachat</span>
-        </div>
-      </div>
-
-      <h2 className="an-section">Lecture des indicateurs</h2>
-      <ul className="an-reasons">
-        {a.reasons.map((r, i) => (
-          <li key={i}>{r}</li>
-        ))}
-      </ul>
 
       <div className="an-updated">
         Mis à jour à{' '}
@@ -215,14 +206,30 @@ export const Analysis = observer(() => {
         · données Binance
       </div>
 
-      <div className="bot-note bot-note--info">
-        <div className="bot-note__title">ℹ️ Information</div>
-        <div>
-          Cette analyse est fournie à titre informatif et ne constitue pas un
-          conseil en investissement. Le LE AI BOT l'utilise parmi d'autres
-          signaux pour prendre ses positions.
-        </div>
-      </div>
+      {askModal ? (
+        <Modal onClose={() => setAskModal(false)}>
+          <div className="stack">
+            <h2>🔒 Réservé aux membres du bot</h2>
+            <p>
+              Les réponses personnalisées du LE AI BOT sont réservées aux
+              utilisateurs ayant souscrit. Déposez dans le bot pour poser vos
+              questions et recevoir ses analyses sur mesure.
+            </p>
+            <Button
+              block
+              onClick={() => {
+                setAskModal(false);
+                navigate('/ai-trading');
+              }}
+            >
+              Souscrire au LE AI BOT
+            </Button>
+            <Button block variant="secondary" onClick={() => setAskModal(false)}>
+              Plus tard
+            </Button>
+          </div>
+        </Modal>
+      ) : null}
     </div>
   );
 });

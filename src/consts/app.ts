@@ -48,6 +48,9 @@ export const APP = {
     MAX_USER_PROFILE_UPDATE: 2,
     COUNTRIES: [],
   },
+  WALLET: {
+    MIN_WITHDRAWAL: 10,
+  },
   TRADE_STORE: {
     transaction: {
       spend: '',

@@ -222,7 +222,8 @@
     "spendValidation": "Amount: 1 – 1 000 000",
     "amountToWithdrawValidation": "Min. amount: 13",
     "emailConfirmation": "Incorrect code",
-    "investment": "Error, contact us"
+    "investment": "Error, contact us",
+    "minWithdrawalValidation": "Min. withdrawal: %{min} USDT (%{net} + %{fee} fees)"
   },
   "successMessages": {
     "signIn": "Login successful",

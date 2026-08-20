@@ -106,6 +106,52 @@ export interface IManagedAccount {
   curve: { t: string; value: number; pnl: number }[];
 }
 
+const BOT_BILLING = gql`
+  query botBilling($userId: ID) {
+    botBilling(userId: $userId) {
+      mode
+      paidStartAt
+      daysLeft
+      plans
+      subscriptionDays
+      hasAccess
+      subscription {
+        id
+        plan
+        startAt
+        endAt
+      }
+    }
+  }
+`;
+const BOT_SUBSCRIBE = gql`
+  mutation botSubscribe($userId: ID!, $plan: Float!) {
+    botSubscribe(userId: $userId, plan: $plan) {
+      id
+      plan
+      startAt
+      endAt
+    }
+  }
+`;
+
+export interface IBotSubscription {
+  id: string;
+  plan: number;
+  startAt: string;
+  endAt: string;
+}
+
+export interface IBotBilling {
+  mode: 'free' | 'paid' | string;
+  paidStartAt?: string | null;
+  daysLeft: number;
+  plans: number[];
+  subscriptionDays: number;
+  hasAccess: boolean;
+  subscription?: IBotSubscription | null;
+}
+
 export class ManagedStore {
   rootStore: RootStore;
   account: IManagedAccount | null = null;
@@ -114,6 +160,7 @@ export class ManagedStore {
   isLoadingHistory = false;
   team: IReferralTeam | null = null;
   isLoadingTeam = false;
+  billing: IBotBilling | null = null;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -124,9 +171,30 @@ export class ManagedStore {
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return;
     this.isLoading = true;
-    const r = await Service.query({ userId }, MANAGED_ACCOUNT, false);
+    const [r, b] = await Promise.all([
+      Service.query({ userId }, MANAGED_ACCOUNT, false),
+      Service.query({ userId }, BOT_BILLING, false),
+    ]);
     this.isLoading = false;
     if (r?.data?.managedAccount) this.account = r.data.managedAccount;
+    if (b?.data?.botBilling) this.billing = b.data.botBilling;
+  }
+
+  /** True while the bot is free, or once the user holds a live subscription. */
+  get hasBotAccess(): boolean {
+    // Unknown billing must not lock the screen: a failed fetch is not a paywall.
+    return this.billing ? this.billing.hasAccess : true;
+  }
+
+  get daysBeforePaid(): number {
+    return this.billing?.daysLeft ?? 0;
+  }
+
+  async subscribe(plan: number): Promise<boolean> {
+    const userId = this.rootStore.authStore.user?.id;
+    if (!userId) return false;
+    const r = await Service.mutation({ userId, plan }, BOT_SUBSCRIBE, true);
+    return !!r?.data?.botSubscribe;
   }
 
   async loadHistory() {

@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import { ToastService } from '../services/toast.service';
 import { translate } from '../helpers/localization';
 import lightexchange from 'light-exchange';
+import { APP } from './app';
 const PASSWORD_LENGHT = 5;
 const NAME_LENGHT = 2;
 export let checkForm = async values => {
@@ -145,6 +146,26 @@ export let amountToWithdrawValidation = async spend => {
   } else {
     ToastService.show(
       translate('errorMessages.amountToWithdrawValidation'),
+      ToastService.ERROR,
+    );
+    return false;
+  }
+};
+export let minWithdrawalValidation = async spend => {
+  // the entered amount is gross: the withdrawal fee is deducted by the API,
+  // so require fee + MIN_WITHDRAWAL to guarantee a 10 USDT net payout
+  const fee = lightexchange.app.WALLET.WITHDRAWAL_FEE ?? 2;
+  const min = APP.WALLET.MIN_WITHDRAWAL + fee;
+  const result = await yup.number().min(min).required().isValid(spend);
+  if (result) {
+    return true;
+  } else {
+    ToastService.show(
+      translate('errorMessages.minWithdrawalValidation', {
+        min,
+        net: APP.WALLET.MIN_WITHDRAWAL,
+        fee,
+      }),
       ToastService.ERROR,
     );
     return false;

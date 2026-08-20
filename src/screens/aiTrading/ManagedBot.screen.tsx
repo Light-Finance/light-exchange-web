@@ -12,6 +12,8 @@ import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
 import { BtcSparkline } from './BtcSparkline';
+import { BotBillingCard } from './BotBillingCard';
+import { ToastService } from '../../services/toast.service';
 import './aiTrading.css';
 
 type Dialog = null | 'deposit' | 'withdraw';
@@ -155,6 +157,15 @@ export const ManagedBot = observer(() => {
         <Button
           block
           onClick={() => {
+            // Deposits are what a subscription pays for, so they are the only
+            // action blocked in paid mode; withdrawals stay open.
+            if (!managedStore.hasBotAccess) {
+              ToastService.show(
+                'Abonnement requis pour alimenter le robot',
+                ToastService.ERROR,
+              );
+              return;
+            }
             setDialog('deposit');
             setAmount('');
           }}
@@ -181,13 +192,7 @@ export const ManagedBot = observer(() => {
         </p>
       </div>
 
-      <div className="bot-note bot-note--promo">
-        <div className="bot-note__title">🎁 Gratuit pour l'instant</div>
-        <p>
-          L'utilisation du robot deviendra bientôt payante (abonnement). Profitez-en tant que
-          c'est gratuit !
-        </p>
-      </div>
+      <BotBillingCard onSubscribed={() => managedStore.load()} />
 
       {dialog ? (
         <Modal onClose={() => (busy ? undefined : setDialog(null))}>

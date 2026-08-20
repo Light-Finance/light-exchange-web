@@ -299,59 +299,6 @@
   color: var(--color-black);
 }
 
-.an-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-
-.an-gauge__track {
-  position: relative;
-  height: 10px;
-  border-radius: 5px;
-  background: var(--color-white3);
-  overflow: hidden;
-}
-
-.an-gauge__zone {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-}
-
-.an-gauge__dot {
-  position: absolute;
-  top: 0;
-  width: 10px;
-  height: 10px;
-  margin-left: -5px;
-  border-radius: 50%;
-  background: var(--color-secondary-dark);
-}
-
-.an-gauge__labels {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 4px;
-  font-size: 0.66rem;
-  color: var(--color-black);
-}
-
-.an-section {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 800;
-  color: var(--color-black);
-}
-
-.an-reasons {
-  margin: 0;
-  padding-left: 18px;
-  color: var(--color-black);
-  font-size: 0.85rem;
-  line-height: 1.55;
-}
-
 .an-updated {
   text-align: center;
   color: var(--color-black);
@@ -371,6 +318,12 @@
   color: var(--color-secondary-dark);
   font-weight: 800;
   margin-bottom: 6px;
+}
+
+.whatif__subtitle {
+  color: var(--color-black);
+  font-size: 0.8rem;
+  margin-bottom: 8px;
 }
 
 .whatif__chips {
@@ -394,32 +347,6 @@
 .whatif__chip--on {
   background: var(--color-secondary);
   color: #fff;
-}
-
-.whatif__line {
-  margin: 0;
-  color: var(--color-black);
-  line-height: 1.5;
-}
-
-.whatif__big {
-  font-weight: 800;
-  font-size: 1.15rem;
-  color: var(--color-secondary-dark);
-}
-
-.whatif__gain {
-  color: var(--color-secondary);
-  font-weight: 800;
-  margin-top: 2px;
-}
-
-.whatif__projtitle {
-  color: var(--color-black);
-  font-weight: 700;
-  font-size: 0.8rem;
-  margin-top: var(--space-small);
-  margin-bottom: 4px;
 }
 
 .whatif__projrow {
@@ -451,4 +378,75 @@
   font-size: 0.66rem;
   line-height: 1.4;
   margin-top: 6px;
+}
+
+.whatif__projgain {
+  color: var(--color-secondary);
+  font-weight: 700;
+  font-size: 0.68rem;
+}
+
+/* ---- ask the bot ---- */
+
+.an-ask {
+  background: var(--color-white3);
+  border-radius: 12px;
+  padding: var(--space-small);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.an-ask__title {
+  color: var(--color-black);
+  font-weight: 800;
+}
+
+.an-ask__hint {
+  color: var(--color-black);
+  font-size: 0.72rem;
+}
+
+.an-ask__input {
+  width: 100%;
+  min-height: 72px;
+  resize: vertical;
+  border: none;
+  border-radius: var(--space-small);
+  padding: var(--space-small);
+  background: #fff;
+  color: var(--color-black);
+  font: inherit;
+}
+
+/* Countdown to the date the AI bot becomes paid. */
+.bot-countdown {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+.bot-countdown__cell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.06);
+}
+.bot-countdown__value {
+  font-size: 20px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.bot-countdown__label {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+.bot-plans {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
 }

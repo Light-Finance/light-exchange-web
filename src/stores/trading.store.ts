@@ -4,7 +4,7 @@ import lightexchange from 'light-exchange';
 import { RootStore } from './root.store';
 import { Service } from '../services/service.service';
 import { APP } from '../consts/app';
-import { checkForm } from '../consts/validations';
+import { checkForm, minWithdrawalValidation } from '../consts/validations';
 import { navigate } from '../navigations/app.navigation';
 import { ROUTES } from '../consts/routes';
 import { Linking } from '../platform/linking';
@@ -178,6 +178,13 @@ export class TradeStore {
   @action async transactionCreate(type) {
     // getting values
     this.transaction!.type = type;
+    // minimum withdrawal amount for crypto withdrawals
+    if (
+      type === lightexchange.app.TRANSACTION.TYPE.withdrawalCrypto &&
+      !(await minWithdrawalValidation(this.transaction!.spend))
+    ) {
+      return;
+    }
     const walletIds = await this.determineWalletIds();
     if (!walletIds) return; // invalid conversion (same crypto / wallet create failed)
     // `walletAddress` and the transfer fields below are attached after the
