@@ -9,6 +9,37 @@ interface IOrder {
   pnlLfc: number;
   pnlPct: number;
   win: boolean;
+  pair: string;
+}
+
+interface IDaySection {
+  /** Day key (YYYY-MM-DD), used both to group and as the React key. */
+  key: string;
+  /** Sum of the day's orders — the day's actual equity change. */
+  total: number;
+  wins: number;
+  orders: IOrder[];
+}
+
+/** Orders grouped by day, most recent day first, with each day's total. */
+function groupByDay(orders: IOrder[]): IDaySection[] {
+  const byDay = new Map<string, IDaySection>();
+  for (const o of orders) {
+    const d = new Date(o.date);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
+      d.getDate(),
+    ).padStart(2, '0')}`;
+    let section = byDay.get(key);
+    if (!section) {
+      section = { key, total: 0, wins: 0, orders: [] };
+      byDay.set(key, section);
+    }
+    section.orders.push(o);
+    section.total += o.pnlLfc;
+    if (o.win) section.wins++;
+  }
+  // `orders` arrives newest first, so insertion order is the display order.
+  return [...byDay.values()];
 }
 
 const PAIRS = ['BTC/USDT', 'ETH/USDT', 'SOL/USDT', 'BNB/USDT'];
@@ -63,7 +94,16 @@ function buildOrders(account: any): IOrder[] {
       const pnlLfc = base + amp * (noises[k] - meanN);
       const pnlPct = entry > 0 ? (pnlLfc / entry) * 100 : 0;
       const t = dayStart + ((k + 1) / (count + 1)) * (dayEnd - dayStart);
-      out.push({ id: `o${i}-${k}`, date: t, pnlLfc, pnlPct, win: pnlLfc >= 0 });
+      // The pair is fixed to the order itself: deriving it from a list
+      // position would change it as soon as the rows are grouped.
+      out.push({
+        id: `o${i}-${k}`,
+        date: t,
+        pnlLfc,
+        pnlPct,
+        win: pnlLfc >= 0,
+        pair: PAIRS[k % PAIRS.length],
+      });
     }
   }
   return out.reverse();
@@ -79,11 +119,25 @@ export const Orders = observer(() => {
 
   const orders = buildOrders(account);
   const wins = orders.filter(o => o.win).length;
+  const days = groupByDay(orders);
+  // The sub-order PnLs sum exactly to each day's move, so this is the month's
+  // real equity change rather than an approximation.
+  const totalPnl = orders.reduce((sum, o) => sum + o.pnlLfc, 0);
   const loading = managedStore.isLoading && !account;
 
   return (
     <div className="stack">
       <h1 className="screen-title">Ordres du bot</h1>
+
+      <div
+        className={`orders-total ${totalPnl >= 0 ? "orders-total--up" : "orders-total--down"}`}
+      >
+        <span className="orders-total__label">Total gagné ce mois</span>
+        <span className="orders-total__value">
+          {totalPnl >= 0 ? '+' : ''}
+          {totalPnl.toFixed(2)} LFC
+        </span>
+      </div>
 
       <div className="orders-summary">
         <div className="bot-stat">
@@ -104,8 +158,32 @@ export const Orders = observer(() => {
         </div>
       ) : orders.length ? (
         <div className="card" style={{ padding: 0 }}>
-          {orders.map((order, index) => {
-            const pair = PAIRS[index % PAIRS.length];
+          {days.map(day => (
+          <div key={day.key}>
+            <div className="order-day">
+              <span className="order-day__label">
+                {new Date(day.orders[0].date).toLocaleDateString('fr-FR', {
+                  weekday: 'short',
+                  day: '2-digit',
+                  month: 'short',
+                })}
+              </span>
+              <span className="order-day__count">
+                {day.orders.length} ordre{day.orders.length > 1 ? 's' : ''} · {day.wins} gagnant
+                {day.wins > 1 ? 's' : ''}
+              </span>
+              <span
+                className="order-day__total"
+                style={{
+                  color: day.total >= 0 ? 'var(--color-secondary-dark)' : 'var(--color-red)',
+                }}
+              >
+                {day.total >= 0 ? '+' : ''}
+                {day.total.toFixed(2)} LFC
+              </span>
+            </div>
+            {day.orders.map(order => {
+            const pair = order.pair;
             const color = order.win ? 'var(--color-secondary)' : 'var(--color-red)';
             const dt = new Date(order.date);
             return (
@@ -119,7 +197,6 @@ export const Orders = observer(() => {
                     {order.win ? '✓ Gagnant' : '✕ Perdant'}
                   </span>
                   <span className="order-card__date">
-                    {dt.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })}{' '}
                     {dt.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}
                   </span>
                 </div>
@@ -132,7 +209,9 @@ export const Orders = observer(() => {
                 </div>
               </div>
             );
-          })}
+            })}
+          </div>
+          ))}
         </div>
       ) : (
         <div className="card empty-state">Aucun ordre ce mois.</div>
