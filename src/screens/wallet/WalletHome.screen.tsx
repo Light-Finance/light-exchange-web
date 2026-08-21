@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRightArrowLeft,
   faArrowUpFromBracket,
-  faGlobe,
   faHistory,
   faPaperPlane,
   faPlayCircle,
@@ -40,7 +39,6 @@ export const WalletHome = observer(() => {
     { label: translate('walletHome.withdrawBtn'), icon: faArrowUpFromBracket, onClick: () => walletStore.navigateToWithdraw() },
     { label: translate('walletHome.convertBtn'), icon: faArrowRightArrowLeft, onClick: () => walletStore.navigateToConvert() },
     { label: translate('walletHome.transferBtn'), icon: faPaperPlane, onClick: () => walletStore.navigateToTransfer() },
-    { label: translate('walletHome.worldwideBtn'), icon: faGlobe, onClick: () => navigate('/wallet/send-worldwide') },
     { label: translate('walletHome.contactBtn'), icon: faWhatsapp, onClick: () => authStore.toContactUs() },
   ];
 

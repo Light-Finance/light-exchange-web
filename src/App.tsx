@@ -33,7 +33,6 @@ import { AffiliateProgram } from './screens/profil/AffiliateProgram.screen';
 import { LfcMerchant } from './screens/profil/LfcMerchant.screen';
 import { TutorialList } from './screens/tutorials/TutorialList.screen';
 import { TutorialDetail } from './screens/tutorials/TutorialDetail.screen';
-import { SendWorldwide } from './screens/wallet/SendWorldwide.screen';
 import { ComingSoon } from './screens/ComingSoon.screen';
 
 /** Routes that require a signed-in user; everything else bounces to /welcome. */
@@ -111,7 +110,6 @@ export const App = observer(() => {
           <Route path="/affiliate" element={<AffiliateProgram />} />
           <Route path="/lfc-merchant" element={<LfcMerchant />} />
           <Route path="/user-numbers" element={<ComingSoon titleKey="tabs.userNumbers" />} />
-          <Route path="/wallet/send-worldwide" element={<SendWorldwide />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

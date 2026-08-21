@@ -46,7 +46,6 @@ export const ROUTES = {
         walletTransfer: 'walletTransfer',
         walletWithdraw: 'walletWithdraw',
         paymentMethod: 'paymentMethod',
-        sendWorldwide: 'sendWorldwide',
       },
     },
     profilNavigation: {

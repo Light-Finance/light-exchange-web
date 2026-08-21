@@ -247,7 +247,6 @@
     "convertBtn": "Convertir",
     "depositBtn": "Ajouter des fonds",
     "comingSoonTxt": "Bientôt disponible",
-    "worldwideBtn": "Transfert international",
     "learnBtn": "Comment fonctionne Light Exchange",
     "contactBtn": "Contactez-nous",
     "balanceLabel": "Solde"
@@ -438,8 +437,7 @@
     "tutorials": "Tutoriels",
     "profile": "Profil",
     "notifications": "Notifications",
-    "userNumbers": "Numéros de paiement",
-    "sendWorldwide": "Envoyer de l'argent dans le monde"
+    "userNumbers": "Numéros de paiement"
   },
   "transactionStatus": {
     "initiated": "Initiée",

@@ -247,7 +247,6 @@
     "convertBtn": "Convert",
     "depositBtn": "Add Funds",
     "comingSoonTxt": "Coming soon",
-    "worldwideBtn": "International transfer",
     "learnBtn": "Learn how Light Exchange works",
     "contactBtn": "Contact us",
     "balanceLabel": "Balance"
@@ -438,8 +437,7 @@
     "tutorials": "Tutorials",
     "profile": "Profile",
     "notifications": "Notifications",
-    "userNumbers": "Payment numbers",
-    "sendWorldwide": "Send money worldwide"
+    "userNumbers": "Payment numbers"
   },
   "transactionStatus": {
     "initiated": "Initiated",

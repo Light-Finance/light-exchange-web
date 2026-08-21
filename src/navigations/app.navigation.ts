@@ -35,7 +35,6 @@ export const ROUTE_PATHS: Record<string, string> = {
   [TAB.walletNavigation.walletTransfer]: '/wallet/transfer',
   [TAB.walletNavigation.walletWithdraw]: '/wallet/withdraw',
   [TAB.walletNavigation.paymentMethod]: '/wallet/payment-method',
-  [TAB.walletNavigation.sendWorldwide]: '/wallet/send-worldwide',
 
   // ai trading
   [TAB.aiTradingNavigation.navigator]: '/ai-trading',
