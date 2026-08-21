@@ -450,3 +450,12 @@
   gap: 8px;
   margin-top: 10px;
 }
+.bot-code-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+.bot-code-row > :first-child {
+  flex: 1;
+}

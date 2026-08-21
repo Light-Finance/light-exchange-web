@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { appRootStore } from '../../stores/root.store';
 import { Button } from '../../components/ui/Button';
+import { Input } from '../../components/ui/Field';
 import { ToastService } from '../../services/toast.service';
 
 const pad = (n: number) => String(n).padStart(2, '0');
@@ -50,6 +51,8 @@ const Countdown = ({ target, daysLeft }: { target?: string | null; daysLeft: num
 export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () => void }) => {
   const { managedStore, walletStore } = appRootStore;
   const [busyPlan, setBusyPlan] = useState<number | null>(null);
+  const [code, setCode] = useState('');
+  const [redeeming, setRedeeming] = useState(false);
   const billing = managedStore.billing;
   if (!billing) return null;
 
@@ -68,6 +71,19 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
     setBusyPlan(null);
     if (ok) {
       ToastService.show('Abonnement activé', ToastService.SUCCESS);
+      onSubscribed?.();
+    }
+  };
+
+  const redeem = async () => {
+    const value = code.trim();
+    if (!value || redeeming) return;
+    setRedeeming(true);
+    const ok = await managedStore.redeemCode(value);
+    setRedeeming(false);
+    if (ok) {
+      setCode('');
+      ToastService.show('Code activé — robot débloqué', ToastService.SUCCESS);
       onSubscribed?.();
     }
   };
@@ -91,8 +107,35 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
           </Button>
         ))}
       </div>
+      {/* Free access handed out by the team: unlocks the bot without paying,
+          and stays valid until the code is switched off. */}
+      <p style={{ marginTop: 12, fontWeight: 600 }}>Vous avez un code d'accès ?</p>
+      <div className="bot-code-row">
+        <Input
+          placeholder="Code"
+          autoCapitalize="characters"
+          value={code}
+          onChange={e => setCode(e.target.value)}
+        />
+        <Button loading={redeeming} disabled={!code.trim()} onClick={redeem}>
+          Activer
+        </Button>
+      </div>
     </div>
   );
+
+  if (paid && billing.accessCode) {
+    // A code granted by the team outranks the plans: nothing to buy while it
+    // stays active.
+    return (
+      <div className="bot-note bot-note--promo">
+        <div className="bot-note__title">🎟️ Accès gratuit actif</div>
+        <p>
+          Code {billing.accessCode} — le robot reste débloqué tant que ce code est actif.
+        </p>
+      </div>
+    );
+  }
 
   if (paid && !billing.hasAccess) {
     return (

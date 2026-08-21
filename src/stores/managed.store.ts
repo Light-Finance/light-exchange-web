@@ -115,12 +115,21 @@ const BOT_BILLING = gql`
       plans
       subscriptionDays
       hasAccess
+      accessCode
       subscription {
         id
         plan
         startAt
         endAt
       }
+    }
+  }
+`;
+const AI_BOT_REDEEM_CODE = gql`
+  mutation aiBotRedeemCode($userId: ID!, $code: String!) {
+    aiBotRedeemCode(userId: $userId, code: $code) {
+      code
+      label
     }
   }
 `;
@@ -149,6 +158,7 @@ export interface IBotBilling {
   plans: number[];
   subscriptionDays: number;
   hasAccess: boolean;
+  accessCode?: string | null;
   subscription?: IBotSubscription | null;
 }
 
@@ -188,6 +198,14 @@ export class ManagedStore {
 
   get daysBeforePaid(): number {
     return this.billing?.daysLeft ?? 0;
+  }
+
+  /** Redeems an admin-issued free-access code. */
+  async redeemCode(code: string): Promise<boolean> {
+    const userId = this.rootStore.authStore.user?.id;
+    if (!userId) return false;
+    const r = await Service.mutation({ userId, code }, AI_BOT_REDEEM_CODE, true);
+    return !!r?.data?.aiBotRedeemCode;
   }
 
   async subscribe(plan: number): Promise<boolean> {
