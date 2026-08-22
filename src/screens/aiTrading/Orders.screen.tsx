@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { appRootStore } from '../../stores/root.store';
 import { botSinceLabel } from '../../helpers/botUptime';
+import { LivePosition } from './LivePosition';
 import './aiTrading.css';
 
 interface IOrder {
@@ -166,6 +167,10 @@ export const Orders = observer(() => {
           </div>
         </div>
       </div>
+
+      {/* La position en cours ouvre la liste : ce que le robot fait maintenant,
+          juste avant ce qu'il a déjà fait. */}
+      <LivePosition />
 
       {loading ? (
         <div className="empty-state">

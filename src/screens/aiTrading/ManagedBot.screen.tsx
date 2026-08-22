@@ -13,7 +13,6 @@ import { Input } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
 import { BtcSparkline } from './BtcSparkline';
 import { BotBillingCard } from './BotBillingCard';
-import { LivePosition } from './LivePosition';
 import { botSinceLabel } from '../../helpers/botUptime';
 import { ToastService } from '../../services/toast.service';
 import './aiTrading.css';
@@ -115,10 +114,6 @@ export const ManagedBot = observer(() => {
           </div>
         ) : null}
       </section>
-
-      {/* Le robot au travail : position en cours et dernières fermetures,
-          avant les statistiques figées. */}
-      <LivePosition />
 
       <div className="bot-stats">
         <div className="bot-stat">
