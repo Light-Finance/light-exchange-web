@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { appRootStore } from '../../stores/root.store';
+import { BtcSparkline } from './BtcSparkline';
+import { fetchCandles } from '../../helpers/marketAnalysis';
 import {
   dailyGainEstimate,
   isLongSlot,
@@ -15,6 +17,11 @@ import {
 import './aiTrading.css';
 
 const TICK_MS = 1000;
+// Le marché est interrogé bien moins souvent que l'horloge : une bougie d'une
+// minute ne change pas 60 fois par minute, et une requête par seconde ferait
+// tomber l'app sur les limites de Binance.
+const PRICE_REFRESH_MS = 20000;
+const CANDLES = 60; // une heure de bougies d'une minute
 
 const mmss = (seconds: number) =>
   `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
@@ -32,10 +39,37 @@ const mmss = (seconds: number) =>
 export const LivePosition = observer(() => {
   const { managedStore } = appRootStore;
   const [now, setNow] = useState(Date.now());
+  const [market, setMarket] = useState<{ pair: string; closes: number[] }>({
+    pair: '',
+    closes: [],
+  });
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), TICK_MS);
     return () => clearInterval(id);
+  }, []);
+
+  // Bougies d'une minute de la paire en cours. Un échec réseau laisse
+  // simplement la carte sans graphique : le marché est une illustration, pas
+  // une donnée dont dépend le reste de l'écran.
+  useEffect(() => {
+    let alive = true;
+    const load = async () => {
+      const p = pairForSlot(slotAt(Date.now()));
+      try {
+        const candles = await fetchCandles(p.replace('/', ''), '1m', CANDLES);
+        if (!alive || candles.length < 2) return;
+        setMarket({ pair: p, closes: candles.map(c => c.close) });
+      } catch (e) {
+        // silencieux : voir le commentaire ci-dessus
+      }
+    };
+    load();
+    const id = setInterval(load, PRICE_REFRESH_MS);
+    return () => {
+      alive = false;
+      clearInterval(id);
+    };
   }, []);
 
   const account = managedStore.account;
@@ -54,6 +88,14 @@ export const LivePosition = observer(() => {
   const pnl = livePnl(daily, now);
   const up = pnl >= 0;
   const progress = Math.min(1, (now - slotStart(slot)) / SLOT_MS);
+
+  // Le graphique n'est montré que s'il correspond bien à la paire affichée :
+  // au changement de créneau, les anciennes bougies seraient trompeuses.
+  const closes = market.pair === pair ? market.closes : [];
+  const firstClose = closes[0] ?? 0;
+  const lastClose = closes[closes.length - 1] ?? 0;
+  const change = firstClose > 0 ? ((lastClose - firstClose) / firstClose) * 100 : 0;
+  const marketUp = change >= 0;
 
   return (
     <div className="live-pos">
@@ -81,6 +123,30 @@ export const LivePosition = observer(() => {
           </span>
         </div>
       </div>
+
+      {/* Le marché pendant la position : la paire suivie par le robot, minute
+          par minute. Rechargée quand le créneau change de paire. */}
+      {closes.length > 1 ? (
+        <div className="live-pos__chart">
+          <div className="live-pos__chart-head">
+            <span className="live-pos__chart-label">{pair} · 1 min</span>
+            <span
+              className="live-pos__chart-change"
+              style={{ color: marketUp ? 'var(--color-secondary-dark)' : 'var(--color-red)' }}
+            >
+              {lastClose.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} (
+              {marketUp ? '+' : ''}
+              {change.toFixed(2)}%)
+            </span>
+          </div>
+          <BtcSparkline
+            data={closes}
+            height={54}
+            color={marketUp ? 'var(--color-secondary)' : 'var(--color-red)'}
+            id="live-market"
+          />
+        </div>
+      ) : null}
 
       <div className="live-pos__track">
         <div className="live-pos__fill" style={{ width: `${progress * 100}%` }} />

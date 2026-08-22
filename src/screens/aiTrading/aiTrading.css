@@ -658,3 +658,22 @@
   font-size: 10.5px;
   opacity: 0.6;
 }
+.live-pos__chart {
+  margin-top: 10px;
+}
+.live-pos__chart-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.live-pos__chart-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  opacity: 0.75;
+}
+.live-pos__chart-change {
+  font-size: 10.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
