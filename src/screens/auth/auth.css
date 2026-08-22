@@ -164,3 +164,97 @@
   color: var(--color-white);
   font-weight: 700;
 }
+
+/* ── Sign-in promo: feature tiles + Play Store link ───────────────────────── */
+.promo {
+  width: 100%;
+  margin-top: 26px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  text-align: center;
+}
+.promo__title {
+  font-size: 19px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.promo__sub {
+  font-size: 13px;
+  opacity: 0.85;
+  line-height: 1.5;
+  margin: 0 auto 18px;
+  max-width: 46ch;
+}
+.promo__tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.promo__tile {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  text-align: left;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.promo__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.promo__tile-title {
+  font-weight: 800;
+  font-size: 13px;
+}
+.promo__tile-txt {
+  font-size: 11.5px;
+  line-height: 1.45;
+  opacity: 0.85;
+}
+.promo__store {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  border-radius: 12px;
+  background: #fff;
+  color: #17053a;
+  text-decoration: none;
+  font-weight: 700;
+}
+.promo__store:hover {
+  opacity: 0.9;
+}
+.promo__store-glyph {
+  font-size: 18px;
+  color: #17053a;
+}
+.promo__store-txt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+.promo__store-txt small {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.7;
+}
+.promo__store-txt strong {
+  font-size: 15px;
+}
+/* The auth panel is sized for a login form; the promo needs the room. */
+.auth__panel:has(.promo) {
+  max-width: 620px;
+}

@@ -281,7 +281,14 @@
     "buyTxt": "Taux achat",
     "sellTxt": "Taux vente",
     "title": "Ajouter des fonds",
-    "noticeTxt": "Voir infos plus haut"
+    "noticeTxt": "Voir infos plus haut",
+    "step1": "Envoyez vos fonds à cette adresse",
+    "step2": "Puis déclarez votre dépôt",
+    "amountLabel": "Montant envoye",
+    "referenceLabel": "Référence de la transaction (TXID)",
+    "networkLabel": "Réseau",
+    "addressCopied": "Adresse copiée",
+    "reviewNote": "Votre dépôt est crédité une fois la transaction vérifiée par l’équipe."
   },
   "tradingHome": {
     "title": "Trading",
@@ -328,7 +335,13 @@
   },
   "fiatWitdraw": {
     "withdrawBtn": "Retrait",
-    "amountErrorMsg": "Solde insuffisant"
+    "amountErrorMsg": "Solde insuffisant",
+    "amountLabel": "Montant à retirer",
+    "availableLabel": "Disponible",
+    "youReceive": "Vous recevez",
+    "notEnough": "Solde insuffisant. Disponible :",
+    "addressLabel": "Adresse de destination",
+    "networkNote": "Vérifiez le réseau avant de confirmer : des fonds envoyés sur le mauvais réseau sont perdus."
   },
   "walletTransfer": {
     "titleTxt": "Transfert"
@@ -337,7 +350,14 @@
     "spendPlaceholder": "0 - 1 000 000",
     "transferBtn": "Transfert",
     "confirmTransferBtn": "Confirmer le transfert",
-    "cancelBtn": "Annuler"
+    "cancelBtn": "Annuler",
+    "recipientLabel": "Destinataire",
+    "amountLabel": "Montant à envoyer",
+    "availableLabel": "Disponible",
+    "noFee": "Gratuit",
+    "recipientGets": "Le destinataire reçoit",
+    "notEnough": "Solde insuffisant. Disponible :",
+    "instantNote": "Transfert instantané entre comptes Light Exchange, sans frais."
   },
   "userByEmail": {
     "emailPh": "xxxx@gmail.com",
@@ -452,5 +472,22 @@
     "empty": "Aucune transaction",
     "emptyHint": "Vos opérations apparaîtront ici.",
     "emptyFiltered": "Aucune transaction de ce type."
+  },
+  "promo": {
+    "title": "Votre crypto, simplement.",
+    "subtitle": "Achetez, convertissez, envoyez et laissez le robot IA travailler — depuis votre téléphone ou votre navigateur.",
+    "botTitle": "LE AI BOT",
+    "botTxt": "Une stratégie automatisée qui travaille pour vous, avec un objectif mensuel et un rapport quotidien.",
+    "convertTitle": "Conversion instantanée",
+    "convertTxt": "Passez du LFC à l'USDT en un geste, à un taux affiché sans surprise.",
+    "walletTitle": "Ajouter des fonds",
+    "walletTxt": "Rechargez par virement crypto : votre dépôt est crédité après vérification.",
+    "transferTitle": "Transferts gratuits",
+    "transferTxt": "Envoyez vers un autre compte Light Exchange instantanément, sans frais.",
+    "ratesTitle": "Analyse de marché",
+    "ratesTxt": "BTC et ETH suivis en direct, avec une analyse lisible chaque matin.",
+    "secureTitle": "Compte vérifié",
+    "secureTxt": "Vérification d'identité et confirmation par email protègent les retraits.",
+    "storeSmall": "Disponible sur"
   }
 }

@@ -358,3 +358,180 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: var(--font-normal);
 }
+
+/* ── Shared money-screen blocks (convert / transfer / withdraw / add funds) ── */
+.w-card {
+  background: var(--color-surface, #fff);
+  border: 1px solid rgba(128, 128, 128, 0.18);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.w-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.w-amount {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  background: rgba(128, 128, 128, 0.07);
+  border-radius: 12px;
+  padding: 4px 12px;
+}
+.w-amount--readonly {
+  opacity: 0.75;
+}
+.w-amount__input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 24px;
+  font-weight: 800;
+  padding: 8px 0;
+  color: inherit;
+  font-family: inherit;
+}
+.w-amount__unit {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--color-secondary-dark);
+}
+.w-amount__max {
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--color-secondary-dark);
+  background: color-mix(in srgb, var(--color-secondary) 15%, transparent);
+}
+.w-sum {
+  background: rgba(128, 128, 128, 0.08);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.w-sum__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
+  gap: 12px;
+}
+.w-sum__label {
+  font-size: 12.5px;
+  font-weight: 600;
+  opacity: 0.65;
+}
+.w-sum__value {
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+.w-sum__value--fee {
+  color: var(--color-red);
+}
+.w-sum__value--strong {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-secondary-dark);
+}
+.w-banner {
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-size: 12px;
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+.w-banner--info {
+  background: #eef4ff;
+  color: #1b3a6b;
+}
+.w-banner--warn {
+  background: #fdecea;
+  color: var(--color-red);
+  font-weight: 600;
+}
+.w-arrow {
+  display: flex;
+  justify-content: center;
+  margin: -18px 0;
+  position: relative;
+  z-index: 2;
+}
+.w-arrow__circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  border: 3px solid var(--color-surface, #fff);
+}
+.w-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.w-step__badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.w-step__title {
+  font-weight: 800;
+  font-size: 13.5px;
+}
+.w-address {
+  background: rgba(128, 128, 128, 0.08);
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.w-address__value {
+  font-weight: 700;
+  font-size: 13px;
+  word-break: break-all;
+}
+.w-network {
+  align-self: flex-start;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--color-secondary-dark);
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+}
+.w-foot {
+  text-align: center;
+  font-size: 11.5px;
+  opacity: 0.6;
+  margin-top: 8px;
+}

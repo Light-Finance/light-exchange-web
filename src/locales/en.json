@@ -281,7 +281,14 @@
     "buyTxt": "Buy rate",
     "sellTxt": "Sell rate",
     "title": "Add funds",
-    "noticeTxt": "Use info above to proceed"
+    "noticeTxt": "Use info above to proceed",
+    "step1": "Send your funds to this address",
+    "step2": "Then declare your deposit",
+    "amountLabel": "Amount sent",
+    "referenceLabel": "Transaction reference (TXID)",
+    "networkLabel": "Network",
+    "addressCopied": "Address copied",
+    "reviewNote": "Your deposit is credited once the team has checked the transaction."
   },
   "tradingHome": {
     "title": "Trading",
@@ -328,7 +335,13 @@
   },
   "fiatWitdraw": {
     "withdrawBtn": "Withdraw",
-    "amountErrorMsg": "Insufficient balance"
+    "amountErrorMsg": "Insufficient balance",
+    "amountLabel": "Amount to withdraw",
+    "availableLabel": "Available",
+    "youReceive": "You receive",
+    "notEnough": "Not enough funds. Available:",
+    "addressLabel": "Destination address",
+    "networkNote": "Check the network before confirming: funds sent to the wrong network are lost."
   },
   "walletTransfer": {
     "titleTxt": "Transfer"
@@ -337,7 +350,14 @@
     "spendPlaceholder": "0 - 1 000 000",
     "transferBtn": "Transfer",
     "confirmTransferBtn": "Confirm transfer",
-    "cancelBtn": "Cancel"
+    "cancelBtn": "Cancel",
+    "recipientLabel": "Recipient",
+    "amountLabel": "Amount to send",
+    "availableLabel": "Available",
+    "noFee": "Free",
+    "recipientGets": "Recipient receives",
+    "notEnough": "Not enough funds. Available:",
+    "instantNote": "Instant transfer between Light Exchange accounts, no fee."
   },
   "userByEmail": {
     "emailPh": "xxxx@gmail.com",
@@ -452,5 +472,22 @@
     "empty": "No transactions",
     "emptyHint": "Your operations will show up here.",
     "emptyFiltered": "No transaction of this type."
+  },
+  "promo": {
+    "title": "Your crypto, simply.",
+    "subtitle": "Buy, convert, send and let the AI bot work — from your phone or your browser.",
+    "botTitle": "LE AI BOT",
+    "botTxt": "An automated strategy that works for you, with a monthly target and a daily report.",
+    "convertTitle": "Instant convert",
+    "convertTxt": "Swap between LFC and USDT in a tap, at a clear rate with no surprise.",
+    "walletTitle": "Add funds",
+    "walletTxt": "Top up by crypto transfer and get credited once the team has checked it.",
+    "transferTitle": "Free transfers",
+    "transferTxt": "Send to another Light Exchange account instantly, no fee.",
+    "ratesTitle": "Market analysis",
+    "ratesTxt": "BTC and ETH followed live, with a readable analysis every morning.",
+    "secureTitle": "Verified account",
+    "secureTxt": "ID verification and email confirmation protect withdrawals.",
+    "storeSmall": "Get it on"
   }
 }

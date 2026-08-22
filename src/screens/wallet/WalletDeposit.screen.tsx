@@ -10,12 +10,19 @@ import { Input } from '../../components/ui/Field';
 import { Button } from '../../components/ui/Button';
 import { WalletBalance } from './WalletBalance';
 import { WalletLayout } from './components';
+import {
+  AmountInput,
+  FieldLabel,
+  InfoBanner,
+  StepHeader,
+  WalletCard,
+} from './ui';
 
 /** Mobile uses @react-native-clipboard; the browser has the async clipboard. */
 const copyToClipboard = async (text: string) => {
   try {
     await navigator.clipboard.writeText(text);
-    ToastService.show(translate('successMessages.codeCopied'));
+    ToastService.show(translate('walletDeposit.addressCopied'));
   } catch (e) {
     ToastService.show(translate('successMessages.codeCopied'), ToastService.ERROR);
   }
@@ -83,47 +90,57 @@ export const WalletDeposit = observer(() => {
     <WalletLayout title={translate('walletDeposit.title')}>
       <WalletBalance cryptoOnly />
 
-      <div className="card stack">
-        <strong>{selectedCrypto?.network}</strong>
+      {/* Etape 1 : l'adresse. C'est ce que l'utilisateur vient chercher, donc
+          elle passe en premier et en grand. */}
+      <WalletCard>
+        <StepHeader n={1}>{translate('walletDeposit.step1')}</StepHeader>
 
-        <div className="address-box">
-          <span style={{ flex: 1 }}>{depositAddress}</span>
-          <button
-            type="button"
-            className="balance__refresh"
-            onClick={() => copyToClipboard(depositAddress ?? '')}
-            aria-label="Copy address"
-          >
-            <FontAwesomeIcon icon={faCopy} style={{ color: 'var(--color-secondary)' }} />
-          </button>
-        </div>
-
-        <p style={{ color: 'var(--color-red)', fontWeight: 600 }}>
-          {translate('rechargeCrypto.warningTxt')}
-        </p>
-
-        <Input
-          inputMode="decimal"
-          placeholder={`${translate('rechargeCrypto.amountPh')}${
-            selectedCrypto?.name ? ` (${selectedCrypto.name})` : ''
-          }`}
-          value={amount}
-          onChange={e => setAmount(e.target.value)}
-        />
-        {!isLFC ? (
-          <Input
-            placeholder="TXID ou ton adresse d'envoi"
-            value={reference}
-            onChange={e => setReference(e.target.value)}
-          />
+        {selectedCrypto?.network ? (
+          <span className="w-network">
+            {translate('walletDeposit.networkLabel')} · {selectedCrypto.network}
+          </span>
         ) : null}
 
-        <Button block onClick={declareDeposit}>
-          {translate('rechargeCrypto.rechargeBtn')}
-        </Button>
+        <div className="w-address">
+          <span className="w-address__value">{depositAddress}</span>
+          <Button onClick={() => copyToClipboard(depositAddress ?? '')}>
+            <FontAwesomeIcon icon={faCopy} /> Copier
+          </Button>
+        </div>
 
-        <p className="muted">{translate('rechargeCrypto.actionTxt')}</p>
-      </div>
+        <InfoBanner tone="warn">{translate('rechargeCrypto.warningTxt')}</InfoBanner>
+      </WalletCard>
+
+      {/* Etape 2 : la declaration, qui declenche la verification. */}
+      <WalletCard>
+        <StepHeader n={2}>{translate('walletDeposit.step2')}</StepHeader>
+
+        <FieldLabel>{translate('walletDeposit.amountLabel')}</FieldLabel>
+        <AmountInput
+          value={amount}
+          unit={selectedCrypto?.name?.toUpperCase()}
+          onChange={setAmount}
+        />
+
+        {!isLFC ? (
+          <>
+            <FieldLabel>{translate('walletDeposit.referenceLabel')}</FieldLabel>
+            <Input
+              placeholder="TXID"
+              value={reference}
+              onChange={e => setReference(e.target.value)}
+            />
+          </>
+        ) : null}
+
+        <InfoBanner>{translate('walletDeposit.reviewNote')}</InfoBanner>
+      </WalletCard>
+
+      <Button block onClick={declareDeposit}>
+        {translate('rechargeCrypto.rechargeBtn')}
+      </Button>
+
+      <p className="w-foot">{translate('rechargeCrypto.actionTxt')}</p>
     </WalletLayout>
   );
 });
