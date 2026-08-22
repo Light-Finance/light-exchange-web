@@ -13,6 +13,7 @@ const MANAGED_ACCOUNT = gql`
       equity
       monthRate
       monthPct
+      monthPnl
       allTimePnl
       curve {
         t
@@ -105,6 +106,8 @@ export interface IManagedAccount {
   equity: number;
   monthRate?: number | null;
   monthPct: number;
+  /** Gain du mois en LFC, identique au total de la liste des ordres. */
+  monthPnl?: number;
   allTimePnl: number;
   curve: { t: string; value: number; pnl: number }[];
 }

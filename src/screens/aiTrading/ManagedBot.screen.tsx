@@ -40,7 +40,10 @@ export const ManagedBot = observer(() => {
   const lfcBalance = walletStore.getLFCWallet()?.balance ?? 0;
   const equity = account?.equity ?? 0;
   const principal = account?.principal ?? 0;
-  const pnl = account?.allTimePnl ?? 0;
+  // Le gain du mois, pas le cumul depuis l'ouverture : c'est le chiffre que la
+  // liste des ordres additionne, et il vient du serveur pour que les deux
+  // ecrans ne puissent pas diverger.
+  const pnl = account?.monthPnl ?? 0;
   const monthPct = account?.monthPct ?? 0;
   const monthRate = account?.monthRate;
   const curve = (account?.curve ?? []).map(p => p.value);
@@ -118,7 +121,7 @@ export const ManagedBot = observer(() => {
           <div className="bot-stat__value">{principal.toFixed(2)} LFC</div>
         </div>
         <div className="bot-stat">
-          <div className="bot-stat__label">Gain / Perte latente total</div>
+          <div className="bot-stat__label">Gain de ce mois</div>
           <div
             className="bot-stat__value"
             style={{ color: up ? 'var(--color-secondary)' : 'var(--color-red)' }}
