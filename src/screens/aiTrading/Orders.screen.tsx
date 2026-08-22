@@ -11,6 +11,8 @@ interface IOrder {
   pnlPct: number;
   win: boolean;
   pair: string;
+  /** Journee (UTC) a laquelle l'ordre appartient, pour le regroupement. */
+  dayKey: string;
 }
 
 interface IDaySection {
@@ -26,10 +28,7 @@ interface IDaySection {
 function groupByDay(orders: IOrder[]): IDaySection[] {
   const byDay = new Map<string, IDaySection>();
   for (const o of orders) {
-    const d = new Date(o.date);
-    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(
-      d.getDate(),
-    ).padStart(2, '0')}`;
+    const key = o.dayKey;
     let section = byDay.get(key);
     if (!section) {
       section = { key, total: 0, wins: 0, orders: [] };
@@ -58,8 +57,8 @@ function buildOrders(account: any): IOrder[] {
   if (!account || (account.principal ?? 0) <= 0) return [];
   const curve = account.curve ?? [];
   const now = new Date();
-  const y = now.getFullYear();
-  const m = now.getMonth();
+  const y = now.getUTCFullYear();
+  const m = now.getUTCMonth();
   const parseT = (t: any) => (/^\d+$/.test(String(t)) ? parseInt(t, 10) : new Date(t).getTime());
   const out: IOrder[] = [];
   const nowMs = now.getTime();
@@ -69,9 +68,15 @@ function buildOrders(account: any): IOrder[] {
     const exit = curve[i].value;
     const dayStart = parseT(curve[i - 1].t);
     const dayEnd = parseT(curve[i].t);
-    const d = new Date(dayEnd);
-    // Keep this month's orders (they build toward the monthly %).
-    if (d.getFullYear() !== y || d.getMonth() !== m) continue;
+      // On garde les journees qui COMMENCENT dans le mois courant, en UTC :
+    // filtrer sur la fin incluait la derniere journee du mois precedent, et le
+    // total ne correspondait alors plus au "% du mois" de l'ecran principal.
+    const d = new Date(dayStart);
+    if (d.getUTCFullYear() !== y || d.getUTCMonth() !== m) continue;
+    // Cle de journee prise sur la borne de debut : les ordres sont repartis
+    // sur les 24h qui suivent, les regrouper par leur propre horodatage les
+    // aurait eclates sur deux dates locales.
+    const dayKey = d.toISOString().slice(0, 10);
 
     // Use the server's per-day gain (units revalued by the NAV change), not the
     // value delta — value steps on deposits/withdrawals, which aren't gains.
@@ -104,6 +109,7 @@ function buildOrders(account: any): IOrder[] {
         pnlPct,
         win: pnlLfc >= 0,
         pair: PAIRS[k % PAIRS.length],
+        dayKey,
       });
     }
   }
@@ -171,10 +177,11 @@ export const Orders = observer(() => {
           <div key={day.key}>
             <div className="order-day">
               <span className="order-day__label">
-                {new Date(day.orders[0].date).toLocaleDateString('fr-FR', {
+                {new Date(`${day.key}T00:00:00Z`).toLocaleDateString('fr-FR', {
                   weekday: 'short',
                   day: '2-digit',
                   month: 'short',
+                  timeZone: 'UTC',
                 })}
               </span>
               <span className="order-day__count">
