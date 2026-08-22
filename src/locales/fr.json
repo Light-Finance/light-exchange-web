@@ -182,7 +182,10 @@
     "titleTxt": "Méthodes de paiement",
     "addBtn": "Ajouter un numéro",
     "addSuccessTxt": "Numéro ajouté",
-    "noticeTxt": "Appuyez plus haut"
+    "noticeTxt": "Appuyez plus haut",
+    "walletHint": "Vers une adresse crypto",
+    "mobileHint": "Vers votre numéro mobile money",
+    "chooseTitle": "Choisissez une méthode de retrait"
   },
   "recharge": {
     "titleTxt": "Recharger le compte",
@@ -306,7 +309,11 @@
     "issueTxt": "Problème ? Contactez-nous",
     "failedDescription": "Erreur lors de la transaction",
     "successfulDescription": "Transaction effectuée",
-    "pendingDescription": "En cours — email envoyé quand terminé"
+    "pendingDescription": "En cours — email envoyé quand terminé",
+    "pending": "Transaction en cours",
+    "amountLabel": "Montant envoyé",
+    "receivedLabel": "Reçu",
+    "referenceLabel": "Référence"
   },
   "transactionConfirmation": {
     "titleTxt": "Confirmer la transaction",

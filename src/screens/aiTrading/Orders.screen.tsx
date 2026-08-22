@@ -144,13 +144,19 @@ export const Orders = observer(() => {
 
       <div className="orders-summary">
         <div className="bot-stat">
-          <div className="bot-stat__label">Ordres ce mois</div>
+          <div className="bot-stat__label">Ordres de ce mois</div>
           <div className="bot-stat__value">{orders.length}</div>
         </div>
         <div className="bot-stat">
-          <div className="bot-stat__label">Gagnants</div>
-          <div className="bot-stat__value">
-            {wins}/{orders.length}
+          <div className="bot-stat__label">Ordres gagnants</div>
+          <div className="bot-stat__value" style={{ color: 'var(--color-secondary)' }}>
+            {wins}
+          </div>
+        </div>
+        <div className="bot-stat">
+          <div className="bot-stat__label">Ordres perdants</div>
+          <div className="bot-stat__value" style={{ color: 'var(--color-red)' }}>
+            {orders.length - wins}
           </div>
         </div>
       </div>

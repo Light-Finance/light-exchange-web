@@ -61,23 +61,37 @@ export const WalletWithdraw = observer(() => {
           </Button>
         </div>
       ) : (
-        <div className="wallet-actions">
-          {paymentMethods.map(method => (
-            <button
-              key={method.name}
-              type="button"
-              className="wallet-action"
-              onClick={() => choose(method.name!)}
-            >
-              <img
-                src={getIcon(method.name!)}
-                alt=""
-                style={{ width: 50, height: 50, objectFit: 'contain' }}
-              />
-              <span style={{ flex: 1 }}>{method.name}</span>
-              <FontAwesomeIcon icon={faChevronRight} />
-            </button>
-          ))}
+        <div>
+          <p className="pm-title">{translate('paymentMethod.chooseTitle')}</p>
+          {paymentMethods.map(method => {
+            // A row is worth a tap only if it says where the money lands.
+            const isWallet =
+              method.name?.toLowerCase() ===
+              lightexchange.app.PAYMENT_METHOD.WALLET.toLowerCase();
+            return (
+              <button
+                key={method.name}
+                type="button"
+                className="pm-card"
+                onClick={() => choose(method.name!)}
+              >
+                <span className="pm-card__logo">
+                  <img src={getIcon(method.name!)} alt="" />
+                </span>
+                <span className="pm-card__texts">
+                  <span className="pm-card__name">{method.name}</span>
+                  <span className="pm-card__hint">
+                    {isWallet
+                      ? translate('paymentMethod.walletHint')
+                      : translate('paymentMethod.mobileHint')}
+                  </span>
+                </span>
+                <span className="pm-card__chevron">
+                  <FontAwesomeIcon icon={faChevronRight} />
+                </span>
+              </button>
+            );
+          })}
         </div>
       )}
     </WalletLayout>

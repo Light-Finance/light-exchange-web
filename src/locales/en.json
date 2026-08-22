@@ -181,7 +181,10 @@
     "titleTxt": "Payment method",
     "addBtn": "Add a number",
     "addSuccessTxt": "Number added",
-    "noticeTxt": "Tap above to proceed"
+    "noticeTxt": "Tap above to proceed",
+    "walletHint": "To a crypto address",
+    "mobileHint": "To your mobile money number",
+    "chooseTitle": "Choose a withdrawal method"
   },
   "recharge": {
     "titleTxt": "Recharge account",
@@ -306,7 +309,11 @@
     "issueTxt": "Issue? Contact us",
     "failedDescription": "Transaction processing error",
     "successfulDescription": "Transaction completed",
-    "pendingDescription": "Processing — email sent when done"
+    "pendingDescription": "Processing — email sent when done",
+    "pending": "Transaction in progress",
+    "amountLabel": "Amount sent",
+    "receivedLabel": "Received",
+    "referenceLabel": "Reference"
   },
   "transactionConfirmation": {
     "titleTxt": "Confirm transaction",
