@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { appRootStore } from '../../stores/root.store';
+import { botSinceLabel } from '../../helpers/botUptime';
 import './aiTrading.css';
 
 interface IOrder {
@@ -123,11 +124,13 @@ export const Orders = observer(() => {
   // The sub-order PnLs sum exactly to each day's move, so this is the month's
   // real equity change rather than an approximation.
   const totalPnl = orders.reduce((sum, o) => sum + o.pnlLfc, 0);
+  const since = botSinceLabel(account?.startedAt);
   const loading = managedStore.isLoading && !account;
 
   return (
     <div className="stack">
       <h1 className="screen-title">Ordres du bot</h1>
+      {since ? <p className="orders-since">🤖 {since}</p> : null}
 
       <div
         className={`orders-total ${totalPnl >= 0 ? "orders-total--up" : "orders-total--down"}`}

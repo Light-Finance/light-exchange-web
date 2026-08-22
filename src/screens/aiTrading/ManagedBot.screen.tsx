@@ -13,6 +13,7 @@ import { Input } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
 import { BtcSparkline } from './BtcSparkline';
 import { BotBillingCard } from './BotBillingCard';
+import { botSinceLabel } from '../../helpers/botUptime';
 import { ToastService } from '../../services/toast.service';
 import './aiTrading.css';
 
@@ -43,6 +44,7 @@ export const ManagedBot = observer(() => {
   const monthPct = account?.monthPct ?? 0;
   const monthRate = account?.monthRate;
   const curve = (account?.curve ?? []).map(p => p.value);
+  const since = botSinceLabel(account?.startedAt);
   const up = pnl >= 0;
 
   const submit = async () => {
@@ -97,6 +99,8 @@ export const ManagedBot = observer(() => {
           </button>
         </div>
         <p className="bot-hero__equity">{equity.toFixed(2)} LFC</p>
+        {/* Sans dépôt, le bot ne travaille pas : `since` est alors null. */}
+        {since ? <p className="bot-hero__since">🤖 {since}</p> : null}
         {monthRate != null ? (
           <p className="bot-hero__target">Objectif du mois · {(monthRate * 100).toFixed(1)}%</p>
         ) : null}

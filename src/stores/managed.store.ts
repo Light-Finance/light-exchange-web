@@ -6,6 +6,7 @@ import { Service } from '../services/service.service';
 const MANAGED_ACCOUNT = gql`
   query managedAccount($userId: ID!) {
     managedAccount(userId: $userId) {
+      startedAt
       principal
       units
       nav
@@ -96,6 +97,8 @@ export interface IReferralTeam {
 }
 
 export interface IManagedAccount {
+  /** First deposit — when the bot started working for this user. */
+  startedAt?: string | null;
   principal: number;
   units: number;
   nav: number;
