@@ -6,7 +6,6 @@ import { Input } from '../../components/ui/Field';
 import { Button } from '../../components/ui/Button';
 import { AuthLayout } from './AuthLayout';
 import { Password, TextLink, GoogleButton } from './components';
-import { AppPromo } from './AppPromo';
 
 export const SignIn = observer(() => {
   const navigate = useNavigate();
@@ -45,7 +44,6 @@ export const SignIn = observer(() => {
       </form>
       <GoogleButton>{translate('googleButton.logInGoogleBtn')}</GoogleButton>
       <TextLink onClick={() => navigate('/signup')}>{translate('signIn.signUpBtn')}</TextLink>
-      <AppPromo />
     </AuthLayout>
   );
 });

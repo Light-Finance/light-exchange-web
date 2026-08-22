@@ -40,6 +40,7 @@ export const WalletHome = observer(() => {
     { label: translate('walletHome.convertBtn'), icon: faArrowRightArrowLeft, onClick: () => walletStore.navigateToConvert() },
     { label: translate('walletHome.transferBtn'), icon: faPaperPlane, onClick: () => walletStore.navigateToTransfer() },
     { label: translate('walletHome.contactBtn'), icon: faWhatsapp, onClick: () => authStore.toContactUs() },
+    { label: translate('walletHome.learnBtn'), icon: faPlayCircle, onClick: () => navigate('/tutorials') },
   ];
 
   return (
@@ -114,14 +115,6 @@ export const WalletHome = observer(() => {
         ))}
       </div>
 
-      <button
-        type="button"
-        className="wallet-learn"
-        onClick={() => navigate('/tutorials')}
-      >
-        <FontAwesomeIcon icon={faPlayCircle} />
-        <span>{translate('walletHome.learnBtn')}</span>
-      </button>
     </div>
   );
 });

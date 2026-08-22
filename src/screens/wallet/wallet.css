@@ -174,28 +174,6 @@
   text-align: center;
 }
 
-.wallet-learn {
-  display: flex;
-  align-items: center;
-  gap: var(--space-medium);
-  width: 100%;
-  padding: var(--space-medium);
-  margin-top: var(--space-small);
-  background: var(--color-secondary);
-  border: none;
-  border-radius: var(--radius-medium);
-  box-shadow: var(--shadow-card);
-  color: var(--color-white);
-  font-size: var(--font-medium);
-  font-weight: 600;
-  text-align: left;
-  cursor: pointer;
-}
-
-.wallet-learn:hover {
-  filter: brightness(1.05);
-}
-
 @media (min-width: 768px) {
   .wallet-actions {
     grid-template-columns: repeat(6, 1fr);

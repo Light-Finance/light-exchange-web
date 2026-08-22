@@ -4,6 +4,7 @@ import { APP } from '../../consts/app';
 import { translate } from '../../helpers/localization';
 import { Button } from '../../components/ui/Button';
 import logo from '../../assets/imgs/logo.png';
+import { AppPromo } from './AppPromo';
 import './auth.css';
 
 export const Welcome = () => {
@@ -27,6 +28,7 @@ export const Welcome = () => {
         <Button block variant="secondary" onClick={() => navigate('/signup')}>
           {translate('signIn.signUpBtn')}
         </Button>
+        <AppPromo />
         <p className="auth__footer">
           {lightexchange.app.INFO.COPYRIGHT} {APP.INFO.APP_VERSION}
         </p>

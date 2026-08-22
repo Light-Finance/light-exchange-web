@@ -185,6 +185,11 @@ export class TradeStore {
     ) {
       return;
     }
+    // Captured BEFORE determineWalletIds: creating a missing destination wallet
+    // refetches the list, which can move selectedWallet. Reading the initiator
+    // afterwards then named a wallet that is not the one being spent from, and
+    // the API rejected the pair.
+    const initiatorWallet = this.rootStore!.walletStore.selectedWallet!.id!;
     const walletIds = await this.determineWalletIds();
     if (!walletIds) return; // invalid conversion (same crypto / wallet create failed)
     // `walletAddress` and the transfer fields below are attached after the
@@ -192,7 +197,7 @@ export class TradeStore {
     const values: Record<string, any> = {
       spend: parseFloat(this.transaction!.spend!),
       type: type,
-      initiatorWallet: this.rootStore!.walletStore.selectedWallet!.id!,
+      initiatorWallet,
       userIds:
         this.transaction?.userIds!.length! > 0
           ? this.transaction?.userIds
