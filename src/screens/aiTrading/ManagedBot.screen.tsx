@@ -191,14 +191,6 @@ export const ManagedBot = observer(() => {
         </Button>
       </div>
 
-      <div className="bot-note bot-note--info">
-        <div className="bot-note__title">ℹ️ À savoir</div>
-        <p>
-          La performance est gérée par l'IA de Light Exchange et varie en fonction du marché.
-          Retrait possible à tout moment (frais de retrait 5%).
-        </p>
-      </div>
-
       <BotBillingCard onSubscribed={() => managedStore.load()} />
 
       {dialog ? (
