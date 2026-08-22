@@ -29,8 +29,24 @@ const MODULE_STYLE: Record<string, { icon: any; color: string }> = {
   [MODULES.bot]: { icon: faRobot, color: 'var(--color-secondary-dark)' },
   [MODULES.notification]: { icon: faBell, color: 'var(--color-secondary)' },
 };
-const moduleStyle = (type?: string) =>
-  MODULE_STYLE[type as string] || { icon: faBell, color: 'var(--color-secondary)' };
+// The dashboard used to take the type as free text, so the table holds
+// variants like "TRADING" and "WITHDRAWAL" that never matched these keys and
+// fell back to the generic bell. Matching is case-insensitive, and the few
+// admin-typed words that are really a module in disguise are aliased.
+const TYPE_ALIASES: Record<string, string> = {
+  withdrawal: MODULES.wallet,
+  deposit: MODULES.wallet,
+  transfer: MODULES.wallet,
+  trade: MODULES.trading,
+  security: MODULES.authentication,
+};
+const moduleStyle = (type?: string) => {
+  const key = (type || '').trim().toLowerCase();
+  const resolved = TYPE_ALIASES[key] || key;
+  return (
+    MODULE_STYLE[resolved] || { icon: faBell, color: 'var(--color-secondary)' }
+  );
+};
 
 const toMillis = (value?: string): number => {
   if (!value) return 0;
