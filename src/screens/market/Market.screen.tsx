@@ -26,6 +26,8 @@ export const Market = observer(() => {
   const [dialog, setDialog] = useState<Dialog>(null);
   const [amount, setAmount] = useState('');
   const [busy, setBusy] = useState(false);
+  const [query, setQuery] = useState('');
+  const [kind, setKind] = useState<'all' | 'crypto' | 'stock'>('all');
 
   useEffect(() => {
     (async () => {
@@ -62,6 +64,19 @@ export const Market = observer(() => {
   };
 
   const pnlTotal = marketStore.totalValue - marketStore.totalCost;
+
+  // La recherche porte sur le ticker, le nom et le symbole : on cherche
+  // "apple" comme on cherche "AAPL", et parfois la paire complete.
+  const needle = query.trim().toLowerCase();
+  const shown = marketStore.assets.filter(a => {
+    if (kind !== 'all' && a.kind !== kind) return false;
+    if (!needle) return true;
+    return (
+      a.shortName.toLowerCase().includes(needle) ||
+      a.name.toLowerCase().includes(needle) ||
+      a.symbol.toLowerCase().includes(needle)
+    );
+  });
 
   return (
     <div className="stack">
@@ -130,8 +145,35 @@ export const Market = observer(() => {
       ) : null}
 
       <h2 className="mk-heading">Acheter</h2>
+
+      <div className="mk-filters">
+        <input
+          className="mk-search"
+          type="search"
+          placeholder="Rechercher un actif"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+        />
+        <div className="mk-kinds">
+          {([
+            ['all', 'Tous'],
+            ['crypto', 'Cryptos'],
+            ['stock', 'Actions'],
+          ] as const).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              className={`mk-kind${kind === value ? ' is-on' : ''}`}
+              onClick={() => setKind(value)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="mk-assets">
-        {marketStore.assets.map(a => (
+        {shown.map(a => (
           <button
             key={a.id}
             type="button"
@@ -161,8 +203,12 @@ export const Market = observer(() => {
             ) : null}
           </button>
         ))}
-        {marketStore.assets.length === 0 && !marketStore.isLoading ? (
-          <p className="muted">Aucun actif disponible pour le moment.</p>
+        {shown.length === 0 && !marketStore.isLoading ? (
+          <p className="muted">
+            {marketStore.assets.length === 0
+              ? 'Aucun actif disponible pour le moment.'
+              : 'Aucun actif ne correspond à cette recherche.'}
+          </p>
         ) : null}
       </div>
 

@@ -191,3 +191,47 @@
   font-weight: 700;
   color: var(--color-red);
 }
+
+/* Recherche et filtre par type, au-dessus de la grille. */
+.mk-filters {
+  display: flex;
+  gap: var(--space-small);
+  flex-wrap: wrap;
+  align-items: center;
+}
+.mk-search {
+  flex: 1 1 180px;
+  min-height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-normal);
+}
+.mk-search:focus {
+  outline: none;
+  border-color: var(--color-secondary);
+}
+.mk-kinds {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgba(128, 57, 221, 0.08);
+}
+.mk-kind {
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 14px;
+  background: transparent;
+  font-size: var(--font-normal);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.mk-kind.is-on {
+  background: var(--color-surface);
+  color: var(--color-secondary);
+  box-shadow: var(--shadow-card);
+}
