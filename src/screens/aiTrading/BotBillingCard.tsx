@@ -120,11 +120,13 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
                   ? 'capital géré sans plafond'
                   : `gère jusqu'à ${fmt(tier.cap)} USDT`}
               </span>
-              <span className="bot-tier__after">
-                {affordable
-                  ? `Solde après : ${(balance - tier.price).toFixed(2)} USDT`
-                  : `Il vous manque ${(tier.price - balance).toFixed(2)} USDT`}
-              </span>
+              {/* Rien a dire quand le palier est hors budget : le fond gris le
+                  dit deja, et chiffrer le manque enfonce le clou. */}
+              {affordable ? (
+                <span className="bot-tier__after">
+                  Solde après : {(balance - tier.price).toFixed(2)} USDT
+                </span>
+              ) : null}
             </button>
           );
         })}
