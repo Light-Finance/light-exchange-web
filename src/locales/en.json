@@ -64,7 +64,7 @@
     "phoneTxt": "Your phone number",
     "affiliateBtn": "Affiliate Program",
     "shareBtn": "Share the App",
-    "merchantBtn": "Be LFC Merchant",
+    "merchantBtn": "Be USDT Merchant",
     "tutorialsBtn": "Tutorials",
     "shareReferralCode": "Use my referral code:",
     "shareCopied": "Link & referral code copied!",
@@ -82,18 +82,6 @@
     "idRefreshStatus": "Refresh Status",
     "idVerificationRequested": "Request sent to admin",
     "countryTriesLeft": "{{count}} change(s) remaining"
-  },
-  "lfcMerchant": {
-    "title": "LFC Merchant",
-    "headline": "Become an LFC Merchant",
-    "description": "Our LFC Merchant program lets you buy LFC directly from us at a preferential price, so you can resell it and earn a margin.",
-    "priceLabel": "Preferential price",
-    "priceUnit": "per 1 LFC",
-    "conditionsTitle": "Conditions to become a merchant",
-    "condition1": "Experienced with P2P trading on other platforms",
-    "condition2": "Have used at least one product on Light Exchange",
-    "description2": "Interested? Contact us on WhatsApp and our team will guide you through the process.",
-    "contactBtn": "Contact us on WhatsApp"
   },
   "affiliateProgram": {
     "AffiliateProgramTxt": "Affiliate Program",
@@ -299,7 +287,12 @@
     "referenceLabel": "Transaction reference (TXID)",
     "networkLabel": "Network",
     "addressCopied": "Address copied",
-    "reviewNote": "Your deposit is credited once the team has checked the transaction."
+    "reviewNote": "Your deposit is credited once the team has checked the transaction.",
+    "mode": {
+      "onchain": "On-chain transfer",
+      "email": "By email"
+    },
+    "emailHint": "Give this email to whoever is sending you USDT from Light Exchange. The amount lands straight in your balance, with no network fee."
   },
   "tradingHome": {
     "title": "Trading",
@@ -335,14 +328,13 @@
   },
   "walletWithdraw": {
     "titleTxt": "Withdraw",
-    "lfcTransferOnly": "LFC cannot be withdrawn directly. Send it to another user via Transfer, or convert it to USDT first.",
     "goToTransfer": "Go to Transfer",
     "amountToWithdrawInput": "Withdrawal amount",
     "addressToWithdrawInput": "External wallet address",
     "withdrawBtn": "Withdraw",
     "withdrawTxt": "Withdrawal",
     "feesTxt": "Fees",
-    "fiat": "LFC withdrawal: use Transfer",
+    "fiat": "USDT withdrawal: use Transfer",
     "transfer": "Transfer"
   },
   "walletWithdrawC": {
@@ -396,7 +388,7 @@
     "chooseWallet": "Select wallet"
   },
   "rechargeGetWallet": {
-    "acquireLF": "Use your email to receive LFC"
+    "acquireLF": "Use your email to receive USDT"
   },
   "notification": {},
   "aiTrading": {
@@ -412,15 +404,15 @@
     "runningFor": "Running for",
     "finalPnl": "Final PnL",
     "closed": "CLOSED",
-    "amountLabel": "Amount (LFC)",
-    "amountPlaceholder": "Min. %{min} LFC",
+    "amountLabel": "Amount (USDT)",
+    "amountPlaceholder": "Min. %{min} USDT",
     "available": "Available:",
     "leverageLabel": "Leverage",
     "estimatedReturn": "Est. return (30 days)",
     "liquidationThreshold": "Liquidation price",
     "liquidationWarning": "If liquidation price is hit, position closes at 0 profit.",
     "confirmCopy": "Copy Bot",
-    "insufficientBalance": "Insufficient LFC balance",
+    "insufficientBalance": "Insufficient USDT balance",
     "invalidAmount": "Enter a valid amount",
     "unsubscribeSuccess": "Position closed",
     "runningBotsTitle": "Running Bots",
@@ -440,7 +432,7 @@
     "vaultNavBtn": "Vault",
     "vaultDescription": "Funds here are automatically invested in full whenever a new bot starts.",
     "vaultBalanceLabel": "Vault balance",
-    "vaultAmountPlaceholder": "Amount (LFC)",
+    "vaultAmountPlaceholder": "Amount (USDT)",
     "vaultDepositBtn": "Deposit",
     "vaultWithdrawBtn": "Withdraw",
     "vaultDepositSuccess": "Deposited to vault",
@@ -502,5 +494,17 @@
     "secureTitle": "Verified account",
     "secureTxt": "ID verification and email confirmation protect withdrawals.",
     "storeSmall": "Get it on"
+  },
+  "merchant": {
+    "title": "USDT Merchant",
+    "headline": "Become a USDT Merchant",
+    "description": "Our USDT Merchant programme lets you buy USDT directly from us at a preferential price, to resell it and earn a margin.",
+    "priceLabel": "Preferential price",
+    "priceUnit": "for 1 USDT",
+    "conditionsTitle": "Conditions to become a merchant",
+    "condition1": "Experienced with P2P trading on other platforms",
+    "condition2": "Have used at least one product on Light Exchange",
+    "description2": "Interested? Contact us on WhatsApp and our team will guide you through the process.",
+    "contactBtn": "Contact us on WhatsApp"
   }
 }

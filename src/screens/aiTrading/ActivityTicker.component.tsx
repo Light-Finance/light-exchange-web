@@ -53,7 +53,7 @@ export const ActivityTicker = observer(() => {
           <span className="ticker__email">{item.label}</span>
           {won ? ' vient de gagner ' : ' vient de perdre '}
           <span style={{ fontWeight: 800, color: won ? 'var(--color-secondary)' : 'var(--color-red)' }}>
-            {amount} LFC
+            {amount} USDT
           </span>
         </span>
       </span>

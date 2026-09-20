@@ -78,9 +78,9 @@ export class WalletStore {
       ROUTES.mainNavigation.tabNavigation.walletNavigation.walletTransfer,
     );
   };
-  @action getLFCWallet = () => {
+  @action getUsdtWallet = () => {
     return this.wallets?.find(
-      wallet => wallet.crypto?.name?.toLowerCase() === 'lfc',
+      wallet => wallet.crypto?.name?.toLowerCase() === 'usdt',
     );
   };
   @action setWallets(wallets: IWallet[]) {

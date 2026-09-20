@@ -28,7 +28,7 @@ export const SpinWheel = observer(() => {
   const [frozenBalance, setFrozenBalance] = useState<number | null>(null);
   const turns = useRef(0);
 
-  const balance = walletStore.getLFCWallet()?.balance ?? 0;
+  const balance = walletStore.getUsdtWallet()?.balance ?? 0;
   const shownBalance = frozenBalance != null ? frozenBalance : balance;
   const canSpin = !spinning && balance >= WHEEL_STAKE;
 
@@ -74,7 +74,7 @@ export const SpinWheel = observer(() => {
 
       <div className="spin-balance">
         <span className="spin-balance__label">{translate('aiTrading.available')}</span>
-        <span className="spin-balance__value">{shownBalance.toFixed(2)} LFC</span>
+        <span className="spin-balance__value">{shownBalance.toFixed(2)} USDT</span>
       </div>
 
       <button type="button" className="spin-historylink" onClick={openHistory}>
@@ -123,7 +123,7 @@ export const SpinWheel = observer(() => {
           className="spin-result"
           style={{ color: lastPayout > 0 ? 'var(--color-secondary)' : 'var(--color-red)' }}
         >
-          {lastPayout > 0 ? `+${lastPayout} LFC 🎉` : 'No win — spin again'}
+          {lastPayout > 0 ? `+${lastPayout} USDT 🎉` : 'No win — spin again'}
         </p>
       ) : null}
 
@@ -133,7 +133,7 @@ export const SpinWheel = observer(() => {
         onClick={spin}
         disabled={!canSpin}
       >
-        {spinning ? '…' : `Spin · ${WHEEL_STAKE} LFC`}
+        {spinning ? '…' : `Spin · ${WHEEL_STAKE} USDT`}
       </button>
 
       {historyOpen ? (
@@ -169,7 +169,7 @@ export const SpinWheel = observer(() => {
                         style={{ color: win ? 'var(--color-secondary)' : 'var(--color-red)' }}
                       >
                         {net >= 0 ? '+' : ''}
-                        {net} LFC
+                        {net} USDT
                       </span>
                     </div>
                   );

@@ -36,8 +36,8 @@ export const ManagedBot = observer(() => {
     })();
   }, [managedStore]);
 
-  // Solde alimentant le bot : virtuel en demo, portefeuille LFC sinon.
-  const lfcBalance = managedStore.availableBalance;
+  // Solde alimentant le bot : virtuel en demo, portefeuille USDT sinon.
+  const usdtBalance = managedStore.availableBalance;
   const demo = managedStore.isDemo;
   const equity = account?.equity ?? 0;
   const principal = account?.principal ?? 0;
@@ -139,7 +139,7 @@ export const ManagedBot = observer(() => {
             Historique
           </button>
         </div>
-        <p className="bot-hero__equity">{equity.toFixed(2)} LFC</p>
+        <p className="bot-hero__equity">{equity.toFixed(2)} USDT</p>
         {/* Sans dépôt, le bot ne travaille pas : `since` est alors null. */}
         {since ? <p className="bot-hero__since">🤖 {since}</p> : null}
         {monthRate != null ? (
@@ -156,7 +156,7 @@ export const ManagedBot = observer(() => {
       <div className="bot-stats">
         <div className="bot-stat">
           <div className="bot-stat__label">Capital investi</div>
-          <div className="bot-stat__value">{principal.toFixed(2)} LFC</div>
+          <div className="bot-stat__value">{principal.toFixed(2)} USDT</div>
         </div>
         <div className="bot-stat">
           <div className="bot-stat__label">Gain de ce mois</div>
@@ -165,7 +165,7 @@ export const ManagedBot = observer(() => {
             style={{ color: up ? 'var(--color-secondary)' : 'var(--color-red)' }}
           >
             {up ? '+' : ''}
-            {pnl.toFixed(2)} LFC
+            {pnl.toFixed(2)} USDT
           </div>
         </div>
       </div>
@@ -196,8 +196,8 @@ export const ManagedBot = observer(() => {
 
       <p className="bot-available">
         {demo
-          ? `Solde démo disponible : ${lfcBalance.toFixed(2)} LFC`
-          : `Disponible dans le portefeuille : ${lfcBalance.toFixed(2)} LFC`}
+          ? `Solde démo disponible : ${usdtBalance.toFixed(2)} USDT`
+          : `Disponible dans le portefeuille : ${usdtBalance.toFixed(2)} USDT`}
       </p>
 
       <div className="bot-actions">
@@ -206,7 +206,7 @@ export const ManagedBot = observer(() => {
           onClick={() => {
             // Deposits are what a subscription pays for, so they are the only
             // action blocked in paid mode; withdrawals stay open.
-            if (demo && lfcBalance <= 0) {
+            if (demo && usdtBalance <= 0) {
               ToastService.show(
                 'Solde démo épuisé — réinitialisez la démo',
                 ToastService.ERROR,
@@ -243,7 +243,7 @@ export const ManagedBot = observer(() => {
         <section className="bot-demo-card">
           <h3>🧪 Mode démo</h3>
           <p>
-            Vous testez le robot avec {DEMO_START_BALANCE} LFC virtuels. Aucun
+            Vous testez le robot avec {DEMO_START_BALANCE} USDT virtuels. Aucun
             argent réel n'est engagé, et ces gains ne sont pas retirables.
           </p>
           <div className="bot-actions">
@@ -265,19 +265,19 @@ export const ManagedBot = observer(() => {
             <h2>{dialog === 'deposit' ? 'Déposer dans le bot' : 'Retirer du bot'}</h2>
             <Input
               inputMode="decimal"
-              placeholder="Montant (LFC)"
+              placeholder="Montant (USDT)"
               value={amount}
               onChange={e => setAmount(e.target.value)}
             />
             {dialog === 'deposit' ? (
-              <p className="muted">Disponible : {lfcBalance.toFixed(2)} LFC</p>
+              <p className="muted">Disponible : {usdtBalance.toFixed(2)} USDT</p>
             ) : (
               <>
-                <p className="muted">Valeur du bot : {equity.toFixed(2)} LFC</p>
+                <p className="muted">Valeur du bot : {equity.toFixed(2)} USDT</p>
                 <p style={{ color: 'var(--color-secondary-dark)', fontWeight: 800 }}>
-                  Vous recevrez : {Math.max(0, (parseFloat(amount) || 0) * 0.95).toFixed(2)} LFC{' '}
+                  Vous recevrez : {Math.max(0, (parseFloat(amount) || 0) * 0.95).toFixed(2)} USDT{' '}
                   <span className="muted" style={{ fontWeight: 400 }}>
-                    (frais 5% : {((parseFloat(amount) || 0) * 0.05).toFixed(2)} LFC)
+                    (frais 5% : {((parseFloat(amount) || 0) * 0.05).toFixed(2)} USDT)
                   </span>
                 </p>
               </>

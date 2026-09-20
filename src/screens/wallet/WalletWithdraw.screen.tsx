@@ -35,16 +35,7 @@ export const WalletWithdraw = observer(() => {
   }, [tradeStore]);
 
   const paymentMethods = tradeStore.paymentMethods ?? [];
-  const selected = walletStore.selectedWallet;
-  const isLFC = (selected?.crypto?.name || '').toUpperCase() === 'LFC';
-
   const choose = (name: string) => {
-    // LFC is an internal token — it can only be sent to another user,
-    // so route LFC withdrawals to the transfer screen.
-    if ((walletStore.selectedWallet?.crypto?.name || '').toUpperCase() === 'LFC') {
-      walletStore.navigateToTransfer();
-      return;
-    }
     walletStore.setPaymentMethod(name);
     navigate('/wallet/payment-method');
   };
@@ -53,47 +44,38 @@ export const WalletWithdraw = observer(() => {
     <WalletLayout title={translate('walletWithdraw.titleTxt')}>
       <WalletBalance />
 
-      {isLFC ? (
-        <div className="card stack" style={{ textAlign: 'center', alignItems: 'center' }}>
-          <p>{translate('walletWithdraw.lfcTransferOnly')}</p>
-          <Button onClick={() => walletStore.navigateToTransfer()}>
-            {translate('walletWithdraw.goToTransfer')}
-          </Button>
-        </div>
-      ) : (
-        <div>
-          <p className="pm-title">{translate('paymentMethod.chooseTitle')}</p>
-          {paymentMethods.map(method => {
-            // A row is worth a tap only if it says where the money lands.
-            const isWallet =
-              method.name?.toLowerCase() ===
-              lightexchange.app.PAYMENT_METHOD.WALLET.toLowerCase();
-            return (
-              <button
-                key={method.name}
-                type="button"
-                className="pm-card"
-                onClick={() => choose(method.name!)}
-              >
-                <span className="pm-card__logo">
-                  <img src={getIcon(method.name!)} alt="" />
+      <div>
+        <p className="pm-title">{translate('paymentMethod.chooseTitle')}</p>
+        {paymentMethods.map(method => {
+          // A row is worth a tap only if it says where the money lands.
+          const isWallet =
+            method.name?.toLowerCase() ===
+            lightexchange.app.PAYMENT_METHOD.WALLET.toLowerCase();
+          return (
+            <button
+              key={method.name}
+              type="button"
+              className="pm-card"
+              onClick={() => choose(method.name!)}
+            >
+              <span className="pm-card__logo">
+                <img src={getIcon(method.name!)} alt="" />
+              </span>
+              <span className="pm-card__texts">
+                <span className="pm-card__name">{method.name}</span>
+                <span className="pm-card__hint">
+                  {isWallet
+                    ? translate('paymentMethod.walletHint')
+                    : translate('paymentMethod.mobileHint')}
                 </span>
-                <span className="pm-card__texts">
-                  <span className="pm-card__name">{method.name}</span>
-                  <span className="pm-card__hint">
-                    {isWallet
-                      ? translate('paymentMethod.walletHint')
-                      : translate('paymentMethod.mobileHint')}
-                  </span>
-                </span>
-                <span className="pm-card__chevron">
-                  <FontAwesomeIcon icon={faChevronRight} />
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      )}
+              </span>
+              <span className="pm-card__chevron">
+                <FontAwesomeIcon icon={faChevronRight} />
+              </span>
+            </button>
+          );
+        })}
+      </div>
     </WalletLayout>
   );
 });

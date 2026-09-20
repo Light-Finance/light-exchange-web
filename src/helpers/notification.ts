@@ -38,7 +38,7 @@ export const handleNotification = async (remoteMessage: { data: INotification })
   show(remoteMessage.data.title as string, remoteMessage.data.message as string);
 
 export async function displayWinNotification(amount: number) {
-  await show('🎉 Spin & Win', `You won ${amount} LFC!`);
+  await show('🎉 Spin & Win', `You won ${amount} USDT!`);
 }
 
 /* ---- scheduling: not available in the browser ---- */

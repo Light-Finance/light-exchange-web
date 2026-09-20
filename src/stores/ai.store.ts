@@ -158,8 +158,8 @@ export class AiStore {
       return;
     }
 
-    const lfcWallet = this.rootStore.walletStore.getLFCWallet();
-    if (!lfcWallet || (lfcWallet.balance ?? 0) < amount) {
+    const usdtWallet = this.rootStore.walletStore.getUsdtWallet();
+    if (!usdtWallet || (usdtWallet.balance ?? 0) < amount) {
       lightexchange.AppEventEmitter.emit(
         lightexchange.AppEvents.HideModal,
         'copyBot',
@@ -206,7 +206,7 @@ export class AiStore {
       const returnAmount = response.data.botUnSubscribe?.returnAmount;
       ToastService.show(
         translate('aiTrading.unsubscribeSuccess') +
-          (returnAmount ? ` +${returnAmount.toFixed(2)} LFC` : ''),
+          (returnAmount ? ` +${returnAmount.toFixed(2)} USDT` : ''),
         ToastService.SUCCESS,
       );
       await Promise.all([

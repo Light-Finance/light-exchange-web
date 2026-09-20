@@ -64,7 +64,7 @@
     "phoneTxt": "Votre téléphone",
     "affiliateBtn": "Programme d'affiliation",
     "shareBtn": "Partager l'App",
-    "merchantBtn": "Devenir Marchand LFC",
+    "merchantBtn": "Devenir Marchand USDT",
     "tutorialsBtn": "Tutoriels",
     "shareReferralCode": "Utilisez mon code de parrainage :",
     "shareCopied": "Lien & code copié !",
@@ -82,18 +82,6 @@
     "idRefreshStatus": "Actualiser le statut",
     "idVerificationRequested": "Demande envoyée à l'admin",
     "countryTriesLeft": "{{count}} modification(s) restante(s)"
-  },
-  "lfcMerchant": {
-    "title": "Marchand LFC",
-    "headline": "Devenez Marchand LFC",
-    "description": "Notre programme Marchand LFC vous permet d'acheter des LFC directement chez nous à un prix préférentiel, pour les revendre et gagner une marge.",
-    "priceLabel": "Prix préférentiel",
-    "priceUnit": "pour 1 LFC",
-    "conditionsTitle": "Conditions pour devenir marchand",
-    "condition1": "Expérimenté dans le trading P2P sur d'autres plateformes",
-    "condition2": "Avoir utilisé au moins un produit sur Light Exchange",
-    "description2": "Intéressé ? Contactez-nous sur WhatsApp et notre équipe vous guidera.",
-    "contactBtn": "Nous contacter sur WhatsApp"
   },
   "affiliateProgram": {
     "affiliateProgramTxt": "Programme d'affiliation",
@@ -299,7 +287,12 @@
     "referenceLabel": "Référence de la transaction (TXID)",
     "networkLabel": "Réseau",
     "addressCopied": "Adresse copiée",
-    "reviewNote": "Votre dépôt est crédité une fois la transaction vérifiée par l’équipe."
+    "reviewNote": "Votre dépôt est crédité une fois la transaction vérifiée par l’équipe.",
+    "mode": {
+      "onchain": "Envoi on-chain",
+      "email": "Par email"
+    },
+    "emailHint": "Communiquez cet email à la personne qui vous envoie des USDT depuis Light Exchange. Le montant arrive directement sur votre solde, sans frais de réseau."
   },
   "tradingHome": {
     "title": "Trading",
@@ -335,14 +328,13 @@
   },
   "walletWithdraw": {
     "titleTxt": "Retrait",
-    "lfcTransferOnly": "Le LFC ne peut pas être retiré directement. Envoyez-le à un autre utilisateur via Transfert, ou convertissez-le d'abord en USDT.",
     "goToTransfer": "Aller au Transfert",
     "amountToWithdrawInput": "Montant à retirer",
     "addressToWithdrawInput": "Adresse externe",
     "withdrawBtn": "Retrait",
     "withdrawTxt": "Retrait",
     "feesTxt": "Frais",
-    "fiat": "LFC : utiliser Transfert",
+    "fiat": "USDT : utiliser Transfert",
     "transfer": "Transfert"
   },
   "walletWithdrawC": {
@@ -396,7 +388,7 @@
     "chooseWallet": "Choisir le wallet"
   },
   "rechargeGetWallet": {
-    "acquireLF": "Utilisez votre email pour recevoir LFC"
+    "acquireLF": "Utilisez votre email pour recevoir USDT"
   },
   "notification": {},
   "aiTrading": {
@@ -412,15 +404,15 @@
     "runningFor": "Depuis",
     "finalPnl": "PnL final",
     "closed": "CLÔTURÉ",
-    "amountLabel": "Montant (LFC)",
-    "amountPlaceholder": "Min. %{min} LFC",
+    "amountLabel": "Montant (USDT)",
+    "amountPlaceholder": "Min. %{min} USDT",
     "available": "Disponible :",
     "leverageLabel": "Levier",
     "estimatedReturn": "Retour estimé (30j)",
     "liquidationThreshold": "Prix de liquidation",
     "liquidationWarning": "Si le prix de liquidation est atteint, position clôturée à 0.",
     "confirmCopy": "Copier le Bot",
-    "insufficientBalance": "Solde LFC insuffisant",
+    "insufficientBalance": "Solde USDT insuffisant",
     "invalidAmount": "Montant invalide",
     "unsubscribeSuccess": "Position clôturée",
     "runningBotsTitle": "Robots en cours",
@@ -440,7 +432,7 @@
     "vaultNavBtn": "Coffre",
     "vaultDescription": "Les fonds ici sont automatiquement investis en totalité dès qu'un nouveau bot démarre.",
     "vaultBalanceLabel": "Solde du coffre",
-    "vaultAmountPlaceholder": "Montant (LFC)",
+    "vaultAmountPlaceholder": "Montant (USDT)",
     "vaultDepositBtn": "Déposer",
     "vaultWithdrawBtn": "Retirer",
     "vaultDepositSuccess": "Déposé dans le coffre",
@@ -502,5 +494,17 @@
     "secureTitle": "Compte vérifié",
     "secureTxt": "Vérification d'identité et confirmation par email protègent les retraits.",
     "storeSmall": "Disponible sur"
+  },
+  "merchant": {
+    "title": "Marchand USDT",
+    "headline": "Devenez Marchand USDT",
+    "description": "Notre programme Marchand USDT vous permet d'acheter des USDT directement chez nous à un prix préférentiel, pour les revendre et gagner une marge.",
+    "priceLabel": "Prix préférentiel",
+    "priceUnit": "pour 1 USDT",
+    "conditionsTitle": "Conditions pour devenir marchand",
+    "condition1": "Expérimenté dans le trading P2P sur d'autres plateformes",
+    "condition2": "Avoir utilisé au moins un produit sur Light Exchange",
+    "description2": "Intéressé ? Contactez-nous sur WhatsApp et notre équipe vous guidera.",
+    "contactBtn": "Nous contacter sur WhatsApp"
   }
 }

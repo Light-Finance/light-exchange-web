@@ -56,14 +56,14 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
   const billing = managedStore.billing;
   if (!billing) return null;
 
-  const balance = walletStore.getLFCWallet()?.balance ?? 0;
+  const balance = walletStore.getUsdtWallet()?.balance ?? 0;
   const paid = billing.mode === 'paid';
   const sub = billing.subscription;
 
   const subscribe = async (plan: number) => {
     if (busyPlan !== null) return;
     if (balance < plan) {
-      ToastService.show('Solde LFC insuffisant', ToastService.ERROR);
+      ToastService.show('Solde USDT insuffisant', ToastService.ERROR);
       return;
     }
     setBusyPlan(plan);
@@ -93,7 +93,7 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
       <div className="bot-note__title">🔓 Abonnement au robot</div>
       <p>
         Choisissez un palier pour activer le robot pendant {billing.subscriptionDays} jours.
-        Disponible : {balance.toFixed(2)} LFC
+        Disponible : {balance.toFixed(2)} USDT
       </p>
       <div className="bot-plans">
         {billing.plans.map(plan => (
@@ -103,7 +103,7 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
             disabled={busyPlan !== null || balance < plan}
             onClick={() => subscribe(plan)}
           >
-            {plan} LFC
+            {plan} USDT
           </Button>
         ))}
       </div>
@@ -159,7 +159,7 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
         <div className="bot-note bot-note--promo">
           <div className="bot-note__title">✅ Abonnement actif</div>
           <p>
-            Palier {sub.plan} LFC · encore {endsIn} jour{endsIn > 1 ? 's' : ''} (jusqu'au{' '}
+            Palier {sub.plan} USDT · encore {endsIn} jour{endsIn > 1 ? 's' : ''} (jusqu'au{' '}
             {new Date(sub.endAt).toLocaleDateString()}).
           </p>
         </div>
@@ -171,7 +171,7 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
   return (
     <div className="bot-note bot-note--promo">
       <div className="bot-note__title">🎁 Gratuit encore un moment</div>
-      <p>Le robot devient payant (abonnement en LFC) dans :</p>
+      <p>Le robot devient payant (abonnement en USDT) dans :</p>
       <Countdown target={billing.paidStartAt} daysLeft={billing.daysLeft} />
     </div>
   );

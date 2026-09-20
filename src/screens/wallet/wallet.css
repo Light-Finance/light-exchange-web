@@ -671,3 +671,29 @@
   background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
   flex: 0 0 auto;
 }
+
+/* Choix du mode de recharge : envoi on-chain ou credit par email. */
+.w-modes {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  margin-bottom: var(--space-small);
+  border-radius: 10px;
+  background: rgba(128, 57, 221, 0.08);
+}
+.w-mode {
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 0;
+  background: transparent;
+  font-size: var(--font-normal);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.w-mode.is-on {
+  background: var(--color-surface);
+  color: var(--color-secondary);
+  box-shadow: var(--shadow-card);
+}

@@ -53,7 +53,7 @@ export const ROUTES = {
       profil: 'Profil',
       notification: 'Notification',
       affiliateProgram: 'Affiliation',
-      lfcMerchant: 'lfcMerchant',
+      merchant: 'merchant',
       userNumber: 'userNumber',
       tutorials: 'tutorials',
     },

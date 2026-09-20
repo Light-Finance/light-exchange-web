@@ -27,10 +27,10 @@ export const WalletConvert = observer(() => {
     systemStore.cryptoList();
   }, [systemStore]);
 
-  // 2 LFC fee only when the source wallet is LFC (LFC -> USDT)
+  // 2 USDT fee only when the source wallet is USDT (USDT -> USDT)
   const getConvertFee = () =>
-    (walletStore.selectedWallet?.crypto?.name || '').toUpperCase() === 'LFC'
-      ? lightexchange.app.WALLET.CONVERT_FEE_LFC ?? 2
+    (walletStore.selectedWallet?.crypto?.name || '').toUpperCase() === 'USDT'
+      ? lightexchange.app.WALLET.CONVERT_FEE_USDT ?? 2
       : 0;
 
   // net amount received after deducting the fee from what is spent
@@ -46,7 +46,7 @@ export const WalletConvert = observer(() => {
   };
 
   const convertFee = getConvertFee();
-  const fromName = selectedWallet?.crypto?.name?.toUpperCase() || 'LFC';
+  const fromName = selectedWallet?.crypto?.name?.toUpperCase() || 'USDT';
   const toName = selectedCrypto?.name?.toUpperCase() || '';
   const balance = selectedWallet?.balance ?? 0;
   const notEnough = (parseFloat(transaction?.spend ?? '') || 0) > balance;
@@ -111,7 +111,7 @@ export const WalletConvert = observer(() => {
               />
               <SummaryLine
                 label={translate('trading.feesTxt')}
-                value={`${convertFee} LFC`}
+                value={`${convertFee} USDT`}
                 tone={convertFee > 0 ? 'fee' : 'normal'}
               />
               <SummaryLine

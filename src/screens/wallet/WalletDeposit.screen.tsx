@@ -55,6 +55,7 @@ export const WalletDeposit = observer(() => {
   const { walletStore, systemStore, authStore } = appRootStore;
   const [amount, setAmount] = useState('');
   const [reference, setReference] = useState('');
+  const [mode, setMode] = useState<'onchain' | 'email'>('onchain');
 
   useEffect(() => {
     systemStore.cryptoList();
@@ -63,8 +64,13 @@ export const WalletDeposit = observer(() => {
   const selectedCrypto = systemStore.selectedCrypto;
   // The user's wallet for the selected crypto carries the per-user address.
   const userWallet = walletStore.wallets?.find(w => w.crypto?.id === selectedCrypto?.id);
-  const isLFC = selectedCrypto?.name?.toLowerCase() === 'lfc';
-  const depositAddress = isLFC
+  // Deux façons de recharger. L'envoi on-chain arrive sur l'adresse du
+  // dépôt ; par email, c'est un autre utilisateur qui crédite le compte, donc
+  // il n'y a ni réseau ni TXID à fournir. USDT portait cette distinction avant
+  // la fusion — elle est devenue un choix explicite plutôt qu'un effet de
+  // bord de la crypto sélectionnée.
+  const byEmail = mode === 'email';
+  const depositAddress = byEmail
     ? authStore.user?.email
     : userWallet?.address || selectedCrypto?.address || '';
 
@@ -95,7 +101,20 @@ export const WalletDeposit = observer(() => {
       <WalletCard>
         <StepHeader n={1}>{translate('walletDeposit.step1')}</StepHeader>
 
-        {selectedCrypto?.network ? (
+        <div className="w-modes">
+          {(['onchain', 'email'] as const).map(m => (
+            <button
+              key={m}
+              type="button"
+              className={`w-mode${mode === m ? ' is-on' : ''}`}
+              onClick={() => setMode(m)}
+            >
+              {translate(`walletDeposit.mode.${m}`)}
+            </button>
+          ))}
+        </div>
+
+        {!byEmail && selectedCrypto?.network ? (
           <span className="w-network">
             {translate('walletDeposit.networkLabel')} · {selectedCrypto.network}
           </span>
@@ -108,7 +127,9 @@ export const WalletDeposit = observer(() => {
           </Button>
         </div>
 
-        <InfoBanner tone="warn">{translate('rechargeCrypto.warningTxt')}</InfoBanner>
+        <InfoBanner tone={byEmail ? 'info' : 'warn'}>
+          {translate(byEmail ? 'walletDeposit.emailHint' : 'rechargeCrypto.warningTxt')}
+        </InfoBanner>
       </WalletCard>
 
       {/* Etape 2 : la declaration, qui declenche la verification. */}
@@ -122,7 +143,7 @@ export const WalletDeposit = observer(() => {
           onChange={setAmount}
         />
 
-        {!isLFC ? (
+        {!byEmail ? (
           <>
             <FieldLabel>{translate('walletDeposit.referenceLabel')}</FieldLabel>
             <Input

@@ -30,7 +30,7 @@ import { SpinWheel } from './screens/aiTrading/SpinWheel.screen';
 import { NotificationList } from './screens/notification/NotificationList.screen';
 import { Profil } from './screens/profil/Profil.screen';
 import { AffiliateProgram } from './screens/profil/AffiliateProgram.screen';
-import { LfcMerchant } from './screens/profil/LfcMerchant.screen';
+import { Merchant } from './screens/profil/Merchant.screen';
 import { TutorialList } from './screens/tutorials/TutorialList.screen';
 import { TutorialDetail } from './screens/tutorials/TutorialDetail.screen';
 import { ComingSoon } from './screens/ComingSoon.screen';
@@ -108,7 +108,7 @@ export const App = observer(() => {
           <Route path="/notifications" element={<NotificationList />} />
           <Route path="/profile" element={<Profil />} />
           <Route path="/affiliate" element={<AffiliateProgram />} />
-          <Route path="/lfc-merchant" element={<LfcMerchant />} />
+          <Route path="/merchant" element={<Merchant />} />
           <Route path="/user-numbers" element={<ComingSoon titleKey="tabs.userNumbers" />} />
         </Route>
 

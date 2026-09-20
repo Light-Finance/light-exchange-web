@@ -63,7 +63,7 @@ export const ROUTE_PATHS: Record<string, string> = {
   [PROFIL.profil]: '/profile',
   [PROFIL.notification]: '/notifications',
   [PROFIL.affiliateProgram]: '/affiliate',
-  [PROFIL.lfcMerchant]: '/lfc-merchant',
+  [PROFIL.merchant]: '/merchant',
   [PROFIL.userNumber]: '/user-numbers',
 };
 

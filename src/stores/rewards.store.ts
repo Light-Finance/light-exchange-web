@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { RootStore } from './root.store';
 import { Service } from '../services/service.service';
 
-// Spin & Win. Stake a flat amount of LFC for a random LFC payout. The outcome is
+// Spin & Win. Stake a flat amount of USDT for a random USDT payout. The outcome is
 // decided server-side (spinWheel); the wheel only animates to the returned index.
 export const WHEEL_STAKE = 5;
 // Segment payouts in wheel order — MUST match the API's WHEEL_SEGMENTS order.
@@ -123,7 +123,7 @@ export class RewardsStore {
     if (!userId) return null;
     const response = await Service.mutation({ userId }, SPIN_WHEEL, false);
     if (response?.data?.spinWheel) {
-      // Reflect the new LFC balance everywhere the wallet is shown.
+      // Reflect the new USDT balance everywhere the wallet is shown.
       await this.rootStore.walletStore.getWallets();
       return response.data.spinWheel as ISpinResult;
     }

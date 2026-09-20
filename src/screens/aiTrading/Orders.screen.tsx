@@ -8,7 +8,7 @@ import './aiTrading.css';
 interface IOrder {
   id: string;
   date: number;
-  pnlLfc: number;
+  pnlUsdt: number;
   pnlPct: number;
   win: boolean;
   pair: string;
@@ -36,7 +36,7 @@ function groupByDay(orders: IOrder[]): IDaySection[] {
       byDay.set(key, section);
     }
     section.orders.push(o);
-    section.total += o.pnlLfc;
+    section.total += o.pnlUsdt;
     if (o.win) section.wins++;
   }
   // `orders` arrives newest first, so insertion order is the display order.
@@ -98,17 +98,17 @@ function buildOrders(account: any): IOrder[] {
     const base = dayPnl / count;
     const amp = Math.max(Math.abs(base) * 2.5, Math.abs(entry) * 0.002);
     for (let k = 0; k < count; k++) {
-      const pnlLfc = base + amp * (noises[k] - meanN);
-      const pnlPct = entry > 0 ? (pnlLfc / entry) * 100 : 0;
+      const pnlUsdt = base + amp * (noises[k] - meanN);
+      const pnlPct = entry > 0 ? (pnlUsdt / entry) * 100 : 0;
       const t = dayStart + ((k + 1) / (count + 1)) * (dayEnd - dayStart);
       // The pair is fixed to the order itself: deriving it from a list
       // position would change it as soon as the rows are grouped.
       out.push({
         id: `o${i}-${k}`,
         date: t,
-        pnlLfc,
+        pnlUsdt,
         pnlPct,
-        win: pnlLfc >= 0,
+        win: pnlUsdt >= 0,
         pair: PAIRS[k % PAIRS.length],
         dayKey,
       });
@@ -130,7 +130,7 @@ export const Orders = observer(() => {
   const days = groupByDay(orders);
   // The sub-order PnLs sum exactly to each day's move, so this is the month's
   // real equity change rather than an approximation.
-  const totalPnl = orders.reduce((sum, o) => sum + o.pnlLfc, 0);
+  const totalPnl = orders.reduce((sum, o) => sum + o.pnlUsdt, 0);
   const since = botSinceLabel(account?.startedAt);
   const loading = managedStore.isLoading && !account;
 
@@ -145,7 +145,7 @@ export const Orders = observer(() => {
         <span className="orders-total__label">Total gagné ce mois</span>
         <span className="orders-total__value">
           {totalPnl >= 0 ? '+' : ''}
-          {totalPnl.toFixed(2)} LFC
+          {totalPnl.toFixed(2)} USDT
         </span>
       </div>
 
@@ -200,7 +200,7 @@ export const Orders = observer(() => {
                 }}
               >
                 {day.total >= 0 ? '+' : ''}
-                {day.total.toFixed(2)} LFC
+                {day.total.toFixed(2)} USDT
               </span>
             </div>
             {day.orders.map(order => {
@@ -223,8 +223,8 @@ export const Orders = observer(() => {
                 </div>
                 <div className="order-card__row">
                   <span className="order-card__pnl" style={{ color }}>
-                    {order.pnlLfc >= 0 ? '+' : ''}
-                    {order.pnlLfc.toFixed(2)} LFC ({order.pnlPct >= 0 ? '+' : ''}
+                    {order.pnlUsdt >= 0 ? '+' : ''}
+                    {order.pnlUsdt.toFixed(2)} USDT ({order.pnlPct >= 0 ? '+' : ''}
                     {order.pnlPct.toFixed(2)}%)
                   </span>
                 </div>

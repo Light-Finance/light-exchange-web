@@ -131,7 +131,6 @@ const WithdrawForm = observer(() => {
 export const PaymentMethod = observer(() => {
   const { walletStore, tradeStore } = appRootStore;
   const selected = walletStore.selectedWallet;
-  const isLFC = (selected?.crypto?.name || '').toUpperCase() === 'LFC';
   const isFiat = selected?.type === lightexchange.app.WALLET.TYPE.fiat;
   const transaction = tradeStore.transaction;
 
@@ -139,29 +138,18 @@ export const PaymentMethod = observer(() => {
     <WalletLayout title={translate('paymentMethod.titleTxt')}>
       <WalletBalance />
 
-      {isLFC ? (
+      <h2 style={{ fontSize: 'var(--font-large)' }}>{walletStore.paymentMethod}</h2>
+      {isFiat ? (
         <div className="card stack" style={{ textAlign: 'center', alignItems: 'center' }}>
-          <p>{translate('walletWithdraw.lfcTransferOnly')}</p>
+          <p>{translate('walletWithdraw.fiat')}</p>
           <Button onClick={() => walletStore.navigateToTransfer()}>
-            {translate('walletWithdraw.goToTransfer')}
+            {translate('walletWithdraw.transfer')}
           </Button>
         </div>
+      ) : transaction?.status === lightexchange.app.TRANSACTION.STATUS.initiated ? (
+        <WithdrawForm />
       ) : (
-        <>
-          <h2 style={{ fontSize: 'var(--font-large)' }}>{walletStore.paymentMethod}</h2>
-          {isFiat ? (
-            <div className="card stack" style={{ textAlign: 'center', alignItems: 'center' }}>
-              <p>{translate('walletWithdraw.fiat')}</p>
-              <Button onClick={() => walletStore.navigateToTransfer()}>
-                {translate('walletWithdraw.transfer')}
-              </Button>
-            </div>
-          ) : transaction?.status === lightexchange.app.TRANSACTION.STATUS.initiated ? (
-            <WithdrawForm />
-          ) : (
-            <TransactionComplete />
-          )}
-        </>
+        <TransactionComplete />
       )}
     </WalletLayout>
   );

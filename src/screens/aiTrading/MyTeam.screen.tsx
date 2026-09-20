@@ -48,7 +48,7 @@ export const MyTeam = observer(() => {
 
       <section className="team-hero">
         <p className="team-hero__label">Gains de parrainage</p>
-        <p className="team-hero__value">{(team?.totalBonus ?? 0).toFixed(2)} LFC</p>
+        <p className="team-hero__value">{(team?.totalBonus ?? 0).toFixed(2)} USDT</p>
         <p className="team-hero__hint">Versés dans votre robot géré</p>
         <div className="team-hero__stats">
           <span className="team-hero__stat">
@@ -105,7 +105,7 @@ export const MyTeam = observer(() => {
                     className="team-row__earned"
                     style={{ color: earned ? '#1D9E75' : '#B9B4C7' }}
                   >
-                    {earned ? `+${member.bonusEarned.toFixed(2)}` : '0.00'} LFC
+                    {earned ? `+${member.bonusEarned.toFixed(2)}` : '0.00'} USDT
                   </span>
                 </div>
               );
