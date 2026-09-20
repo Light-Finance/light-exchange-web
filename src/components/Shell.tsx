@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faRobot,
-  faDice,
   faWallet,
   faBell,
   faUser,
@@ -26,7 +25,6 @@ const TAB = ROUTES.mainNavigation.tabNavigation;
  */
 const TABS = [
   { path: ROUTE_PATHS[TAB.aiTradingNavigation.navigator], icon: faRobot, key: 'aiTrading' },
-  { path: ROUTE_PATHS[TAB.spinNavigation.navigator], icon: faDice, key: 'spin' },
   { path: ROUTE_PATHS[TAB.walletNavigation.navigator], icon: faWallet, key: 'wallet' },
   { path: ROUTE_PATHS[ROUTES.mainNavigation.profilNavigation.profil], icon: faUser, key: 'profile' },
 ];
@@ -38,7 +36,6 @@ const tabLabel = (key: string) => {
   if (label.startsWith('[missing')) {
     const fallbacks: Record<string, string> = {
       aiTrading: TAB.aiTradingNavigation.navigator,
-      spin: TAB.spinNavigation.navigator,
       wallet: TAB.walletNavigation.navigator,
       profile: ROUTES.mainNavigation.profilNavigation.profil,
     };

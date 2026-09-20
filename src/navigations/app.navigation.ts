@@ -49,9 +49,6 @@ export const ROUTE_PATHS: Record<string, string> = {
   [TAB.tradeNavigation.navigator]: '/trade',
   [TAB.tradeNavigation.tradingTradeCrypto]: '/trade',
 
-  // spin & win
-  [TAB.spinNavigation.navigator]: '/spin',
-  [TAB.spinNavigation.spin]: '/spin',
 
   // tutorials
   [TAB.tutorialsNavigation.navigator]: '/tutorials',

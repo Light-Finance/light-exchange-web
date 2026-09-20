@@ -1,8 +1,8 @@
 import { translate } from '../helpers/localization';
 
 /**
- * Placeholder for the mobile features not yet ported (Spin & Win,
- * Trading, Tutorials, Notifications, Profile). Routed so the tabs and any
+ * Placeholder for the mobile features not yet ported (Trading, Tutorials,
+ * Notifications, Profile). Routed so the tabs and any
  * store-driven redirect land on a real page.
  */
 export const ComingSoon = ({ titleKey }: { titleKey: string }) => {

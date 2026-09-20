@@ -26,7 +26,6 @@ import { Orders } from './screens/aiTrading/Orders.screen';
 import { MyTeam } from './screens/aiTrading/MyTeam.screen';
 import { Analysis } from './screens/aiTrading/Analysis.screen';
 import { ManagedHistory } from './screens/aiTrading/ManagedHistory.screen';
-import { SpinWheel } from './screens/aiTrading/SpinWheel.screen';
 import { NotificationList } from './screens/notification/NotificationList.screen';
 import { Profil } from './screens/profil/Profil.screen';
 import { AffiliateProgram } from './screens/profil/AffiliateProgram.screen';
@@ -101,7 +100,6 @@ export const App = observer(() => {
 
           {/* Ported in a later pass; routed now so the tabs and any store
               redirect land somewhere real instead of 404-ing. */}
-          <Route path="/spin" element={<SpinWheel />} />
           <Route path="/trade" element={<ComingSoon titleKey="tradingTradeCrypto.titleTxt" />} />
           <Route path="/tutorials" element={<TutorialList />} />
           <Route path="/tutorials/detail" element={<TutorialDetail />} />

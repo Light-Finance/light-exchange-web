@@ -7,7 +7,6 @@ import { UxStore } from './ux.store';
 import { SystemStore } from './system.store';
 import { AiStore } from './ai.store';
 import { TutorialStore } from './tutorial.store';
-import { RewardsStore } from './rewards.store';
 import { ManagedStore } from './managed.store';
 
 export class RootStore {
@@ -19,7 +18,6 @@ export class RootStore {
   @observable systemStore: SystemStore;
   @observable aiStore: AiStore;
   @observable tutorialStore: TutorialStore;
-  @observable rewardsStore: RewardsStore;
   @observable managedStore: ManagedStore;
   constructor() {
     this.authStore = new AuthStore(this);
@@ -30,7 +28,6 @@ export class RootStore {
     this.systemStore = new SystemStore(this);
     this.aiStore = new AiStore(this);
     this.tutorialStore = new TutorialStore(this);
-    this.rewardsStore = new RewardsStore(this);
     this.managedStore = new ManagedStore(this);
   }
   @action setInitialState() {

@@ -390,13 +390,8 @@
   "rechargeGetWallet": {
     "acquireLF": "Use your email to receive USDT"
   },
-  "notification": {},
   "aiTrading": {
     "title": "AI Trading",
-    "spinHistory": "My spin history",
-    "spinStake": "Stake",
-    "spinPayout": "Payout",
-    "spinHistoryEmpty": "No spins yet.",
     "history": "Running bots",
     "botsAvailable": "bots available",
     "btcPrice": "BTC Price",
@@ -460,7 +455,6 @@
   "tabs": {
     "wallet": "Wallet",
     "aiTrading": "AI Bot",
-    "spin": "Spin & Win",
     "tutorials": "Tutorials",
     "profile": "Profile",
     "notifications": "Notifications",

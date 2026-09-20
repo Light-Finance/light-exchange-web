@@ -28,10 +28,6 @@ export const ROUTES = {
         myTeam: 'myTeam',
         analysis: 'analysis',
       },
-      spinNavigation: {
-        navigator: 'Spin & Win',
-        spin: 'spin',
-      },
       tutorialsNavigation: {
         navigator: 'Tutoriels',
         tutorialList: 'tutorialList',
