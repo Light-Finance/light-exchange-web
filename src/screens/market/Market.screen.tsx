@@ -108,16 +108,22 @@ export const Market = observer(() => {
                     : `${p.pnl >= 0 ? '+' : ''}${money(p.pnl)} (${money(p.pnlPct, 2)}%)`}
                 </span>
               </div>
-              <button
-                type="button"
-                className="mk-sell"
-                onClick={() => {
-                  setDialog({ symbol: p.symbol, side: 'sell' });
-                  setAmount('');
-                }}
-              >
-                Vendre
-              </button>
+              {marketStore.isIpo(p.symbol) ? (
+                <span className="mk-locked" title="Revente ouverte à la cotation">
+                  Souscrit
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  className="mk-sell"
+                  onClick={() => {
+                    setDialog({ symbol: p.symbol, side: 'sell' });
+                    setAmount('');
+                  }}
+                >
+                  Vendre
+                </button>
+              )}
             </div>
           ))}
         </section>
@@ -141,6 +147,13 @@ export const Market = observer(() => {
               <span className="mk-asset__price">{price(a.price)} USDT</span>
             </span>
             <span className="mk-asset__name">{a.name}</span>
+            {/* Une souscription ne se revend pas avant la cotation : le dire
+                sur la carte, pas apres l'achat. */}
+            {a.ipoPrice ? (
+              <span className="mk-asset__ipo">
+                Souscription · revente à la cotation
+              </span>
+            ) : null}
             {marketStore.quantityOf(a.symbol) > 0 ? (
               <span className="mk-asset__held">
                 Détenu : {money(marketStore.quantityOf(a.symbol), 6)}
@@ -159,7 +172,16 @@ export const Market = observer(() => {
             <h2>
               {dialog.side === 'buy' ? 'Acheter' : 'Vendre'} {asset.shortName}
             </h2>
-            <p className="muted">Cours : {price(asset.price)} USDT</p>
+            <p className="muted">
+              {asset.ipoPrice ? 'Prix de souscription : ' : 'Cours : '}
+              {price(asset.price)} USDT
+            </p>
+            {asset.ipoPrice && dialog.side === 'buy' ? (
+              <p className="muted">
+                Votre allocation se garde jusqu'à la cotation : elle ne peut pas
+                être revendue avant.
+              </p>
+            ) : null}
             <Input
               inputMode="decimal"
               placeholder={dialog.side === 'buy' ? 'Montant (USDT)' : `Quantité (${asset.shortName})`}

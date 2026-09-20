@@ -174,3 +174,20 @@
   display: flex;
   gap: var(--space-small);
 }
+
+/* Souscription : l'actif est detenu mais pas encore revendable. Un libelle, pas
+   un bouton desactive — il n'y a rien a cliquer avant la cotation. */
+.mk-locked {
+  padding: 6px 12px;
+  border-radius: var(--radius-small);
+  background: #f1eff5;
+  color: var(--color-text-muted);
+  font-size: var(--font-small);
+  font-weight: 700;
+}
+.mk-asset__ipo {
+  margin-top: 2px;
+  font-size: var(--font-small);
+  font-weight: 700;
+  color: var(--color-red);
+}

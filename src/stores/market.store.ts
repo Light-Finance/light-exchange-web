@@ -15,6 +15,7 @@ const MARKET_ASSETS = gql`
       shortName
       kind
       price
+      ipoPrice
     }
   }
 `;
@@ -69,6 +70,8 @@ export interface IMarketAsset {
   kind: string;
   /** null quand le fournisseur n'a pas répondu : l'actif reste listé. */
   price: number | null;
+  /** Non nul = l'actif est en souscription à ce prix, et non revendable. */
+  ipoPrice: number | null;
 }
 
 export interface IMarketPosition {
@@ -95,6 +98,12 @@ export class MarketStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
+  }
+
+  /** Vrai tant que l'actif est en souscription : la revente est fermée. */
+  isIpo(symbol: string): boolean {
+    const a = this.assets.find(x => x.symbol === symbol);
+    return !!a?.ipoPrice && a.ipoPrice > 0;
   }
 
   /** Quantité détenue d'un actif, 0 s'il n'est pas en portefeuille. */
