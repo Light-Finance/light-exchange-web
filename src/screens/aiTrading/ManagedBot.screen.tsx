@@ -56,6 +56,13 @@ export const ManagedBot = observer(() => {
   const pnl = account?.monthPnl ?? 0;
   const monthPct = account?.monthPct ?? 0;
   const monthRate = account?.monthRate;
+  // Ce qu'il reste a confier sous le plafond du palier, ou null quand il n'y a
+  // pas de plafond (palier illimite, code d'acces, demo).
+  const planCap = demo ? null : managedStore.billing?.planCap ?? null;
+  const room =
+    planCap === null || planCap === undefined
+      ? null
+      : Math.max(0, planCap - principal);
   const curve = (account?.curve ?? []).map(p => p.value);
   const since = botSinceLabel(account?.startedAt);
   const up = pnl >= 0;
@@ -313,7 +320,21 @@ export const ManagedBot = observer(() => {
               onChange={e => setAmount(e.target.value)}
             />
             {dialog === 'deposit' ? (
-              <p className="muted">Disponible : {usdtBalance.toFixed(2)} USDT</p>
+              <>
+                <p className="muted">Disponible : {usdtBalance.toFixed(2)} USDT</p>
+                {/* Le plafond du palier doit se lire avant la saisie : le
+                    decouvrir par un refus apres coup ne dit pas combien
+                    entrerait encore. */}
+                {room !== null ? (
+                  <p className="muted">
+                    Ce palier gère jusqu'à{' '}
+                    {(managedStore.billing?.planCap ?? 0).toLocaleString('fr-FR')} USDT
+                    {room > 0
+                      ? ` — il reste ${room.toFixed(2)} USDT à confier.`
+                      : ' — plafond atteint, prenez un palier supérieur.'}
+                  </p>
+                ) : null}
+              </>
             ) : (
               <>
                 <p className="muted">Valeur du bot : {equity.toFixed(2)} USDT</p>
