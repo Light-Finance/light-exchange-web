@@ -166,19 +166,6 @@
   margin-bottom: 2px;
 }
 
-/* These callouts keep their own light palette in dark mode — they are
-   deliberately coloured panels, so only the text is nudged for contrast. */
-@media (prefers-color-scheme: dark) {
-  .bot-note--info {
-    background: #16233d;
-    color: #bfd4f5;
-  }
-  .bot-note--promo {
-    background: #34240d;
-    color: #f0cfa0;
-  }
-}
-
 /* ---- orders ---- */
 
 .orders-summary {

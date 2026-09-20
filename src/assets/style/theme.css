@@ -57,15 +57,12 @@
   --shadow-raised: 0 4px 16px rgba(65, 0, 150, 0.12);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #131118;
-    --color-surface: #1e1b26;
-    --color-border: #2f2a3a;
-    --color-text: #f2f0f6;
-    --color-text-muted: #a39fb0;
-    --color-white3: #2f2a3a;
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.4);
-    --shadow-raised: 0 4px 16px rgba(0, 0, 0, 0.5);
-  }
+/*
+ * Pas de theme sombre : l'app mobile n'en a pas, et le web qui basculait selon
+ * le reglage systeme donnait deux Light Exchange differents selon l'appareil.
+ * Le meta color-scheme dit aussi au navigateur de ne pas repeindre les
+ * controles natifs en sombre.
+ */
+:root {
+  color-scheme: light;
 }

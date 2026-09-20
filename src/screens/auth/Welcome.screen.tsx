@@ -12,7 +12,9 @@ import {
 import lightexchange from 'light-exchange';
 import { APP } from '../../consts/app';
 import { translate } from '../../helpers/localization';
-import logo from '../../assets/imgs/logo.png';
+// L'icone du lanceur Android, pas le logo blanc : la barre est sur fond clair,
+// ou un logo blanc sur transparent ne se verrait pas.
+import appIcon from '../../assets/imgs/appIcon.png';
 import './landing.css';
 
 // Page d'accueil publique. Contrairement aux autres ecrans d'auth, elle ne vit
@@ -37,7 +39,7 @@ export const Welcome = () => {
     <div className="land">
       <header className="land__nav">
         <div className="land__brand">
-          <img className="land__brand-logo" src={logo} alt="" />
+          <img className="land__brand-logo" src={appIcon} alt="" />
           <span className="land__brand-name">
             {lightexchange.app.INFO.APP_NAME}
           </span>
