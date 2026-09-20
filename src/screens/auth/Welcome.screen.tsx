@@ -6,8 +6,7 @@ import {
   faGlobe,
   faLock,
   faRobot,
-  faWallet,
-  faArrowRightArrowLeft,
+  faChartLine,
   faFlask,
 } from '@fortawesome/free-solid-svg-icons';
 import lightexchange from 'light-exchange';
@@ -21,9 +20,8 @@ import './landing.css';
 // Exchange doit d'abord voir ce que fait le produit, le formulaire vient apres.
 
 const FEATURES: { icon: IconDefinition; key: string }[] = [
+  { icon: faChartLine, key: 'buy' },
   { icon: faRobot, key: 'bot' },
-  { icon: faArrowRightArrowLeft, key: 'convert' },
-  { icon: faWallet, key: 'wallet' },
   { icon: faBolt, key: 'transfer' },
   { icon: faGlobe, key: 'rates' },
   { icon: faLock, key: 'secure' },
