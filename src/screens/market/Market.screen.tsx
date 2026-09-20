@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 import { appRootStore } from '../../stores/root.store';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Field';
@@ -25,6 +26,7 @@ const price = (n: number | null) =>
 const day = (iso: string) => new Date(iso).toLocaleDateString('fr-FR');
 
 export const Market = observer(() => {
+  const navigate = useNavigate();
   const { marketStore, walletStore } = appRootStore;
   const [dialog, setDialog] = useState<Dialog>(null);
   const [amount, setAmount] = useState('');
@@ -93,6 +95,20 @@ export const Market = observer(() => {
         <span>Solde disponible</span>
         <strong>{money(balance)} $</strong>
       </div>
+
+      {/* Un solde vide bloque tout achat : le dire ici, avec le chemin pour le
+          regler, plutot que de laisser l'utilisateur buter sur un refus au
+          moment de confirmer. */}
+      {balance <= 0 ? (
+        <button
+          type="button"
+          className="mk-empty"
+          onClick={() => navigate('/wallet/deposit')}
+        >
+          <strong>Votre solde est vide.</strong> Faites un dépôt pour acheter un
+          actif ou souscrire à une introduction. →
+        </button>
+      ) : null}
 
       {marketStore.positions.length > 0 ? (
         <section className="mk-folio">
@@ -281,6 +297,15 @@ export const Market = observer(() => {
             {dialog.side === 'buy' ? (
               <>
                 <p className="mk-note">Disponible : {money(balance)} $</p>
+                {balance <= 0 ? (
+                  <button
+                    type="button"
+                    className="mk-max"
+                    onClick={() => navigate('/wallet/deposit')}
+                  >
+                    Aller faire un dépôt
+                  </button>
+                ) : null}
                 {/* Ce que l'ordre donne, au cours affiche : l'utilisateur saisit
                     des $ mais recoit une quantite, et les deux ne se
                     devinent pas l'une de l'autre. */}

@@ -848,3 +848,23 @@
   text-decoration: underline;
   cursor: pointer;
 }
+
+/* Solde vide sur la carte d'abonnement : le chemin du depot, plutot qu'une
+   grille de paliers tous hors de portee. */
+.bot-sub__deposit {
+  display: block;
+  width: 100%;
+  margin-top: var(--space-small);
+  padding: 12px;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-medium);
+  background: rgba(128, 57, 221, 0.08);
+  color: var(--color-text);
+  font-size: var(--font-normal);
+  text-align: left;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.bot-sub__deposit:hover {
+  background: rgba(128, 57, 221, 0.14);
+}

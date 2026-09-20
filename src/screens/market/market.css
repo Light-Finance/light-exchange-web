@@ -285,3 +285,22 @@
   background: #fee2e2;
   color: #7f1d1d;
 }
+
+/* Solde vide : un bandeau cliquable qui mene au depot. Une phrase seule
+   laisserait l'utilisateur chercher ou aller. */
+.mk-empty {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-medium);
+  background: rgba(128, 57, 221, 0.08);
+  color: var(--color-text);
+  font-size: var(--font-normal);
+  text-align: left;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.mk-empty:hover {
+  background: rgba(128, 57, 221, 0.14);
+}

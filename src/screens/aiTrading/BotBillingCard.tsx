@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 import { appRootStore } from '../../stores/root.store';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Field';
@@ -12,6 +13,7 @@ import { ToastService } from '../../services/toast.service';
  * bas d'ecran.
  */
 export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void }) => {
+  const navigate = useNavigate();
   const { managedStore, walletStore } = appRootStore;
   const [busyPlan, setBusyPlan] = useState<number | null>(null);
   const [code, setCode] = useState('');
@@ -92,6 +94,20 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
         <span>Solde disponible</span>
         <strong>{balance.toFixed(2)} $</strong>
       </div>
+
+      {/* Sans solde, aucun palier n'est a portee : mieux vaut indiquer le
+          chemin du depot que laisser l'utilisateur cliquer sur des cartes
+          toutes grisees. */}
+      {balance <= 0 ? (
+        <button
+          type="button"
+          className="bot-sub__deposit"
+          onClick={() => navigate('/wallet/deposit')}
+        >
+          <strong>Votre solde est vide.</strong> Faites un dépôt pour activer un
+          abonnement. →
+        </button>
+      ) : null}
 
       {/* Le plafond fait toute la difference entre deux paliers : sans lui la
           carte n'affiche qu'une grille de prix, et rien ne dit pourquoi payer

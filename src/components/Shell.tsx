@@ -25,8 +25,9 @@ const TAB = ROUTES.mainNavigation.tabNavigation;
  * `end` marks routes whose nested children should not keep the tab active.
  */
 const TABS = [
-  { path: ROUTE_PATHS[TAB.aiTradingNavigation.navigator], icon: faRobot, key: 'aiTrading' },
+  // Le marche d'abord : c'est la que l'utilisateur agit, le robot vient apres.
   { path: ROUTE_PATHS[TAB.marketNavigation.navigator], icon: faChartLine, key: 'market' },
+  { path: ROUTE_PATHS[TAB.aiTradingNavigation.navigator], icon: faRobot, key: 'aiTrading' },
   { path: ROUTE_PATHS[TAB.walletNavigation.navigator], icon: faWallet, key: 'wallet' },
   { path: ROUTE_PATHS[ROUTES.mainNavigation.profilNavigation.profil], icon: faUser, key: 'profile' },
 ];
