@@ -5,6 +5,7 @@ import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
 import { ToastService } from '../../services/toast.service';
+import { colorOf } from './assetColors';
 import './market.css';
 
 type Dialog = null | { symbol: string; side: 'buy' | 'sell' };
@@ -64,6 +65,10 @@ export const Market = observer(() => {
   };
 
   const pnlTotal = marketStore.totalValue - marketStore.totalCost;
+  // En pourcentage du capital engage : 22 USDT ne dit rien sans savoir sur
+  // combien, 8 % se lit seul.
+  const folioPct =
+    marketStore.totalCost > 0 ? (pnlTotal / marketStore.totalCost) * 100 : 0;
 
   // La recherche porte sur le ticker, le nom et le symbole : on cherche
   // "apple" comme on cherche "AAPL", et parfois la paire complete.
@@ -91,20 +96,30 @@ export const Market = observer(() => {
         <section className="mk-folio">
           <div className="mk-folio__head">
             <span className="mk-folio__label">Valeur de vos actifs</span>
-            <span
-              className="mk-folio__pnl"
-              style={{ color: pnlTotal >= 0 ? 'var(--color-secondary)' : 'var(--color-red)' }}
-            >
-              {pnlTotal >= 0 ? '+' : ''}
-              {money(pnlTotal)} USDT
+            <span className={`mk-pill ${pnlTotal >= 0 ? 'is-up' : 'is-down'}`}>
+              {pnlTotal >= 0 ? '▲ +' : '▼ '}
+              {money(folioPct, 1)} %
             </span>
           </div>
           <p className="mk-folio__value">{money(marketStore.totalValue)} USDT</p>
+          <p className="mk-folio__sub">
+            {pnlTotal >= 0 ? '+' : ''}
+            {money(pnlTotal)} USDT depuis vos achats
+          </p>
 
           {marketStore.positions.map(p => (
             <div className="mk-row" key={p.id}>
+              <span
+                className="mk-badge"
+                style={{
+                  background: colorOf(p.shortName).tint,
+                  color: colorOf(p.shortName).ink,
+                }}
+              >
+                {p.shortName}
+              </span>
               <div className="mk-row__left">
-                <span className="mk-row__name">{p.shortName}</span>
+                <span className="mk-row__name">{p.name}</span>
                 <span className="mk-row__sub">
                   {money(p.quantity, 6)} · {price(p.price)} USDT
                 </span>
@@ -173,36 +188,49 @@ export const Market = observer(() => {
       </div>
 
       <div className="mk-assets">
-        {shown.map(a => (
-          <button
-            key={a.id}
-            type="button"
-            className="mk-asset"
-            disabled={a.price === null}
-            onClick={() => {
-              setDialog({ symbol: a.symbol, side: 'buy' });
-              setAmount('');
-            }}
-          >
-            <span className="mk-asset__top">
-              <span className="mk-asset__ticker">{a.shortName}</span>
+        {shown.map(a => {
+          const c = colorOf(a.shortName);
+          const up = (a.change24h ?? 0) >= 0;
+          return (
+            <button
+              key={a.id}
+              type="button"
+              className={`mk-asset${a.ipoPrice ? ' is-ipo' : ''}`}
+              style={{ borderLeftColor: a.ipoPrice ? undefined : c.accent }}
+              disabled={a.price === null}
+              onClick={() => {
+                setDialog({ symbol: a.symbol, side: 'buy' });
+                setAmount('');
+              }}
+            >
+              <span className="mk-asset__top">
+                <span
+                  className="mk-badge"
+                  style={{ background: c.tint, color: c.ink }}
+                >
+                  {a.shortName}
+                </span>
+                <span className="mk-asset__name">{a.name}</span>
+              </span>
               <span className="mk-asset__price">{price(a.price)} USDT</span>
-            </span>
-            <span className="mk-asset__name">{a.name}</span>
-            {/* Une souscription ne se revend pas avant la cotation : le dire
-                sur la carte, pas apres l'achat. */}
-            {a.ipoPrice ? (
-              <span className="mk-asset__ipo">
-                Souscription · revente à la cotation
-              </span>
-            ) : null}
-            {marketStore.quantityOf(a.symbol) > 0 ? (
-              <span className="mk-asset__held">
-                Détenu : {money(marketStore.quantityOf(a.symbol), 6)}
-              </span>
-            ) : null}
-          </button>
-        ))}
+              {/* Une souscription ne se revend pas avant la cotation, et elle
+                  n'a pas de variation : la pastille dit l'un ou l'autre. */}
+              {a.ipoPrice ? (
+                <span className="mk-pill is-ipo">Souscription</span>
+              ) : a.change24h !== null ? (
+                <span className={`mk-pill ${up ? 'is-up' : 'is-down'}`}>
+                  {up ? '▲ ' : '▼ '}
+                  {money(Math.abs(a.change24h), 2)} %
+                </span>
+              ) : null}
+              {marketStore.quantityOf(a.symbol) > 0 ? (
+                <span className="mk-asset__held">
+                  Détenu : {money(marketStore.quantityOf(a.symbol), 6)}
+                </span>
+              ) : null}
+            </button>
+          );
+        })}
         {shown.length === 0 && !marketStore.isLoading ? (
           <p className="mk-note">
             {marketStore.assets.length === 0

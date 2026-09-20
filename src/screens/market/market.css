@@ -19,11 +19,14 @@
   color: var(--color-secondary-dark);
 }
 
+/* Le portefeuille est le chiffre le plus important de l'ecran : il passe en
+   violet plein, comme la carte du robot, au lieu d'etre un encadre blanc parmi
+   d'autres encadres blancs. */
 .mk-folio {
   padding: var(--space-medium);
-  border: 1px solid var(--color-border);
   border-radius: var(--radius-large);
-  background: var(--color-surface);
+  background: var(--color-secondary-dark);
+  color: var(--color-white);
 }
 .mk-folio__head {
   display: flex;
@@ -33,17 +36,22 @@
 }
 .mk-folio__label {
   font-size: var(--font-normal);
-  color: var(--color-text);
+  color: rgba(255, 255, 255, 0.72);
 }
 .mk-folio__pnl {
   font-size: var(--font-normal);
   font-weight: 800;
 }
 .mk-folio__value {
-  margin: 2px 0 var(--space-small);
+  margin: 2px 0 0;
   font-size: var(--font-xlarge);
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-white);
+}
+.mk-folio__sub {
+  margin: 2px 0 var(--space-small);
+  font-size: var(--font-small);
+  color: rgba(255, 255, 255, 0.72);
 }
 
 .mk-row {
@@ -51,7 +59,7 @@
   align-items: center;
   gap: var(--space-small);
   padding: 10px 0;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 .mk-row__left {
   display: flex;
@@ -68,29 +76,29 @@
 .mk-row__name {
   font-size: var(--font-normal);
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-white);
 }
 .mk-row__value {
   font-size: var(--font-normal);
   font-weight: 800;
-  color: var(--color-text);
+  color: var(--color-white);
 }
 .mk-row__sub {
   font-size: var(--font-small);
-  color: var(--color-text);
+  color: rgba(255, 255, 255, 0.72);
 }
 .mk-sell {
   padding: 6px 12px;
-  border: 1px solid var(--color-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-small);
   background: none;
-  color: var(--color-secondary);
+  color: var(--color-white);
   font-size: var(--font-small);
   font-weight: 700;
   cursor: pointer;
 }
 .mk-sell:hover {
-  background: rgba(128, 57, 221, 0.08);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .mk-heading {
@@ -105,16 +113,25 @@
   grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 10px;
 }
+/* Filet lateral a la couleur de l'actif : reperer BTC dans une liste de vingt
+   doit etre instantane, avant meme de lire le ticker. */
 .mk-asset {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 12px;
+  gap: 4px;
+  padding: 11px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-medium);
+  border-left: 4px solid var(--color-secondary);
+  border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
   background: var(--color-surface);
   text-align: left;
   cursor: pointer;
+}
+/* Une souscription se distingue par son fond, pas par une ligne de texte
+   perdue sous le nom. */
+.mk-asset.is-ipo {
+  border-left-color: var(--color-red);
+  background: #fff7f7;
 }
 .mk-asset:hover:not(:disabled) {
   border-color: var(--color-secondary);
@@ -129,18 +146,12 @@
 }
 .mk-asset__top {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 6px;
-}
-.mk-asset__ticker {
-  font-size: var(--font-medium);
-  font-weight: 800;
-  color: var(--color-text);
+  align-items: center;
+  gap: 8px;
 }
 .mk-asset__price {
-  font-size: var(--font-normal);
-  font-weight: 600;
+  font-size: var(--font-medium);
+  font-weight: 800;
   color: var(--color-text);
 }
 .mk-asset__name {
@@ -180,17 +191,12 @@
 .mk-locked {
   padding: 6px 12px;
   border-radius: var(--radius-small);
-  background: #f1eff5;
-  color: var(--color-text);
+  background: rgba(255, 255, 255, 0.2);
+  color: var(--color-white);
   font-size: var(--font-small);
   font-weight: 700;
 }
-.mk-asset__ipo {
-  margin-top: 2px;
-  font-size: var(--font-small);
-  font-weight: 700;
-  color: var(--color-red);
-}
+
 
 /* Recherche et filtre par type, au-dessus de la grille. */
 .mk-filters {
@@ -243,4 +249,39 @@
   margin: 0;
   font-size: var(--font-normal);
   color: var(--color-text);
+}
+
+/* Pastille du ticker : identifie l'actif d'un coup d'oeil, dans sa couleur. */
+.mk-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  font-size: var(--font-small);
+  font-weight: 800;
+}
+
+/* Variation : le vert et le rouge disent le sens, c'est la seule couleur de
+   cet ecran qui porte une information plutot qu'une identite. */
+.mk-pill {
+  align-self: flex-start;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: var(--font-small);
+  font-weight: 800;
+  white-space: nowrap;
+}
+.mk-pill.is-up {
+  background: #dcfce7;
+  color: #14532d;
+}
+.mk-pill.is-down {
+  background: #fee2e2;
+  color: #7f1d1d;
+}
+.mk-pill.is-ipo {
+  background: #fee2e2;
+  color: #7f1d1d;
 }

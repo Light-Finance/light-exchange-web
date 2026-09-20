@@ -15,6 +15,7 @@ const MARKET_ASSETS = gql`
       shortName
       kind
       price
+      change24h
       ipoPrice
     }
   }
@@ -70,6 +71,8 @@ export interface IMarketAsset {
   kind: string;
   /** null quand le fournisseur n'a pas répondu : l'actif reste listé. */
   price: number | null;
+  /** Variation sur 24 h en %, null pour une souscription ou si inconnue. */
+  change24h: number | null;
   /** Non nul = l'actif est en souscription à ce prix, et non revendable. */
   ipoPrice: number | null;
 }
