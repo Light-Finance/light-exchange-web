@@ -751,16 +751,19 @@
 .bot-tier:hover:not(:disabled) {
   border-color: var(--color-secondary);
 }
+/* Un palier hors budget se distingue par son fond, pas en devenant illisible :
+   la transparence effacait le plafond, qui est justement ce qu'il faut lire. */
 .bot-tier:disabled {
-  opacity: 0.45;
+  background: #f1eff5;
+  border-color: #e3dfea;
   cursor: not-allowed;
 }
 .bot-tier__price {
   font-size: var(--font-medium);
   font-weight: 800;
-  color: var(--color-secondary);
+  color: var(--color-text);
 }
 .bot-tier__cap {
-  font-size: var(--font-small);
-  color: var(--color-text-muted);
+  font-size: var(--font-normal);
+  color: var(--color-text);
 }
