@@ -124,9 +124,6 @@ export interface IManagedAccount {
 const BOT_BILLING = gql`
   query botBilling($userId: ID) {
     botBilling(userId: $userId) {
-      mode
-      paidStartAt
-      daysLeft
       plans
       subscriptionDays
       hasAccess
@@ -167,9 +164,6 @@ export interface IBotSubscription {
 }
 
 export interface IBotBilling {
-  mode: 'free' | 'paid' | string;
-  paidStartAt?: string | null;
-  daysLeft: number;
   plans: number[];
   subscriptionDays: number;
   hasAccess: boolean;
@@ -258,10 +252,6 @@ export class ManagedStore {
     if (this.isDemo) return true;
     // Unknown billing must not lock the screen: a failed fetch is not a paywall.
     return this.billing ? this.billing.hasAccess : true;
-  }
-
-  get daysBeforePaid(): number {
-    return this.billing?.daysLeft ?? 0;
   }
 
   /** Redeems an admin-issued free-access code. */
