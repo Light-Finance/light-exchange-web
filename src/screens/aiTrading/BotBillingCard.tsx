@@ -149,11 +149,16 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
   );
 });
 
-export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () => void }) => {
+/**
+ * L'etat de l'abonnement, sans les paliers : ceux-ci vivent dans la modale
+ * ouverte au clic sur "Deposer". Les garder aussi en bas de l'ecran remettait
+ * l'offre sous les yeux d'un abonne qui venait de payer.
+ */
+export const BotBillingCard = observer(
+  ({ onChangePlan }: { onChangePlan?: () => void }) => {
   const billing = appRootStore.managedStore.billing;
   if (!billing) return null;
   const sub = billing.subscription;
-  const plans = <BotPlans onSubscribed={onSubscribed} />;
 
   if (billing.accessCode) {
     // A code granted by the team outranks the plans: nothing to buy while it
@@ -169,25 +174,33 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
   }
 
   // Rien ici sans abonnement : l'etat se lit sur la carte du robot (pastille
-  // rouge) et les paliers s'ouvrent en modale au clic sur "Deposer". Les
-  // afficher aussi en bas d'ecran donnait deux fois la meme offre.
+  // rouge) et les paliers s'ouvrent en modale au clic sur "Deposer".
   if (!billing.hasAccess) return null;
 
   if (sub) {
     const endsIn = Math.max(0, Math.ceil((new Date(sub.endAt).getTime() - Date.now()) / 86400000));
+    const cap = billing.planCap;
     return (
-      <>
-        <div className="bot-note bot-note--promo">
-          <div className="bot-note__title">✅ Abonnement actif</div>
-          <p>
-            Palier {sub.plan} USDT · encore {endsIn} jour{endsIn > 1 ? 's' : ''} (jusqu'au{' '}
-            {new Date(sub.endAt).toLocaleDateString()}).
-          </p>
-        </div>
-        {plans}
-      </>
+      <div className="bot-note bot-note--promo">
+        <div className="bot-note__title">✅ Abonnement actif</div>
+        <p>
+          Palier {sub.plan} USDT ·{' '}
+          {cap === null || cap === undefined
+            ? 'capital illimité'
+            : `gère jusqu'à ${cap.toLocaleString('fr-FR')} USDT`}{' '}
+          · encore {endsIn} jour{endsIn > 1 ? 's' : ''} (jusqu'au{' '}
+          {new Date(sub.endAt).toLocaleDateString()}).
+        </p>
+        {/* Seule porte vers un palier superieur une fois abonne : sans elle, le
+            plafond ne se change qu'en se heurtant a lui. */}
+        {onChangePlan ? (
+          <button type="button" className="bot-sub__change" onClick={onChangePlan}>
+            Changer de palier
+          </button>
+        ) : null}
+      </div>
     );
   }
 
-  return plans;
+  return null;
 });

@@ -834,3 +834,17 @@
   font-weight: 600;
   color: var(--color-text);
 }
+
+/* Changer de palier depuis l'abonnement en cours : discret, mais c'est la
+   seule porte vers un plafond superieur une fois abonne. */
+.bot-sub__change {
+  margin-top: 8px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-secondary-dark);
+  font-size: var(--font-normal);
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}

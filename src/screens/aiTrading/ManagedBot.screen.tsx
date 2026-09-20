@@ -26,7 +26,7 @@ type Dialog = null | 'deposit' | 'withdraw';
 
 export const ManagedBot = observer(() => {
   const navigate = useNavigate();
-  const { managedStore } = appRootStore;
+  const { managedStore, walletStore } = appRootStore;
   const [dialog, setDialog] = useState<Dialog>(null);
   const [amount, setAmount] = useState('');
   const [busy, setBusy] = useState(false);
@@ -37,10 +37,13 @@ export const ManagedBot = observer(() => {
 
   useEffect(() => {
     (async () => {
-      await managedStore.load();
+      // Les portefeuilles aussi : seul `selectedWallet` est persiste, donc en
+      // arrivant ici la liste est vide et le solde disponible s'affichait a
+      // 0 — ce qui se lit comme le solde du robot, pas celui du portefeuille.
+      await Promise.all([managedStore.load(), walletStore.getWallets()]);
       syncNotifications();
     })();
-  }, [managedStore]);
+  }, [managedStore, walletStore]);
 
   // Solde alimentant le bot : virtuel en demo, portefeuille USDT sinon.
   const usdtBalance = managedStore.availableBalance;
@@ -285,7 +288,7 @@ export const ManagedBot = observer(() => {
           </div>
         </section>
       ) : (
-        <BotBillingCard onSubscribed={() => managedStore.load()} />
+        <BotBillingCard onChangePlan={() => setAskPlans(true)} />
       )}
 
       {askPlans ? (
