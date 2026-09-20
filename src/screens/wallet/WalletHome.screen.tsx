@@ -6,6 +6,7 @@ import {
   faArrowUpFromBracket,
   faHistory,
   faPaperPlane,
+  faChartLine,
   faPlayCircle,
   faPlus,
   faRefresh,
@@ -37,6 +38,9 @@ export const WalletHome = observer(() => {
     { label: translate('walletHome.depositBtn'), icon: faPlus, onClick: () => walletStore.navigateToAddFunds() },
     { label: translate('walletHome.withdrawBtn'), icon: faArrowUpFromBracket, onClick: () => walletStore.navigateToWithdraw() },
     { label: translate('walletHome.transferBtn'), icon: faPaperPlane, onClick: () => walletStore.navigateToTransfer() },
+    // Le marche se finance depuis ce solde : l'atteindre d'ici evite de
+    // repasser par la barre d'onglets pour aller depenser ce qu'on regarde.
+    { label: translate('walletHome.marketBtn'), icon: faChartLine, onClick: () => navigate('/market') },
     { label: translate('walletHome.contactBtn'), icon: faWhatsapp, onClick: () => authStore.toContactUs() },
     { label: translate('walletHome.learnBtn'), icon: faPlayCircle, onClick: () => navigate('/tutorials') },
   ];

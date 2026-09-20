@@ -246,7 +246,8 @@
     "comingSoonTxt": "Bientôt disponible",
     "learnBtn": "Tutoriels",
     "contactBtn": "Contactez-nous",
-    "balanceLabel": "Solde"
+    "balanceLabel": "Solde",
+    "marketBtn": "Marché"
   },
   "walletTrading": {
     "tokensTxt": "Choisir une crypto",
