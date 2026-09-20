@@ -27,16 +27,21 @@ interface Row {
   id: string;
   shortName: string;
   name: string;
+  kind: string;
   price: number | null;
   change24h: number | null;
   ipoPrice: number | null;
 }
 
-const money = (n: number) =>
-  n.toLocaleString('fr-FR', {
-    minimumFractionDigits: n >= 100 ? 2 : n >= 1 ? 4 : 6,
-    maximumFractionDigits: n >= 100 ? 2 : n >= 1 ? 4 : 6,
+// Une action se cote au centime ; une crypto a besoin de decimales que son
+// ordre de grandeur seul peut dire.
+const money = (n: number, kind: string) => {
+  const d = kind === 'stock' ? 2 : n >= 100 ? 2 : n >= 1 ? 4 : 6;
+  return n.toLocaleString('fr-FR', {
+    minimumFractionDigits: d,
+    maximumFractionDigits: d,
   });
+};
 
 export const LandingTicker = () => {
   const [rows, setRows] = useState<Row[]>([]);
@@ -83,7 +88,7 @@ export const LandingTicker = () => {
                   </span>
                   <span className="land__ticker-name">{a.name}</span>
                 </td>
-                <td className="land__ticker-price">{money(a.price as number)} $</td>
+                <td className="land__ticker-price">{money(a.price as number, a.kind)} $</td>
                 <td
                   className={`land__ticker-chg ${up ? 'is-up' : 'is-down'}`}
                 >

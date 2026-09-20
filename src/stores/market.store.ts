@@ -31,6 +31,7 @@ const MARKET_PORTFOLIO = gql`
         symbol
         name
         shortName
+        kind
         quantity
         cost
         price
@@ -85,6 +86,7 @@ export interface IMarketPosition {
   symbol: string;
   name: string;
   shortName: string;
+  kind: string;
   quantity: number;
   cost: number;
   price: number | null;

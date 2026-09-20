@@ -19,9 +19,15 @@ const money = (n: number | null | undefined, digits = 2) =>
         maximumFractionDigits: digits,
       });
 
-/** Les petits cours ont besoin de decimales que les gros rendraient illisibles. */
-const price = (n: number | null) =>
-  n === null ? '—' : money(n, n >= 100 ? 2 : n >= 1 ? 4 : 6);
+/**
+ * Une action se cote toujours au centime, quel que soit son cours : NDAQ a
+ * 93,5400 $ se lit comme une erreur. Une crypto, elle, a besoin de decimales
+ * que son ordre de grandeur seul peut dire.
+ */
+const price = (n: number | null, kind?: string) =>
+  n === null
+    ? '—'
+    : money(n, kind === 'stock' ? 2 : n >= 100 ? 2 : n >= 1 ? 4 : 6);
 
 const day = (iso: string) => new Date(iso).toLocaleDateString('fr-FR');
 
@@ -139,7 +145,7 @@ export const Market = observer(() => {
               <div className="mk-row__left">
                 <span className="mk-row__name">{p.name}</span>
                 <span className="mk-row__sub">
-                  {money(p.quantity, 6)} · {price(p.price)} $
+                  {money(p.quantity, 6)} · {price(p.price, p.kind)} $
                 </span>
               </div>
               <div className="mk-row__right">
@@ -231,7 +237,7 @@ export const Market = observer(() => {
                 </span>
                 <span className="mk-asset__name">{a.name}</span>
               </span>
-              <span className="mk-asset__price">{price(a.price)} $</span>
+              <span className="mk-asset__price">{price(a.price, a.kind)} $</span>
               {/* Une souscription ne se revend pas avant la cotation, et elle
                   n'a pas de variation : la pastille dit l'un ou l'autre. */}
               {a.ipoPrice ? (
@@ -277,7 +283,7 @@ export const Market = observer(() => {
             </h2>
             <p className="mk-note">
               {asset.ipoPrice ? 'Prix de souscription : ' : 'Cours : '}
-              {price(asset.price)} $
+              {price(asset.price, asset.kind)} $
             </p>
             {asset.ipoPrice && dialog.side === 'buy' ? (
               <p className="mk-note">
