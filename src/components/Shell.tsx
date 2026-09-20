@@ -17,6 +17,7 @@ import { translate } from '../helpers/localization';
 import { ROUTE_PATHS } from '../navigations/app.navigation';
 import { ROUTES } from '../consts/routes';
 import './Shell.css';
+import { AppVersion } from './AppVersion';
 
 const TAB = ROUTES.mainNavigation.tabNavigation;
 
@@ -69,7 +70,7 @@ export const Shell = observer(({ children }: { children: ReactNode }) => {
       <aside className="shell__sidebar">
         <div className="shell__brand">
           {lightexchange.app.INFO.APP_NAME}
-          <span className="shell__version">{APP.INFO.APP_VERSION}</span>
+          <span className="shell__version"><AppVersion /></span>
         </div>
         <nav className="shell__nav" aria-label="Main">
           {TABS.map(tab => (
@@ -89,7 +90,7 @@ export const Shell = observer(({ children }: { children: ReactNode }) => {
         <header className="shell__topbar">
           <div className="shell__brand shell__brand--mobile">
             {lightexchange.app.INFO.APP_NAME}
-            <span className="shell__version">{APP.INFO.APP_VERSION}</span>
+            <span className="shell__version"><AppVersion /></span>
           </div>
           <div className="shell__topbar-actions">
             <NavLink

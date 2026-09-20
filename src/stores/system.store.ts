@@ -10,6 +10,13 @@ export class SystemStore {
   @observable selectedCrypto?: ICrypto;
   @observable countries: ICountry[];
   @observable country: ICountry;
+  /**
+   * Nom de version saisi dans le dashboard. Tant que l'API n'a pas repondu, ou
+   * si le champ est vide, il vaut undefined et l'affichage retombe sur la
+   * version du build : un pied de page sans numero serait pire qu'un numero
+   * un peu ancien.
+   */
+  @observable appVersionName?: string;
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     this.setInitialState();
@@ -25,6 +32,25 @@ export class SystemStore {
   }
   @action setCryptoList(cryptos: ICrypto[]) {
     this.cryptos = cryptos;
+  }
+  @action setAppVersionName(name?: string) {
+    this.appVersionName = name;
+  }
+  /**
+   * Lit le nom de version regle dans le dashboard, pour que le site et l'app
+   * mobile annoncent le meme numero sans avoir a republier le site.
+   *
+   * loaderOn est faux : c'est un detail de pied de page, il n'a aucune raison
+   * de poser un voile de chargement sur l'ecran au demarrage.
+   */
+  @action async appVersion() {
+    const response = await Service.query(
+      { adminId: 1 },
+      lightexchange.graphql.query.SYSTEM_BY_ID,
+      false,
+    );
+    const name = response?.data?.systemById?.mobileAppVersionName;
+    if (name) this.setAppVersionName(String(name));
   }
   @action async systemGetNumbers(type) {
     const response = await Service.query(

@@ -25,6 +25,7 @@ import { APP } from '../../consts/app';
 import { API_BASE_URL } from '../../consts/api';
 import { ToastService } from '../../services/toast.service';
 import './profil.css';
+import { AppVersion } from '../../components/AppVersion';
 
 const MAX_UPDATES = 2;
 type IdType = 'front' | 'back' | 'selfie';
@@ -125,7 +126,7 @@ export const Profil = observer(() => {
       </button>
 
       <div className="profil-version">
-        {lightexchange.app.INFO.COPYRIGHT} {APP.INFO.APP_VERSION}
+        {lightexchange.app.INFO.COPYRIGHT} <AppVersion />
       </div>
     </div>
   );

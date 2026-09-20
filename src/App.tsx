@@ -56,6 +56,9 @@ export const App = observer(() => {
   // (modal/spinner events, connectivity, FCM token sync).
   useEffect(() => {
     appRootStore.uxStore.subscribe();
+    // Une seule lecture au demarrage : le numero de version ne change pas en
+    // cours de session.
+    appRootStore.systemStore.appVersion();
     return () => appRootStore.uxStore.unSubscribe();
   }, []);
 

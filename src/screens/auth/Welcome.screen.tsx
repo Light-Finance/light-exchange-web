@@ -18,6 +18,7 @@ import { translate } from '../../helpers/localization';
 import appIcon from '../../assets/imgs/appIcon.png';
 import { LandingTicker } from './LandingTicker';
 import './landing.css';
+import { AppVersion } from '../../components/AppVersion';
 
 // Page d'accueil publique. Contrairement aux autres ecrans d'auth, elle ne vit
 // pas dans le cadre violet AuthLayout : un visiteur qui ne connait pas Light
@@ -159,7 +160,7 @@ export const Welcome = () => {
       </a>
 
       <footer className="land__footer">
-        {lightexchange.app.INFO.COPYRIGHT} {APP.INFO.APP_VERSION}
+        {lightexchange.app.INFO.COPYRIGHT} <AppVersion />
       </footer>
     </div>
   );
