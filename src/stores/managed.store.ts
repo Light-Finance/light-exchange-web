@@ -115,7 +115,7 @@ export interface IManagedAccount {
   equity: number;
   monthRate?: number | null;
   monthPct: number;
-  /** Gain du mois en USDT, identique au total de la liste des ordres. */
+  /** Gain du mois en $, identique au total de la liste des ordres. */
   monthPnl?: number;
   allTimePnl: number;
   curve: { t: string; value: number; pnl: number }[];
@@ -230,7 +230,7 @@ export class ManagedStore {
     return this.isDemo ? this.demo.history : this.serverHistory;
   }
 
-  /** Solde USDT disponible pour alimenter le bot (virtuel en demo). */
+  /** Solde $ disponible pour alimenter le bot (virtuel en demo). */
   get availableBalance(): number {
     if (this.isDemo) return this.demo.balance;
     return this.rootStore.walletStore.getUsdtWallet()?.balance ?? 0;

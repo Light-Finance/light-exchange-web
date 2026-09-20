@@ -66,7 +66,7 @@ export const WalletDeposit = observer(() => {
   const userWallet = walletStore.wallets?.find(w => w.crypto?.id === selectedCrypto?.id);
   // Deux façons de recharger. L'envoi on-chain arrive sur l'adresse du
   // dépôt ; par email, c'est un autre utilisateur qui crédite le compte, donc
-  // il n'y a ni réseau ni TXID à fournir. USDT portait cette distinction avant
+  // il n'y a ni réseau ni TXID à fournir. $ portait cette distinction avant
   // la fusion — elle est devenue un choix explicite plutôt qu'un effet de
   // bord de la crypto sélectionnée.
   const byEmail = mode === 'email';

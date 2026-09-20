@@ -141,7 +141,7 @@ export const Analysis = observer(() => {
       <div className="bot-hero">
         <div className="bot-hero__label">{a.label}</div>
         <div className="bot-hero__equity">
-          {a.price.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} USDT
+          {a.price.toLocaleString('fr-FR', { maximumFractionDigits: 2 })} $
         </div>
         <div
           className="bot-hero__target"

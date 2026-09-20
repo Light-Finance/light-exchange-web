@@ -110,7 +110,7 @@ export const Welcome = () => {
               {translate('welcome.previewTag')}
             </span>
           </div>
-          <p className="land__preview-value">1 284,60 USDT</p>
+          <p className="land__preview-value">1 284,60 $</p>
           <p className="land__preview-since">
             {translate('welcome.previewSince')}
           </p>

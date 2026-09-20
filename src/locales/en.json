@@ -221,7 +221,7 @@
     "amountToWithdrawValidation": "Min. amount: 13",
     "emailConfirmation": "Incorrect code",
     "investment": "Error, contact us",
-    "minWithdrawalValidation": "Min. withdrawal: %{min} USDT (%{net} + %{fee} fees)"
+    "minWithdrawalValidation": "Min. withdrawal: $%{min} (%{net} + %{fee} fees)"
   },
   "successMessages": {
     "signIn": "Login successful",
@@ -280,7 +280,7 @@
       "onchain": "On-chain transfer",
       "email": "By email"
     },
-    "emailHint": "Give this email to whoever is sending you USDT from Light Exchange. The amount lands straight in your balance, with no network fee."
+    "emailHint": "Give this email to whoever is sending you dollars from Light Exchange. The amount lands straight in your balance, with no network fee."
   },
   "tradingHome": {
     "title": "Trading",
@@ -322,7 +322,7 @@
     "withdrawBtn": "Withdraw",
     "withdrawTxt": "Withdrawal",
     "feesTxt": "Fees",
-    "fiat": "USDT withdrawal: use Transfer",
+    "fiat": "Dollar withdrawal: use Transfer",
     "transfer": "Transfer"
   },
   "walletWithdrawC": {
@@ -376,7 +376,7 @@
     "chooseWallet": "Select wallet"
   },
   "rechargeGetWallet": {
-    "acquireLF": "Use your email to receive USDT"
+    "acquireLF": "Use your email to receive dollars"
   },
   "aiTrading": {
     "title": "AI Trading",
@@ -387,15 +387,15 @@
     "runningFor": "Running for",
     "finalPnl": "Final PnL",
     "closed": "CLOSED",
-    "amountLabel": "Amount (USDT)",
-    "amountPlaceholder": "Min. %{min} USDT",
+    "amountLabel": "Amount ($)",
+    "amountPlaceholder": "Min. $%{min}",
     "available": "Available:",
     "leverageLabel": "Leverage",
     "estimatedReturn": "Est. return (30 days)",
     "liquidationThreshold": "Liquidation price",
     "liquidationWarning": "If liquidation price is hit, position closes at 0 profit.",
     "confirmCopy": "Copy Bot",
-    "insufficientBalance": "Insufficient USDT balance",
+    "insufficientBalance": "Insufficient balance",
     "invalidAmount": "Enter a valid amount",
     "unsubscribeSuccess": "Position closed",
     "runningBotsTitle": "Running Bots",
@@ -415,7 +415,7 @@
     "vaultNavBtn": "Vault",
     "vaultDescription": "Funds here are automatically invested in full whenever a new bot starts.",
     "vaultBalanceLabel": "Vault balance",
-    "vaultAmountPlaceholder": "Amount (USDT)",
+    "vaultAmountPlaceholder": "Amount ($)",
     "vaultDepositBtn": "Deposit",
     "vaultWithdrawBtn": "Withdraw",
     "vaultDepositSuccess": "Deposited to vault",
@@ -424,8 +424,8 @@
     "thresholdsTitle": "Take profit / Stop loss (optional)",
     "thresholdsHintLong": "LONG bot: take profit must be above the current price, stop loss below.",
     "thresholdsHintShort": "SHORT bot: take profit must be below the current price, stop loss above.",
-    "takeProfitLabel": "Take profit (USDT)",
-    "stopLossLabel": "Stop loss (USDT)",
+    "takeProfitLabel": "Take profit ($)",
+    "stopLossLabel": "Stop loss ($)",
     "optional": "Optional",
     "invalidTakeProfit": "Invalid take profit",
     "invalidStopLoss": "Invalid stop loss",

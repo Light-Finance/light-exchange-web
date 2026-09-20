@@ -12,7 +12,7 @@
 
 import { IManagedAccount, IManagedEntry } from '../stores/managed.store';
 
-/** Solde USDT virtuel offert à l'ouverture du mode démo. */
+/** Solde $ virtuel offert à l'ouverture du mode démo. */
 export const DEMO_START_BALANCE = 100000;
 /** Objectif mensuel annoncé dans la démo (12 %). */
 export const DEMO_MONTH_RATE = 0.12;
@@ -49,7 +49,7 @@ export function demoNav(ms: number = Date.now()): number {
 }
 
 export interface IDemoState {
-  /** Portefeuille USDT virtuel, hors du bot. */
+  /** Portefeuille $ virtuel, hors du bot. */
   balance: number;
   /** Parts détenues dans le bot. */
   units: number;

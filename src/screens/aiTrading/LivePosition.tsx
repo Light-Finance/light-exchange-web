@@ -31,7 +31,7 @@ const mmss = (seconds: number) =>
  *
  * Le créneau, la paire et le sens viennent de l'horloge UTC (voir
  * helpers/botActivity) : tout le monde voit la même position au même instant.
- * Seul le montant en USDT est propre à l'utilisateur, puisqu'il suit son capital.
+ * Seul le montant en $ est propre à l'utilisateur, puisqu'il suit son capital.
  *
  * Sans capital, le robot ne travaille pas : le bloc ne s'affiche pas du tout
  * plutôt que d'animer des zéros.
@@ -119,7 +119,7 @@ export const LivePosition = observer(() => {
             style={{ color: up ? 'var(--color-secondary-dark)' : 'var(--color-red)' }}
           >
             {up ? '+' : ''}
-            {pnl.toFixed(4)} USDT
+            {pnl.toFixed(4)} $
           </span>
         </div>
       </div>
@@ -165,7 +165,7 @@ export const LivePosition = observer(() => {
               style={{ color: won ? 'var(--color-secondary-dark)' : 'var(--color-red)' }}
             >
               {won ? '+' : ''}
-              {c.pnl.toFixed(4)} USDT
+              {c.pnl.toFixed(4)} $
             </span>
             <span className="live-pos__closed-ago">il y a {minutes} min</span>
           </div>

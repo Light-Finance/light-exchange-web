@@ -34,7 +34,7 @@ export function WhatIf({ monthRate }: IProps) {
             className={`whatif__chip${v === amount ? ' whatif__chip--on' : ''}`}
             onClick={() => setAmount(v)}
           >
-            {v} USDT
+            {v} $
           </button>
         ))}
       </div>
@@ -45,7 +45,7 @@ export function WhatIf({ monthRate }: IProps) {
           return (
             <div className="whatif__proj" key={m}>
               <div className="whatif__projlabel">{m === 12 ? '1 an' : `${m} mois`}</div>
-              <div className="whatif__projvalue">{value.toFixed(0)} USDT</div>
+              <div className="whatif__projvalue">{value.toFixed(0)} $</div>
               <div className="whatif__projgain">+{(value - amount).toFixed(0)}</div>
             </div>
           );

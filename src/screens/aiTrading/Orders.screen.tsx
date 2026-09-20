@@ -145,7 +145,7 @@ export const Orders = observer(() => {
         <span className="orders-total__label">Total gagné ce mois</span>
         <span className="orders-total__value">
           {totalPnl >= 0 ? '+' : ''}
-          {totalPnl.toFixed(2)} USDT
+          {totalPnl.toFixed(2)} $
         </span>
       </div>
 
@@ -200,7 +200,7 @@ export const Orders = observer(() => {
                 }}
               >
                 {day.total >= 0 ? '+' : ''}
-                {day.total.toFixed(2)} USDT
+                {day.total.toFixed(2)} $
               </span>
             </div>
             {day.orders.map(order => {
@@ -224,7 +224,7 @@ export const Orders = observer(() => {
                 <div className="order-card__row">
                   <span className="order-card__pnl" style={{ color }}>
                     {order.pnlUsdt >= 0 ? '+' : ''}
-                    {order.pnlUsdt.toFixed(2)} USDT ({order.pnlPct >= 0 ? '+' : ''}
+                    {order.pnlUsdt.toFixed(2)} $ ({order.pnlPct >= 0 ? '+' : ''}
                     {order.pnlPct.toFixed(2)}%)
                   </span>
                 </div>

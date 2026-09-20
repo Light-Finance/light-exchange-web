@@ -47,7 +47,7 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
   const subscribe = async (plan: number) => {
     if (busyPlan !== null) return;
     if (balance < plan) {
-      ToastService.show('Solde USDT insuffisant', ToastService.ERROR);
+      ToastService.show('Solde $ insuffisant', ToastService.ERROR);
       return;
     }
     setBusyPlan(plan);
@@ -90,7 +90,7 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
           plutot qu'une fin de phrase. */}
       <div className="bot-sub__balance">
         <span>Solde disponible</span>
-        <strong>{balance.toFixed(2)} USDT</strong>
+        <strong>{balance.toFixed(2)} $</strong>
       </div>
 
       {/* Le plafond fait toute la difference entre deux paliers : sans lui la
@@ -109,7 +109,7 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
             >
               <span className="bot-tier__top">
                 <span className="bot-tier__price">
-                  {busyPlan === tier.price ? '…' : `${tier.price} USDT`}
+                  {busyPlan === tier.price ? '…' : `${tier.price} $`}
                 </span>
                 {tier.cap === null ? (
                   <span className="bot-tier__flag">illimité</span>
@@ -118,13 +118,13 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
               <span className="bot-tier__cap">
                 {tier.cap === null
                   ? 'capital géré sans plafond'
-                  : `gère jusqu'à ${fmt(tier.cap)} USDT`}
+                  : `gère jusqu'à ${fmt(tier.cap)} $`}
               </span>
               {/* Rien a dire quand le palier est hors budget : le fond gris le
                   dit deja, et chiffrer le manque enfonce le clou. */}
               {affordable ? (
                 <span className="bot-tier__after">
-                  Solde après : {(balance - tier.price).toFixed(2)} USDT
+                  Solde après : {(balance - tier.price).toFixed(2)} $
                 </span>
               ) : null}
             </button>
@@ -184,10 +184,10 @@ export const BotBillingCard = observer(
       <div className="bot-note bot-note--promo">
         <div className="bot-note__title">✅ Abonnement actif</div>
         <p>
-          Palier {sub.plan} USDT ·{' '}
+          Palier {sub.plan} $ ·{' '}
           {cap === null || cap === undefined
             ? 'capital illimité'
-            : `gère jusqu'à ${cap.toLocaleString('fr-FR')} USDT`}{' '}
+            : `gère jusqu'à ${cap.toLocaleString('fr-FR')} $`}{' '}
           · encore {endsIn} jour{endsIn > 1 ? 's' : ''} (jusqu'au{' '}
           {new Date(sub.endAt).toLocaleDateString()}).
         </p>

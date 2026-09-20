@@ -55,14 +55,14 @@ export const ManagedHistory = observer(() => {
             <div className="mh-summary__cell">
               <div className="mh-summary__label">Total entré</div>
               <div className="mh-summary__value" style={{ color: GREEN }}>
-                {totals.in.toFixed(2)} USDT
+                {totals.in.toFixed(2)} $
               </div>
             </div>
             <div className="mh-summary__divider" />
             <div className="mh-summary__cell">
               <div className="mh-summary__label">Total retiré</div>
               <div className="mh-summary__value" style={{ color: RED }}>
-                {totals.out.toFixed(2)} USDT
+                {totals.out.toFixed(2)} $
               </div>
             </div>
           </div>
@@ -95,7 +95,7 @@ export const ManagedHistory = observer(() => {
                   <div style={{ textAlign: 'right' }}>
                     <div className="team-row__earned" style={{ color: meta.color }}>
                       {meta.sign}
-                      {item.amount.toFixed(2)} USDT
+                      {item.amount.toFixed(2)} $
                     </div>
                     <div className="team-row__meta">
                       {item.units.toFixed(4)} parts @ {item.nav.toFixed(4)}

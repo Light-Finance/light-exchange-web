@@ -65,7 +65,7 @@ export const Market = observer(() => {
   };
 
   const pnlTotal = marketStore.totalValue - marketStore.totalCost;
-  // En pourcentage du capital engage : 22 USDT ne dit rien sans savoir sur
+  // En pourcentage du capital engage : 22 $ ne dit rien sans savoir sur
   // combien, 8 % se lit seul.
   const folioPct =
     marketStore.totalCost > 0 ? (pnlTotal / marketStore.totalCost) * 100 : 0;
@@ -89,7 +89,7 @@ export const Market = observer(() => {
 
       <div className="mk-balance">
         <span>Solde disponible</span>
-        <strong>{money(balance)} USDT</strong>
+        <strong>{money(balance)} $</strong>
       </div>
 
       {marketStore.positions.length > 0 ? (
@@ -101,10 +101,10 @@ export const Market = observer(() => {
               {money(folioPct, 1)} %
             </span>
           </div>
-          <p className="mk-folio__value">{money(marketStore.totalValue)} USDT</p>
+          <p className="mk-folio__value">{money(marketStore.totalValue)} $</p>
           <p className="mk-folio__sub">
             {pnlTotal >= 0 ? '+' : ''}
-            {money(pnlTotal)} USDT depuis vos achats
+            {money(pnlTotal)} $ depuis vos achats
           </p>
 
           {marketStore.positions.map(p => (
@@ -121,11 +121,11 @@ export const Market = observer(() => {
               <div className="mk-row__left">
                 <span className="mk-row__name">{p.name}</span>
                 <span className="mk-row__sub">
-                  {money(p.quantity, 6)} · {price(p.price)} USDT
+                  {money(p.quantity, 6)} · {price(p.price)} $
                 </span>
               </div>
               <div className="mk-row__right">
-                <span className="mk-row__value">{money(p.value)} USDT</span>
+                <span className="mk-row__value">{money(p.value)} $</span>
                 <span
                   className="mk-row__sub"
                   style={{
@@ -212,7 +212,7 @@ export const Market = observer(() => {
                 </span>
                 <span className="mk-asset__name">{a.name}</span>
               </span>
-              <span className="mk-asset__price">{price(a.price)} USDT</span>
+              <span className="mk-asset__price">{price(a.price)} $</span>
               {/* Une souscription ne se revend pas avant la cotation, et elle
                   n'a pas de variation : la pastille dit l'un ou l'autre. */}
               {a.ipoPrice ? (
@@ -248,7 +248,7 @@ export const Market = observer(() => {
             </h2>
             <p className="mk-note">
               {asset.ipoPrice ? 'Prix de souscription : ' : 'Cours : '}
-              {price(asset.price)} USDT
+              {price(asset.price)} $
             </p>
             {asset.ipoPrice && dialog.side === 'buy' ? (
               <p className="mk-note">
@@ -258,15 +258,15 @@ export const Market = observer(() => {
             ) : null}
             <Input
               inputMode="decimal"
-              placeholder={dialog.side === 'buy' ? 'Montant (USDT)' : `Quantité (${asset.shortName})`}
+              placeholder={dialog.side === 'buy' ? 'Montant ($)' : `Quantité (${asset.shortName})`}
               value={amount}
               onChange={e => setAmount(e.target.value)}
             />
             {dialog.side === 'buy' ? (
               <>
-                <p className="mk-note">Disponible : {money(balance)} USDT</p>
+                <p className="mk-note">Disponible : {money(balance)} $</p>
                 {/* Ce que l'ordre donne, au cours affiche : l'utilisateur saisit
-                    des USDT mais recoit une quantite, et les deux ne se
+                    des $ mais recoit une quantite, et les deux ne se
                     devinent pas l'une de l'autre. */}
                 {asset.price ? (
                   <p className="mk-preview">
@@ -284,7 +284,7 @@ export const Market = observer(() => {
                 {asset.price ? (
                   <p className="mk-preview">
                     Vous recevrez ≈{' '}
-                    {money((parseFloat(amount.replace(',', '.')) || 0) * asset.price)} USDT
+                    {money((parseFloat(amount.replace(',', '.')) || 0) * asset.price)} $
                   </p>
                 ) : null}
                 <button

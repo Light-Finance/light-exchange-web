@@ -206,7 +206,7 @@ export class AiStore {
       const returnAmount = response.data.botUnSubscribe?.returnAmount;
       ToastService.show(
         translate('aiTrading.unsubscribeSuccess') +
-          (returnAmount ? ` +${returnAmount.toFixed(2)} USDT` : ''),
+          (returnAmount ? ` +${returnAmount.toFixed(2)} $` : ''),
         ToastService.SUCCESS,
       );
       await Promise.all([

@@ -131,7 +131,7 @@ export class MarketStore {
     }
   }
 
-  /** Achète pour `amount` USDT. Rafraîchit le portefeuille ET le solde. */
+  /** Achète pour `amount` $. Rafraîchit le portefeuille ET le solde. */
   async buy(symbol: string, amount: number): Promise<boolean> {
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return false;
@@ -151,7 +151,7 @@ export class MarketStore {
   }
 
   /**
-   * Un ordre déplace deux soldes : la position et le portefeuille USDT. Les
+   * Un ordre déplace deux soldes : la position et le portefeuille $. Les
    * recharger ensemble évite d'afficher un achat payé avec un solde inchangé.
    */
   async refresh() {

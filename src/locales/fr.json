@@ -221,7 +221,7 @@
     "amountToWithdrawValidation": "Montant min. : 13",
     "emailConfirmation": "Code incorrect",
     "investment": "Erreur, contactez-nous",
-    "minWithdrawalValidation": "Retrait minimum : %{min} USDT (%{net} + %{fee} de frais)"
+    "minWithdrawalValidation": "Retrait minimum : %{min} $ (%{net} + %{fee} de frais)"
   },
   "successMessages": {
     "signIn": "Connexion réussie",
@@ -280,7 +280,7 @@
       "onchain": "Envoi on-chain",
       "email": "Par email"
     },
-    "emailHint": "Communiquez cet email à la personne qui vous envoie des USDT depuis Light Exchange. Le montant arrive directement sur votre solde, sans frais de réseau."
+    "emailHint": "Communiquez cet email à la personne qui vous envoie des dollars depuis Light Exchange. Le montant arrive directement sur votre solde, sans frais de réseau."
   },
   "tradingHome": {
     "title": "Trading",
@@ -322,7 +322,7 @@
     "withdrawBtn": "Retrait",
     "withdrawTxt": "Retrait",
     "feesTxt": "Frais",
-    "fiat": "USDT : utiliser Transfert",
+    "fiat": "Retrait en $ : utiliser Transfert",
     "transfer": "Transfert"
   },
   "walletWithdrawC": {
@@ -376,7 +376,7 @@
     "chooseWallet": "Choisir le wallet"
   },
   "rechargeGetWallet": {
-    "acquireLF": "Utilisez votre email pour recevoir USDT"
+    "acquireLF": "Utilisez votre email pour recevoir des $"
   },
   "aiTrading": {
     "title": "AI Trading",
@@ -387,15 +387,15 @@
     "runningFor": "Depuis",
     "finalPnl": "PnL final",
     "closed": "CLÔTURÉ",
-    "amountLabel": "Montant (USDT)",
-    "amountPlaceholder": "Min. %{min} USDT",
+    "amountLabel": "Montant ($)",
+    "amountPlaceholder": "Min. %{min} $",
     "available": "Disponible :",
     "leverageLabel": "Levier",
     "estimatedReturn": "Retour estimé (30j)",
     "liquidationThreshold": "Prix de liquidation",
     "liquidationWarning": "Si le prix de liquidation est atteint, position clôturée à 0.",
     "confirmCopy": "Copier le Bot",
-    "insufficientBalance": "Solde USDT insuffisant",
+    "insufficientBalance": "Solde insuffisant",
     "invalidAmount": "Montant invalide",
     "unsubscribeSuccess": "Position clôturée",
     "runningBotsTitle": "Robots en cours",
@@ -415,7 +415,7 @@
     "vaultNavBtn": "Coffre",
     "vaultDescription": "Les fonds ici sont automatiquement investis en totalité dès qu'un nouveau bot démarre.",
     "vaultBalanceLabel": "Solde du coffre",
-    "vaultAmountPlaceholder": "Montant (USDT)",
+    "vaultAmountPlaceholder": "Montant ($)",
     "vaultDepositBtn": "Déposer",
     "vaultWithdrawBtn": "Retirer",
     "vaultDepositSuccess": "Déposé dans le coffre",
@@ -424,8 +424,8 @@
     "thresholdsTitle": "Take profit / Stop loss (facultatif)",
     "thresholdsHintLong": "Bot LONG : le take profit doit etre au-dessus du prix actuel, le stop loss en dessous.",
     "thresholdsHintShort": "Bot SHORT : le take profit doit etre en dessous du prix actuel, le stop loss au-dessus.",
-    "takeProfitLabel": "Take profit (USDT)",
-    "stopLossLabel": "Stop loss (USDT)",
+    "takeProfitLabel": "Take profit ($)",
+    "stopLossLabel": "Stop loss ($)",
     "optional": "Facultatif",
     "invalidTakeProfit": "Take profit invalide",
     "invalidStopLoss": "Stop loss invalide",

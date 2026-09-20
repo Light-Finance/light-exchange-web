@@ -45,7 +45,7 @@ export const ManagedBot = observer(() => {
     })();
   }, [managedStore, walletStore]);
 
-  // Solde alimentant le bot : virtuel en demo, portefeuille USDT sinon.
+  // Solde alimentant le bot : virtuel en demo, portefeuille $ sinon.
   const usdtBalance = managedStore.availableBalance;
   const demo = managedStore.isDemo;
   // L'etat de pause se lit sur la carte, la ou se lit la valeur du robot. En
@@ -168,7 +168,7 @@ export const ManagedBot = observer(() => {
             Historique
           </button>
         </div>
-        <p className="bot-hero__equity">{equity.toFixed(2)} USDT</p>
+        <p className="bot-hero__equity">{equity.toFixed(2)} $</p>
         {/* Sans dépôt, le bot ne travaille pas : `since` est alors null. */}
         {since ? <p className="bot-hero__since">🤖 {since}</p> : null}
         {monthRate != null ? (
@@ -185,7 +185,7 @@ export const ManagedBot = observer(() => {
       <div className="bot-stats">
         <div className="bot-stat">
           <div className="bot-stat__label">Capital investi</div>
-          <div className="bot-stat__value">{principal.toFixed(2)} USDT</div>
+          <div className="bot-stat__value">{principal.toFixed(2)} $</div>
         </div>
         <div className="bot-stat">
           <div className="bot-stat__label">Gain de ce mois</div>
@@ -194,15 +194,15 @@ export const ManagedBot = observer(() => {
             style={{ color: up ? 'var(--color-secondary)' : 'var(--color-red)' }}
           >
             {up ? '+' : ''}
-            {pnl.toFixed(2)} USDT
+            {pnl.toFixed(2)} $
           </div>
         </div>
       </div>
 
       <p className="bot-available">
         {demo
-          ? `Solde démo disponible : ${usdtBalance.toFixed(2)} USDT`
-          : `Disponible dans le portefeuille : ${usdtBalance.toFixed(2)} USDT`}
+          ? `Solde démo disponible : ${usdtBalance.toFixed(2)} $`
+          : `Disponible dans le portefeuille : ${usdtBalance.toFixed(2)} $`}
       </p>
 
       <div className="bot-actions">
@@ -275,7 +275,7 @@ export const ManagedBot = observer(() => {
         <section className="bot-demo-card">
           <h3>🧪 Mode démo</h3>
           <p>
-            Vous testez le robot avec {DEMO_START_BALANCE} USDT virtuels. Aucun
+            Vous testez le robot avec {DEMO_START_BALANCE} $ virtuels. Aucun
             argent réel n'est engagé, et ces gains ne sont pas retirables.
           </p>
           <div className="bot-actions">
@@ -318,31 +318,31 @@ export const ManagedBot = observer(() => {
             <h2>{dialog === 'deposit' ? 'Déposer dans le bot' : 'Retirer du bot'}</h2>
             <Input
               inputMode="decimal"
-              placeholder="Montant (USDT)"
+              placeholder="Montant ($)"
               value={amount}
               onChange={e => setAmount(e.target.value)}
             />
             {dialog === 'deposit' ? (
               <>
-                <p className="muted">Disponible : {usdtBalance.toFixed(2)} USDT</p>
+                <p className="muted">Disponible : {usdtBalance.toFixed(2)} $</p>
                 {/* Le plafond du palier doit se lire avant la saisie : le
                     decouvrir par un refus apres coup ne dit pas combien
                     entrerait encore. */}
                 {room !== null ? (
                   <p className="muted">
                     Ce palier gère jusqu'à{' '}
-                    {(managedStore.billing?.planCap ?? 0).toLocaleString('fr-FR')} USDT
+                    {(managedStore.billing?.planCap ?? 0).toLocaleString('fr-FR')} $
                     {room > 0
-                      ? ` — il reste ${room.toFixed(2)} USDT à confier.`
+                      ? ` — il reste ${room.toFixed(2)} $ à confier.`
                       : ' — plafond atteint, prenez un palier supérieur.'}
                   </p>
                 ) : null}
               </>
             ) : (
               <>
-                <p className="muted">Valeur du bot : {equity.toFixed(2)} USDT</p>
+                <p className="muted">Valeur du bot : {equity.toFixed(2)} $</p>
                 <p style={{ color: 'var(--color-secondary-dark)', fontWeight: 800 }}>
-                  Vous recevrez : {Math.max(0, parseFloat(amount) || 0).toFixed(2)} USDT{' '}
+                  Vous recevrez : {Math.max(0, parseFloat(amount) || 0).toFixed(2)} ${' '}
                   <span className="muted" style={{ fontWeight: 400 }}>(sans frais)</span>
                 </p>
               </>

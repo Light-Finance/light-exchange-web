@@ -3,7 +3,7 @@
 // Tout est derive de l'horloge UTC : le numero de creneau, la paire, le sens et
 // le bruit. Deux telephones ouverts cote a cote voient donc la meme position sur
 // la meme paire au meme instant — c'est ce qui rend l'activite credible plutot
-// que decorative. Seul le montant en USDT differe, puisqu'il est proportionnel au
+// que decorative. Seul le montant en $ differe, puisqu'il est proportionnel au
 // capital de chacun.
 //
 // Le gain d'un creneau converge exactement vers sa cible a la fermeture, et la
