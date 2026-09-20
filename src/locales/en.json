@@ -485,6 +485,8 @@
     "transferTxt": "Send to another Light Exchange account instantly, no fee.",
     "ratesTitle": "Market analysis",
     "ratesTxt": "BTC and ETH followed live, with a readable analysis every morning.",
+    "referTitle": "Referrals",
+    "referTxt": "Every verified referral earns you a bonus on their first deposit.",
     "secureTitle": "Verified account",
     "secureTxt": "ID verification and email confirmation protect withdrawals.",
     "storeSmall": "Get it on"

@@ -7,6 +7,7 @@ import {
   faLock,
   faRobot,
   faChartLine,
+  faUserPlus,
   faFlask,
 } from '@fortawesome/free-solid-svg-icons';
 import lightexchange from 'light-exchange';
@@ -26,6 +27,7 @@ const FEATURES: { icon: IconDefinition; key: string }[] = [
   { icon: faRobot, key: 'bot' },
   { icon: faBolt, key: 'transfer' },
   { icon: faGlobe, key: 'rates' },
+  { icon: faUserPlus, key: 'refer' },
   { icon: faLock, key: 'secure' },
 ];
 
