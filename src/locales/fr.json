@@ -80,7 +80,15 @@
     "idTapToChange": "Appuyer pour changer",
     "idRefreshStatus": "Actualiser le statut",
     "idVerificationRequested": "Demande envoyée à l'admin",
-    "countryTriesLeft": "{{count}} modification(s) restante(s)"
+    "countryTriesLeft": "{{count}} modification(s) restante(s)",
+    "profil": "Profil",
+    "sectionAccount": "Mon compte",
+    "sectionMore": "Plus",
+    "labelEmail": "Email",
+    "labelPhone": "Téléphone",
+    "labelCountry": "Pays",
+    "idNotVerified": "Identité non vérifiée",
+    "termsBtn": "Conditions d'utilisation"
   },
   "affiliateProgram": {
     "affiliateProgramTxt": "Programme d'affiliation",
@@ -221,7 +229,9 @@
     "amountToWithdrawValidation": "Montant min. : 13",
     "emailConfirmation": "Code incorrect",
     "investment": "Erreur, contactez-nous",
-    "minWithdrawalValidation": "Retrait minimum : %{min} $ (%{net} + %{fee} de frais)"
+    "minWithdrawalValidation": "Retrait minimum : %{min} $ (%{net} + %{fee} de frais)",
+    "phoneValidationPaymentMethodMtn": "Ce numéro n'est pas un numéro MTN",
+    "phoneValidationPaymentMethodOrange": "Ce numéro n'est pas un numéro Orange"
   },
   "successMessages": {
     "signIn": "Connexion réussie",

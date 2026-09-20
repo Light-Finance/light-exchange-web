@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faCopy } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
+import lightexchange from 'light-exchange';
 import { translate } from '../../helpers/localization';
 import { ToastService } from '../../services/toast.service';
 import { ROUTES } from '../../consts/routes';
@@ -169,7 +170,7 @@ export const WalletDeposit = observer(() => {
         <p className="w-buyhint">{translate('walletDeposit.otherMethodsTitle')}</p>
         <p className="mk-note">{translate('walletDeposit.otherMethodsText')}</p>
         <div className="w-buymethods">
-          {['Orange Money', 'MTN Mobile Money', 'Wave', 'PayPal', 'Visa'].map(
+          {(lightexchange.app.BUY_METHODS as string[]).map(
             method => (
               <a
                 key={method}

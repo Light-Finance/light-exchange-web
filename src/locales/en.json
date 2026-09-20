@@ -80,7 +80,15 @@
     "idTapToChange": "Tap to change",
     "idRefreshStatus": "Refresh Status",
     "idVerificationRequested": "Request sent to admin",
-    "countryTriesLeft": "{{count}} change(s) remaining"
+    "countryTriesLeft": "{{count}} change(s) remaining",
+    "profil": "Profile",
+    "sectionAccount": "My account",
+    "sectionMore": "More",
+    "labelEmail": "Email",
+    "labelPhone": "Phone",
+    "labelCountry": "Country",
+    "idNotVerified": "Identity not verified",
+    "termsBtn": "Terms of use"
   },
   "affiliateProgram": {
     "AffiliateProgramTxt": "Affiliate Program",
@@ -213,8 +221,8 @@
     "nameValidation": "Invalid name",
     "passWordValidation": "Min. 5 characters",
     "phoneValidation": "Invalid phone number",
-    "phoneValidationPaymentMethodMtn": "Enter MTN number",
-    "phoneValidationPaymentMethodOrange": "Enter Orange number",
+    "phoneValidationPaymentMethodMtn": "This is not an MTN number",
+    "phoneValidationPaymentMethodOrange": "This is not an Orange number",
     "walletValidation": "Invalid wallet",
     "codeValidation": "Invalid code",
     "spendValidation": "Amount: 1 – 1 000 000",
