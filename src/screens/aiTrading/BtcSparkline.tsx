@@ -12,7 +12,7 @@ export function BtcSparkline({
   data,
   width = 300,
   height = 60,
-  color = '#1D9E75',
+  color = '#0ECB81',
   id = 'spark',
 }: IProps) {
   if (!data || data.length < 2) return null;

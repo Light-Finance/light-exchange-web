@@ -342,3 +342,71 @@
     font-size: var(--font-small);
   }
 }
+
+/* ── Cours en direct ──────────────────────────────────────────────────────
+   Le tableau que Binance met en haut de sa page d'accueil : des cours reels,
+   qui bougent, avant toute promesse. C'est la seule chose de cette page qu'un
+   visiteur peut verifier ailleurs, donc la plus convaincante. */
+.land__ticker {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-medium) var(--space-large);
+}
+.land__ticker-title {
+  margin: 0 0 var(--space-small);
+  font-size: var(--font-medium);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.land__ticker-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.land__ticker-table td {
+  padding: 12px 14px;
+  border-top: 1px solid var(--color-border);
+  font-size: var(--font-normal);
+  color: var(--color-text);
+}
+.land__ticker-table tr:first-child td {
+  border-top: 0;
+}
+.land__ticker-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  padding: 4px 8px;
+  border-radius: var(--radius-small);
+  font-weight: 700;
+}
+.land__ticker-name {
+  margin-left: 10px;
+  color: var(--color-text-muted);
+}
+.land__ticker-price,
+.land__ticker-chg {
+  text-align: right;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.land__ticker-chg.is-up {
+  color: var(--color-up);
+}
+.land__ticker-chg.is-down {
+  color: var(--color-down);
+}
+
+/* Sur un telephone le nom complet pousse le cours hors de l'ecran : le ticker
+   suffit a identifier l'actif. */
+@media (max-width: 560px) {
+  .land__ticker-name {
+    display: none;
+  }
+}

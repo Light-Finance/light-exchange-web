@@ -7,8 +7,8 @@ import moment from 'moment';
 import { appRootStore } from '../../stores/root.store';
 import './team.css';
 
-const GREEN = '#1D9E75';
-const RED = '#C0392B';
+const GREEN = '#0ECB81';
+const RED = '#F6465D';
 
 // Every row is a real managedLedger entry, shown at the NAV the movement
 // actually happened at — nothing here is simulated.

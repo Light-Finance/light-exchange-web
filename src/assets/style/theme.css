@@ -1,31 +1,58 @@
 /*
  * CSS mirror of theme.style.ts (the mobile THEME object), so components can
  * style in plain CSS while keeping a single source of truth for the brand.
- * Mobile's scale is tuned for a phone; the web sizes step up one notch since
- * desktop viewing distance is longer, but the ratios and colors are identical.
+ *
+ * La palette suit la version claire de Binance : fond blanc, surfaces grises
+ * tres legeres, bordures fines, texte presque noir. Ce qui change par rapport
+ * a un theme clair ordinaire, c'est le contraste : le texte est #1E2329 et non
+ * un gris, parce qu'un ecran de trading se lit en diagonale et que les chiffres
+ * ne supportent pas d'etre attenues. Le violet de la marque remplace le jaune
+ * Binance ; le vert et le rouge, eux, sont repris tels quels : ce sont les deux
+ * seules couleurs de l'interface qui portent une information et non une
+ * identite, et tout le monde les lit deja ainsi.
  */
 :root {
   /* colors — verbatim from THEME.COLOR */
   --color-primary: white;
   --color-secondary: #8039dd;
   --color-secondary-dark: #410096;
-  --color-red: rgb(170, 0, 0);
-  --color-green: green;
+  --color-red: #f6465d;
+  --color-green: #0ecb81;
   --color-white: white;
-  --color-gray: rgb(200, 200, 200);
-  --color-black: rgb(20, 20, 20);
-  --color-white2: rgb(180, 180, 180);
-  --color-white3: rgb(230, 230, 230);
+  --color-gray: #b7bdc6;
+  --color-black: #1e2329;
+  --color-white2: #b7bdc6;
+  --color-white3: #eaecef;
   --color-blue: blue;
   --color-blue1: #001261;
   --color-blue2: #8f98b7;
 
-  /* surfaces derived for the web shell */
-  --color-bg: #f4f2f8;
+  /* surfaces — blanc pour la page, gris tres leger pour ce qui s'en detache */
+  --color-bg: #ffffff;
   --color-surface: #ffffff;
-  --color-border: rgb(230, 230, 230);
-  --color-text: rgb(20, 20, 20);
-  --color-text-muted: #6b6b7b;
+  /* Le second plan : lignes alternees, entetes de tableau, champs au repos. */
+  --color-surface-2: #fafafa;
+  /* Le troisieme : une carte posee sur une surface deja grise. */
+  --color-surface-3: #f5f5f5;
+  --color-border: #eaecef;
+  --color-text: #1e2329;
+  --color-text-muted: #707a8a;
+  /* Le gris le plus clair encore lisible : unites, horodatages, mentions. */
+  --color-text-faint: #929aa5;
+
+  /* Hausse et baisse. Les fonds teintes servent aux pastilles de variation. */
+  --color-up: #0ecb81;
+  --color-down: #f6465d;
+  --color-up-bg: #e9f9f2;
+  --color-down-bg: #fdecef;
+  /* Le vert et le rouge assombris, pour du texte pose sur ces fonds teintes :
+     le #0ECB81 plein passe sur blanc mais devient illisible sur son propre
+     fond clair. */
+  --color-up-ink: #0b8e5d;
+  --color-down-ink: #c62b40;
+  /* Ambre des etats en attente : ni une reussite, ni un echec. */
+  --color-warn: #c99400;
+  --color-warn-bg: #fdf6e3;
 
   /* type scale — THEME.FONT_SIZE + 2px for desktop legibility */
   --font-small: 10px;
@@ -39,22 +66,25 @@
   --space-medium: 16px;
   --space-large: 20px;
 
-  /* radii — THEME.BORDER_RADIUS */
-  --radius-small: 6px;
-  --radius-medium: 10px;
-  --radius-large: 16px;
+  /* radii — plus courts que les precedents : Binance arrondit peu, ce qui
+     resserre les listes et fait paraitre les tableaux plus denses. */
+  --radius-small: 4px;
+  --radius-medium: 8px;
+  --radius-large: 12px;
 
   /* control sizing — THEME.HEIGHT */
-  --height-input: 50px;
-  --height-button: 50px;
+  --height-input: 48px;
+  --height-button: 48px;
 
   /* shell metrics */
   --tabbar-height: 60px;
   --sidebar-width: 240px;
   --content-max-width: 1100px;
 
-  --shadow-card: 0 1px 3px rgba(20, 20, 20, 0.08);
-  --shadow-raised: 0 4px 16px rgba(65, 0, 150, 0.12);
+  /* Des ombres presque absentes : la separation vient de la bordure, pas du
+     relief. Une ombre marquee sur fond blanc salit la page. */
+  --shadow-card: 0 1px 2px rgba(30, 35, 41, 0.04);
+  --shadow-raised: 0 4px 16px rgba(30, 35, 41, 0.08);
 }
 
 /*

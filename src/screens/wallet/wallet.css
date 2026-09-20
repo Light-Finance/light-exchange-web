@@ -339,12 +339,12 @@
 
 /* ── Shared money-screen blocks (convert / transfer / withdraw / add funds) ── */
 .w-card {
-  background: var(--color-surface, #fff);
-  border: 1px solid rgba(128, 128, 128, 0.18);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 16px;
   padding: 16px;
   margin-bottom: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -360,8 +360,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid rgba(128, 128, 128, 0.25);
-  background: rgba(128, 128, 128, 0.07);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
   border-radius: 12px;
   padding: 4px 12px;
 }
@@ -396,7 +396,7 @@
   background: color-mix(in srgb, var(--color-secondary) 15%, transparent);
 }
 .w-sum {
-  background: rgba(128, 128, 128, 0.08);
+  background: var(--color-surface-2);
   border-radius: 12px;
   padding: 10px 12px;
 }
@@ -433,11 +433,11 @@
   margin-bottom: 12px;
 }
 .w-banner--info {
-  background: #eef4ff;
-  color: #1b3a6b;
+  background: var(--color-surface-2);
+  color: var(--color-text);
 }
 .w-banner--warn {
-  background: #fdecea;
+  background: var(--color-down-bg);
   color: var(--color-red);
   font-weight: 600;
 }
@@ -458,7 +458,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 800;
-  border: 3px solid var(--color-surface, #fff);
+  border: 3px solid var(--color-surface);
 }
 .w-step {
   display: flex;
@@ -483,8 +483,8 @@
   font-size: 13.5px;
 }
 .w-address {
-  background: rgba(128, 128, 128, 0.08);
-  border: 1px solid rgba(128, 128, 128, 0.25);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: 12px;
   display: flex;
@@ -618,22 +618,22 @@
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 16px;
-  background: var(--color-surface, #fff);
-  border: 1px solid rgba(128, 128, 128, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-card);
   cursor: pointer;
   color: inherit;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 .pm-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.09);
+  box-shadow: var(--shadow-raised);
 }
 .pm-card__logo {
   width: 52px;
   height: 52px;
   border-radius: 12px;
-  background: rgba(128, 128, 128, 0.1);
+  background: var(--color-surface-3);
   display: flex;
   align-items: center;
   justify-content: center;

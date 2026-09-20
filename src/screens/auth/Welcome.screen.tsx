@@ -16,6 +16,7 @@ import { translate } from '../../helpers/localization';
 // L'icone du lanceur Android, pas le logo blanc : la barre est sur fond clair,
 // ou un logo blanc sur transparent ne se verrait pas.
 import appIcon from '../../assets/imgs/appIcon.png';
+import { LandingTicker } from './LandingTicker';
 import './landing.css';
 
 // Page d'accueil publique. Contrairement aux autres ecrans d'auth, elle ne vit
@@ -120,6 +121,8 @@ export const Welcome = () => {
           <p className="land__preview-note">{translate('welcome.previewNote')}</p>
         </aside>
       </main>
+
+      <LandingTicker />
 
       <section className="land__features">
         {FEATURES.map(f => (

@@ -9,8 +9,8 @@ import { Modal } from '../../components/ui/Modal';
 import type { IUser } from '../../models';
 import './profil.css';
 
-const GREEN = '#1D9E75';
-const RED = '#C0392B';
+const GREEN = '#0ECB81';
+const RED = '#F6465D';
 
 export const AffiliateProgram = observer(() => {
   const { authStore } = appRootStore;

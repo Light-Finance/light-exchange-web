@@ -148,7 +148,7 @@ export const Market = observer(() => {
                   className="mk-row__sub"
                   style={{
                     color:
-                      (p.pnl ?? 0) >= 0 ? 'var(--color-secondary)' : 'var(--color-red)',
+                      (p.pnl ?? 0) >= 0 ? 'var(--color-up)' : 'var(--color-down)',
                   }}
                 >
                   {p.pnl === null

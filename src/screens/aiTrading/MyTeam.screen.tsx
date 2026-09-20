@@ -88,8 +88,8 @@ export const MyTeam = observer(() => {
                   <span
                     className="team-avatar"
                     style={{
-                      background: (member.idVerified ? '#1D9E75' : '#B9B4C7') + '22',
-                      color: member.idVerified ? '#1D9E75' : '#B9B4C7',
+                      background: (member.idVerified ? '#0ECB81' : '#B9B4C7') + '22',
+                      color: member.idVerified ? '#0ECB81' : '#B9B4C7',
                     }}
                   >
                     <FontAwesomeIcon icon={member.idVerified ? faCircleCheck : faClock} />
@@ -103,7 +103,7 @@ export const MyTeam = observer(() => {
                   </div>
                   <span
                     className="team-row__earned"
-                    style={{ color: earned ? '#1D9E75' : '#B9B4C7' }}
+                    style={{ color: earned ? '#0ECB81' : '#B9B4C7' }}
                   >
                     {earned ? `+${member.bonusEarned.toFixed(2)}` : '0.00'} $
                   </span>

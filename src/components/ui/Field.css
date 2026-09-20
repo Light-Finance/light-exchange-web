@@ -16,8 +16,10 @@
 .field__control {
   width: 100%;
   height: var(--height-input);
-  padding: 0 var(--space-small);
-  background: var(--color-surface);
+  padding: 0 12px;
+  /* Champ rempli en gris plutot que blanc borde : sur une page blanche, c'est
+     le remplissage qui dit ou l'on peut ecrire, la bordure seule se perd. */
+  background: var(--color-surface-2);
   color: var(--color-text);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
@@ -26,6 +28,8 @@
 
 .field__control:focus {
   border-color: var(--color-secondary);
+  background: var(--color-surface);
+  outline: none;
 }
 
 .field__control--error {

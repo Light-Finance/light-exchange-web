@@ -213,7 +213,7 @@ export const Orders = observer(() => {
                   <span className="order-card__pair">{pair}</span>
                   <span
                     className="order-status"
-                    style={{ background: order.win ? '#DFF5E9' : '#FCE8E8', color }}
+                    style={{ background: order.win ? 'var(--color-up-bg)' : 'var(--color-down-bg)', color }}
                   >
                     {order.win ? '✓ Gagnant' : '✕ Perdant'}
                   </span>

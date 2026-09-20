@@ -51,7 +51,7 @@ const ICONS: Record<string, any> = {
 
 const STATUS_COLOR: Record<string, string> = {
   [STATUS.successful]: 'var(--color-green)',
-  [STATUS.pending]: '#C77700',
+  [STATUS.pending]: 'var(--color-warn)',
   [STATUS.initiated]: 'var(--color-white2)',
   [STATUS.failed]: 'var(--color-red)',
 };

@@ -1,32 +1,36 @@
 /* ── Market ───────────────────────────────────────────────────────────────
-   Surfaces blanches et texte noir, comme la carte d'abonnement : les chiffres
-   sont ce qu'on vient lire ici, ils ne supportent pas d'etre attenues. */
+   Le plus « trading » des ecrans, donc celui qui suit le plus strictement la
+   mise en forme Binance : surfaces blanches, separations par un filet gris,
+   chiffres en noir, et la couleur reservee a la variation. */
 
 .mk-balance {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: var(--space-small);
-  padding: 10px 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
-  background: rgba(128, 57, 221, 0.08);
+  background: var(--color-surface-2);
   font-size: var(--font-normal);
-  color: var(--color-text);
+  color: var(--color-text-muted);
 }
 .mk-balance strong {
   font-size: var(--font-medium);
-  font-weight: 800;
-  color: var(--color-secondary-dark);
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
 }
 
-/* Le portefeuille est le chiffre le plus important de l'ecran : il passe en
-   violet plein, comme la carte du robot, au lieu d'etre un encadre blanc parmi
-   d'autres encadres blancs. */
+/* Le portefeuille : une carte blanche bordee, pas un aplat de couleur. C'est
+   le chiffre qu'on vient lire, il se detache par sa taille et non par un fond
+   qui obligerait a repeindre tout le contenu en blanc. */
 .mk-folio {
   padding: var(--space-medium);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-large);
-  background: var(--color-secondary-dark);
-  color: var(--color-white);
+  background: var(--color-surface);
+  color: var(--color-text);
 }
 .mk-folio__head {
   display: flex;
@@ -36,30 +40,31 @@
 }
 .mk-folio__label {
   font-size: var(--font-normal);
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-text-muted);
 }
 .mk-folio__pnl {
   font-size: var(--font-normal);
-  font-weight: 800;
+  font-weight: 700;
 }
 .mk-folio__value {
-  margin: 2px 0 0;
+  margin: 4px 0 0;
   font-size: var(--font-xlarge);
-  font-weight: 800;
-  color: var(--color-white);
+  font-weight: 600;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
 }
 .mk-folio__sub {
   margin: 2px 0 var(--space-small);
   font-size: var(--font-normal);
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-text-muted);
 }
 
 .mk-row {
   display: flex;
   align-items: center;
   gap: var(--space-small);
-  padding: 10px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 12px 0;
+  border-top: 1px solid var(--color-border);
 }
 .mk-row__left {
   display: flex;
@@ -75,36 +80,39 @@
 }
 .mk-row__name {
   font-size: var(--font-normal);
-  font-weight: 800;
-  color: var(--color-white);
+  font-weight: 600;
+  color: var(--color-text);
 }
 .mk-row__value {
   font-size: var(--font-normal);
-  font-weight: 800;
-  color: var(--color-white);
+  font-weight: 600;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
 }
 .mk-row__sub {
   font-size: var(--font-normal);
-  color: rgba(255, 255, 255, 0.72);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
 }
 .mk-sell {
-  padding: 6px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 7px 14px;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-small);
-  background: none;
-  color: var(--color-white);
+  background: var(--color-surface-2);
+  color: var(--color-text);
   font-size: var(--font-normal);
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
 }
 .mk-sell:hover {
-  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
 }
 
 .mk-heading {
   margin: var(--space-medium) 0 0;
   font-size: var(--font-medium);
-  font-weight: 800;
+  font-weight: 700;
   color: var(--color-text);
 }
 
@@ -119,9 +127,9 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  padding: 11px;
+  padding: 12px;
   border: 1px solid var(--color-border);
-  border-left: 4px solid var(--color-secondary);
+  border-left: 3px solid var(--color-secondary);
   border-radius: 0 var(--radius-medium) var(--radius-medium) 0;
   background: var(--color-surface);
   text-align: left;
@@ -130,18 +138,18 @@
 /* Une souscription se distingue par son fond, pas par une ligne de texte
    perdue sous le nom. */
 .mk-asset.is-ipo {
-  border-left-color: var(--color-red);
-  background: #fff7f7;
+  border-left-color: var(--color-down);
+  background: var(--color-down-bg);
 }
 .mk-asset:hover:not(:disabled) {
   border-color: var(--color-secondary);
-  background: rgba(128, 57, 221, 0.04);
+  background: var(--color-surface-2);
 }
 /* Un actif sans cours ne peut pas etre achete : un fond gris le dit sans
    effacer son nom, contrairement a la transparence. */
 .mk-asset:disabled {
-  background: #f1eff5;
-  border-color: #e3dfea;
+  background: var(--color-surface-3);
+  border-color: var(--color-border);
   cursor: not-allowed;
 }
 .mk-asset__top {
@@ -151,33 +159,34 @@
 }
 .mk-asset__price {
   font-size: var(--font-medium);
-  font-weight: 800;
+  font-weight: 600;
   color: var(--color-text);
+  font-variant-numeric: tabular-nums;
 }
 .mk-asset__name {
   font-size: var(--font-normal);
-  color: var(--color-text);
+  color: var(--color-text-muted);
 }
 .mk-asset__held {
   margin-top: 2px;
   font-size: var(--font-normal);
-  font-weight: 700;
-  color: var(--color-secondary-dark);
+  font-weight: 600;
+  color: var(--color-secondary);
 }
 
 .mk-preview {
   margin: 0;
-  font-weight: 800;
-  color: var(--color-secondary-dark);
+  font-weight: 700;
+  color: var(--color-text);
 }
 .mk-max {
   align-self: flex-start;
   padding: 0;
   background: none;
   border: none;
-  color: var(--color-secondary-dark);
+  color: var(--color-secondary);
   font-size: var(--font-normal);
-  font-weight: 700;
+  font-weight: 600;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -189,14 +198,13 @@
 /* Souscription : l'actif est detenu mais pas encore revendable. Un libelle, pas
    un bouton desactive — il n'y a rien a cliquer avant la cotation. */
 .mk-locked {
-  padding: 6px 12px;
+  padding: 7px 12px;
   border-radius: var(--radius-small);
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--color-white);
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
   font-size: var(--font-normal);
-  font-weight: 700;
+  font-weight: 600;
 }
-
 
 /* Recherche et filtre par type, au-dessus de la grille. */
 .mk-filters {
@@ -211,34 +219,35 @@
   padding: 0 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
-  background: var(--color-surface);
+  background: var(--color-surface-2);
   color: var(--color-text);
   font-size: var(--font-normal);
 }
 .mk-search:focus {
   outline: none;
   border-color: var(--color-secondary);
+  background: var(--color-surface);
 }
 .mk-kinds {
   display: flex;
-  gap: 3px;
+  gap: 2px;
   padding: 3px;
-  border-radius: 10px;
-  background: rgba(128, 57, 221, 0.08);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface-3);
 }
 .mk-kind {
   border: 0;
-  border-radius: 8px;
+  border-radius: var(--radius-small);
   padding: 7px 14px;
   background: transparent;
   font-size: var(--font-normal);
-  font-weight: 700;
-  color: var(--color-text);
+  font-weight: 600;
+  color: var(--color-text-muted);
   cursor: pointer;
 }
 .mk-kind.is-on {
   background: var(--color-surface);
-  color: var(--color-secondary);
+  color: var(--color-text);
   box-shadow: var(--shadow-card);
 }
 
@@ -258,32 +267,33 @@
   justify-content: center;
   min-width: 42px;
   padding: 5px 8px;
-  border-radius: 8px;
+  border-radius: var(--radius-small);
   font-size: var(--font-normal);
-  font-weight: 800;
+  font-weight: 700;
 }
 
 /* Variation : le vert et le rouge disent le sens, c'est la seule couleur de
    cet ecran qui porte une information plutot qu'une identite. */
 .mk-pill {
   align-self: flex-start;
-  padding: 2px 9px;
-  border-radius: 999px;
+  padding: 3px 9px;
+  border-radius: var(--radius-small);
   font-size: var(--font-normal);
-  font-weight: 800;
+  font-weight: 700;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 .mk-pill.is-up {
-  background: #dcfce7;
-  color: #14532d;
+  background: var(--color-up-bg);
+  color: var(--color-up-ink);
 }
 .mk-pill.is-down {
-  background: #fee2e2;
-  color: #7f1d1d;
+  background: var(--color-down-bg);
+  color: var(--color-down-ink);
 }
 .mk-pill.is-ipo {
-  background: #fee2e2;
-  color: #7f1d1d;
+  background: var(--color-down-bg);
+  color: var(--color-down-ink);
 }
 
 /* Solde vide : un bandeau cliquable qui mene au depot. Une phrase seule
@@ -292,9 +302,10 @@
   display: block;
   width: 100%;
   padding: 12px;
-  border: 1px solid var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-secondary);
   border-radius: var(--radius-medium);
-  background: rgba(128, 57, 221, 0.08);
+  background: var(--color-surface-2);
   color: var(--color-text);
   font-size: var(--font-normal);
   text-align: left;
@@ -302,5 +313,5 @@
   cursor: pointer;
 }
 .mk-empty:hover {
-  background: rgba(128, 57, 221, 0.14);
+  background: var(--color-surface-3);
 }

@@ -19,11 +19,11 @@ import {
 import './aiTrading.css';
 
 const SIGNAL_COLOR: Record<TSignal, string> = {
-  STRONG_BUY: '#0E9F6E',
+  STRONG_BUY: '#0ECB81',
   BUY: '#3BAA7A',
   NEUTRAL: '#8A8A8A',
   SELL: '#E4703A',
-  STRONG_SELL: '#D64545',
+  STRONG_SELL: '#F6465D',
 };
 
 // A single sentence tying the indicators together — the takeaway the user reads

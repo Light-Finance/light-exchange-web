@@ -83,8 +83,8 @@
   font-weight: 600;
 }
 .profil-pill--ok {
-  color: var(--color-green, #1d9e75);
-  border-color: var(--color-green, #1d9e75);
+  color: var(--color-green);
+  border-color: var(--color-green);
 }
 .profil-pill--pending {
   color: var(--color-secondary);

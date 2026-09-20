@@ -12,8 +12,12 @@
   width: var(--sidebar-width);
   flex: 0 0 var(--sidebar-width);
   padding: var(--space-large) var(--space-medium);
-  background: var(--color-secondary);
-  color: var(--color-white);
+  /* Le cadre est blanc et se separe du contenu par un filet, pas par un aplat
+     violet : c'est ce qui fait qu'un ecran de trading parait large. Le violet
+     ne sert plus qu'a designer l'onglet ouvert. */
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  color: var(--color-text);
   position: sticky;
   top: 0;
   height: 100vh;
@@ -26,7 +30,7 @@
 }
 
 .shell__brand--mobile {
-  color: var(--color-white);
+  color: var(--color-secondary);
 }
 
 .shell__version {
@@ -47,18 +51,18 @@
   gap: 12px;
   padding: 12px var(--space-small);
   border-radius: var(--radius-small);
-  color: var(--color-white2);
+  color: var(--color-text-muted);
   font-weight: 600;
 }
 
 .shell__navlink:hover {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--color-white);
+  background: var(--color-surface-2);
+  color: var(--color-text);
 }
 
 .shell__navlink.is-active {
-  background: var(--color-secondary-dark);
-  color: var(--color-white);
+  background: var(--color-surface-3);
+  color: var(--color-secondary);
 }
 
 /* ---- main column ---- */
@@ -76,8 +80,9 @@
   justify-content: space-between;
   gap: var(--space-medium);
   padding: var(--space-small) var(--space-medium);
-  background: var(--color-secondary);
-  color: var(--color-white);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
   position: sticky;
   top: 0;
   z-index: 20;
@@ -97,7 +102,7 @@
   gap: 8px;
   padding: 8px 10px;
   border-radius: var(--radius-small);
-  color: var(--color-white);
+  color: var(--color-text);
 }
 
 .shell__badge {
@@ -108,8 +113,8 @@
   height: 16px;
   padding: 0 4px;
   border-radius: 999px;
-  background: var(--color-red);
-  color: #fff;
+  background: var(--color-down);
+  color: var(--color-white);
   font-size: 10px;
   font-weight: 700;
   line-height: 16px;
@@ -117,7 +122,7 @@
 }
 
 .shell__iconlink:hover {
-  background: rgba(255, 255, 255, 0.14);
+  background: var(--color-surface-2);
 }
 
 .shell__username {
@@ -149,7 +154,8 @@
   z-index: 30;
   display: flex;
   height: var(--tabbar-height);
-  background: var(--color-secondary);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
@@ -160,13 +166,13 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  color: var(--color-white2);
+  color: var(--color-text-muted);
   font-size: var(--font-small);
   text-align: center;
 }
 
 .shell__tab.is-active {
-  color: var(--color-white);
+  color: var(--color-secondary);
 }
 
 /* ---- desktop: sidebar replaces the tab bar ---- */

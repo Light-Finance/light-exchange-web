@@ -36,7 +36,7 @@
 /* A faint tint is enough to separate what is new from what is not, without
    turning the list into two competing designs. */
 .notif-row--unread {
-  background: #f6f1fe;
+  background: var(--color-surface-2);
 }
 
 .notif-row__icon {
@@ -101,5 +101,5 @@
   font-weight: 700;
   text-transform: uppercase;
   color: var(--color-secondary-dark);
-  background: #ede2fb;
+  background: var(--color-surface-3);
 }
