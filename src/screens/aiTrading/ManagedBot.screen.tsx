@@ -16,7 +16,7 @@ import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
 import { BtcSparkline } from './BtcSparkline';
-import { BotBillingCard } from './BotBillingCard';
+import { BotBillingCard, BotPlans } from './BotBillingCard';
 import { botSinceLabel } from '../../helpers/botUptime';
 import { ToastService } from '../../services/toast.service';
 import { DEMO_START_BALANCE } from '../../helpers/demoBot';
@@ -30,6 +30,8 @@ export const ManagedBot = observer(() => {
   const [dialog, setDialog] = useState<Dialog>(null);
   const [amount, setAmount] = useState('');
   const [busy, setBusy] = useState(false);
+  // Les paliers, ouverts au moment ou un depot est refuse faute d'abonnement.
+  const [askPlans, setAskPlans] = useState(false);
 
   const account = managedStore.account;
 
@@ -230,11 +232,11 @@ export const ManagedBot = observer(() => {
               );
               return;
             }
+            // Sans abonnement, on ouvre les paliers plutot que d'annoncer un
+            // refus : le blocage et son remede arrivent ensemble, au moment ou
+            // l'utilisateur voulait deposer.
             if (!managedStore.hasBotAccess) {
-              ToastService.show(
-                'Abonnement requis pour alimenter le robot',
-                ToastService.ERROR,
-              );
+              setAskPlans(true);
               return;
             }
             setDialog('deposit');
@@ -275,6 +277,27 @@ export const ManagedBot = observer(() => {
       ) : (
         <BotBillingCard onSubscribed={() => managedStore.load()} />
       )}
+
+      {askPlans ? (
+        <Modal onClose={() => setAskPlans(false)} label="Abonnement au robot">
+          <div className="stack">
+            <p className="muted">
+              Le robot fonctionne sur abonnement. Activez un palier pour pouvoir
+              l'alimenter — votre solde reste disponible au retrait entre-temps.
+            </p>
+            <BotPlans
+              onSubscribed={async () => {
+                await managedStore.load();
+                // L'abonnement pris, on enchaine sur le depot que
+                // l'utilisateur voulait faire.
+                setAskPlans(false);
+                setDialog('deposit');
+                setAmount('');
+              }}
+            />
+          </div>
+        </Modal>
+      ) : null}
 
       {dialog ? (
         <Modal onClose={() => (busy ? undefined : setDialog(null))}>

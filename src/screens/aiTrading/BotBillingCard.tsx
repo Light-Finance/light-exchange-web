@@ -5,7 +5,13 @@ import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Field';
 import { ToastService } from '../../services/toast.service';
 
-export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () => void }) => {
+/**
+ * Les paliers d'abonnement et le champ de code d'acces. Extrait de la carte
+ * pour que l'ecran du robot puisse le rouvrir en modale quand un depot est
+ * tente sans abonnement — au moment ou l'utilisateur en a besoin, plutot qu'en
+ * bas d'ecran.
+ */
+export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void }) => {
   const { managedStore, walletStore } = appRootStore;
   const [busyPlan, setBusyPlan] = useState<number | null>(null);
   const [code, setCode] = useState('');
@@ -14,7 +20,6 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
   if (!billing) return null;
 
   const balance = walletStore.getUsdtWallet()?.balance ?? 0;
-  const sub = billing.subscription;
 
   const subscribe = async (plan: number) => {
     if (busyPlan !== null) return;
@@ -44,7 +49,7 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
     }
   };
 
-  const plans = (
+  return (
     <div className="bot-note bot-note--promo">
       <div className="bot-note__title">🔓 Abonnement au robot</div>
       <p>
@@ -79,6 +84,13 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
       </div>
     </div>
   );
+});
+
+export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () => void }) => {
+  const billing = appRootStore.managedStore.billing;
+  if (!billing) return null;
+  const sub = billing.subscription;
+  const plans = <BotPlans onSubscribed={onSubscribed} />;
 
   if (billing.accessCode) {
     // A code granted by the team outranks the plans: nothing to buy while it
@@ -93,10 +105,10 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
     );
   }
 
-  // Pas de bandeau "robot en pause" ici : l'etat vit sur la carte du robot,
-  // a cote de sa valeur. Repeter l'information sous les paliers la noyait
-  // au moment meme ou l'ecran demande d'agir.
-  if (!billing.hasAccess) return plans;
+  // Rien ici sans abonnement : l'etat se lit sur la carte du robot (pastille
+  // rouge) et les paliers s'ouvrent en modale au clic sur "Deposer". Les
+  // afficher aussi en bas d'ecran donnait deux fois la meme offre.
+  if (!billing.hasAccess) return null;
 
   if (sub) {
     const endsIn = Math.max(0, Math.ceil((new Date(sub.endAt).getTime() - Date.now()) / 86400000));
