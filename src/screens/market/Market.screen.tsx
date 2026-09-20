@@ -22,6 +22,8 @@ const money = (n: number | null | undefined, digits = 2) =>
 const price = (n: number | null) =>
   n === null ? '—' : money(n, n >= 100 ? 2 : n >= 1 ? 4 : 6);
 
+const day = (iso: string) => new Date(iso).toLocaleDateString('fr-FR');
+
 export const Market = observer(() => {
   const { marketStore, walletStore } = appRootStore;
   const [dialog, setDialog] = useState<Dialog>(null);
@@ -191,13 +193,14 @@ export const Market = observer(() => {
         {shown.map(a => {
           const c = colorOf(a.shortName);
           const up = (a.change24h ?? 0) >= 0;
+          const closed = marketStore.isIpoClosed(a.symbol);
           return (
             <button
               key={a.id}
               type="button"
               className={`mk-asset${a.ipoPrice ? ' is-ipo' : ''}`}
               style={{ borderLeftColor: a.ipoPrice ? undefined : c.accent }}
-              disabled={a.price === null}
+              disabled={a.price === null || closed}
               onClick={() => {
                 setDialog({ symbol: a.symbol, side: 'buy' });
                 setAmount('');
@@ -216,11 +219,21 @@ export const Market = observer(() => {
               {/* Une souscription ne se revend pas avant la cotation, et elle
                   n'a pas de variation : la pastille dit l'un ou l'autre. */}
               {a.ipoPrice ? (
-                <span className="mk-pill is-ipo">Souscription</span>
+                <span className="mk-pill is-ipo">
+                  {closed ? 'Souscription close' : 'Souscription'}
+                </span>
               ) : a.change24h !== null ? (
                 <span className={`mk-pill ${up ? 'is-up' : 'is-down'}`}>
                   {up ? '▲ ' : '▼ '}
                   {money(Math.abs(a.change24h), 2)} %
+                </span>
+              ) : null}
+              {/* La date de cloture se lit avant de souscrire, pas apres un
+                  refus : c'est elle qui dit s'il reste du temps. */}
+              {a.ipoPrice && a.ipoEndsAt ? (
+                <span className="mk-asset__held">
+                  {closed ? 'Close le ' : "Jusqu'au "}
+                  {day(a.ipoEndsAt)}
                 </span>
               ) : null}
               {marketStore.quantityOf(a.symbol) > 0 ? (
@@ -254,6 +267,9 @@ export const Market = observer(() => {
               <p className="mk-note">
                 Votre allocation se garde jusqu'à la cotation : elle ne peut pas
                 être revendue avant.
+                {asset.ipoEndsAt
+                  ? ` Souscription ouverte jusqu'au ${day(asset.ipoEndsAt)}.`
+                  : ''}
               </p>
             ) : null}
             <Input

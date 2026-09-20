@@ -17,6 +17,7 @@ const MARKET_ASSETS = gql`
       price
       change24h
       ipoPrice
+      ipoEndsAt
     }
   }
 `;
@@ -75,6 +76,8 @@ export interface IMarketAsset {
   change24h: number | null;
   /** Non nul = l'actif est en souscription à ce prix, et non revendable. */
   ipoPrice: number | null;
+  /** Clôture de la souscription (ISO), null si elle reste ouverte. */
+  ipoEndsAt: string | null;
 }
 
 export interface IMarketPosition {
@@ -101,6 +104,13 @@ export class MarketStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
+  }
+
+  /** Vrai quand la souscription est passée : plus d'achat possible. */
+  isIpoClosed(symbol: string): boolean {
+    const a = this.assets.find(x => x.symbol === symbol);
+    if (!a?.ipoPrice || !a.ipoEndsAt) return false;
+    return new Date(a.ipoEndsAt).getTime() <= Date.now();
   }
 
   /** Vrai tant que l'actif est en souscription : la revente est fermée. */
