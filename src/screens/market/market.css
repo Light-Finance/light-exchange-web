@@ -33,7 +33,7 @@
 }
 .mk-folio__label {
   font-size: var(--font-normal);
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 .mk-folio__pnl {
   font-size: var(--font-normal);
@@ -77,7 +77,7 @@
 }
 .mk-row__sub {
   font-size: var(--font-small);
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 .mk-sell {
   padding: 6px 12px;
@@ -145,7 +145,7 @@
 }
 .mk-asset__name {
   font-size: var(--font-small);
-  color: var(--color-text-muted);
+  color: var(--color-text);
 }
 .mk-asset__held {
   margin-top: 2px;
@@ -181,7 +181,7 @@
   padding: 6px 12px;
   border-radius: var(--radius-small);
   background: #f1eff5;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-size: var(--font-small);
   font-weight: 700;
 }
@@ -227,11 +227,20 @@
   background: transparent;
   font-size: var(--font-normal);
   font-weight: 700;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   cursor: pointer;
 }
 .mk-kind.is-on {
   background: var(--color-surface);
   color: var(--color-secondary);
   box-shadow: var(--shadow-card);
+}
+
+/* Les precisions du dialogue d'ordre : plus petites que le reste, mais noires.
+   En gris attenue elles disparaissaient, alors qu'elles portent le solde et le
+   plafond que l'utilisateur doit lire avant de valider. */
+.mk-note {
+  margin: 0;
+  font-size: var(--font-normal);
+  color: var(--color-text);
 }

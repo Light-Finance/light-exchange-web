@@ -204,7 +204,7 @@ export const Market = observer(() => {
           </button>
         ))}
         {shown.length === 0 && !marketStore.isLoading ? (
-          <p className="muted">
+          <p className="mk-note">
             {marketStore.assets.length === 0
               ? 'Aucun actif disponible pour le moment.'
               : 'Aucun actif ne correspond à cette recherche.'}
@@ -218,12 +218,12 @@ export const Market = observer(() => {
             <h2>
               {dialog.side === 'buy' ? 'Acheter' : 'Vendre'} {asset.shortName}
             </h2>
-            <p className="muted">
+            <p className="mk-note">
               {asset.ipoPrice ? 'Prix de souscription : ' : 'Cours : '}
               {price(asset.price)} USDT
             </p>
             {asset.ipoPrice && dialog.side === 'buy' ? (
-              <p className="muted">
+              <p className="mk-note">
                 Votre allocation se garde jusqu'à la cotation : elle ne peut pas
                 être revendue avant.
               </p>
@@ -236,7 +236,7 @@ export const Market = observer(() => {
             />
             {dialog.side === 'buy' ? (
               <>
-                <p className="muted">Disponible : {money(balance)} USDT</p>
+                <p className="mk-note">Disponible : {money(balance)} USDT</p>
                 {/* Ce que l'ordre donne, au cours affiche : l'utilisateur saisit
                     des USDT mais recoit une quantite, et les deux ne se
                     devinent pas l'une de l'autre. */}
@@ -250,7 +250,7 @@ export const Market = observer(() => {
               </>
             ) : (
               <>
-                <p className="muted">
+                <p className="mk-note">
                   Détenu : {money(held, 6)} {asset.shortName}
                 </p>
                 {asset.price ? (
