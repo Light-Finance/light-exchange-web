@@ -72,39 +72,66 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
     }
   };
 
+  const days = billing?.subscriptionDays ?? 30;
+  const fmt = (n: number) => n.toLocaleString('fr-FR');
+
   return (
-    <div className="bot-note bot-note--promo">
-      <div className="bot-note__title">🔓 Abonnement au robot</div>
-      <p>
-        Le palier fixe le capital que le robot gère pour vous, pendant{' '}
-        {billing?.subscriptionDays ?? 30} jours. Disponible : {balance.toFixed(2)} USDT
-      </p>
+    <div className="bot-sub">
+      <div className="bot-sub__head">
+        <h3 className="bot-sub__title">Abonnement au robot</h3>
+        <p className="bot-sub__sub">
+          Le palier fixe le capital que le robot gère pour vous, pendant {days}{' '}
+          jours.
+        </p>
+      </div>
+
+      {/* Le solde est la contrainte : c'est lui qui decide quels paliers sont
+          a portee, et l'abonnement sera preleve dessus. Il a sa propre ligne
+          plutot qu'une fin de phrase. */}
+      <div className="bot-sub__balance">
+        <span>Solde disponible</span>
+        <strong>{balance.toFixed(2)} USDT</strong>
+      </div>
+
       {/* Le plafond fait toute la difference entre deux paliers : sans lui la
           carte n'affiche qu'une grille de prix, et rien ne dit pourquoi payer
           davantage. */}
       <div className="bot-tiers">
-        {tiers.map(tier => (
-          <button
-            key={tier.price}
-            type="button"
-            className="bot-tier"
-            disabled={busyPlan !== null || balance < tier.price}
-            onClick={() => subscribe(tier.price)}
-          >
-            <span className="bot-tier__price">
-              {busyPlan === tier.price ? '…' : `${tier.price} USDT`}
-            </span>
-            <span className="bot-tier__cap">
-              {tier.cap === null
-                ? 'capital illimité'
-                : `jusqu'à ${tier.cap.toLocaleString('fr-FR')} USDT gérés`}
-            </span>
-          </button>
-        ))}
+        {tiers.map(tier => {
+          const affordable = balance >= tier.price;
+          return (
+            <button
+              key={tier.price}
+              type="button"
+              className="bot-tier"
+              disabled={busyPlan !== null || !affordable}
+              onClick={() => subscribe(tier.price)}
+            >
+              <span className="bot-tier__top">
+                <span className="bot-tier__price">
+                  {busyPlan === tier.price ? '…' : `${tier.price} USDT`}
+                </span>
+                {tier.cap === null ? (
+                  <span className="bot-tier__flag">illimité</span>
+                ) : null}
+              </span>
+              <span className="bot-tier__cap">
+                {tier.cap === null
+                  ? 'capital géré sans plafond'
+                  : `gère jusqu'à ${fmt(tier.cap)} USDT`}
+              </span>
+              <span className="bot-tier__after">
+                {affordable
+                  ? `Solde après : ${(balance - tier.price).toFixed(2)} USDT`
+                  : `Il vous manque ${(tier.price - balance).toFixed(2)} USDT`}
+              </span>
+            </button>
+          );
+        })}
       </div>
       {/* Free access handed out by the team: unlocks the bot without paying,
           and stays valid until the code is switched off. */}
-      <p style={{ marginTop: 12, fontWeight: 600 }}>Vous avez un code d'accès ?</p>
+      <p className="bot-sub__codelabel">Vous avez un code d'accès ?</p>
       <div className="bot-code-row">
         <Input
           placeholder="Code"
