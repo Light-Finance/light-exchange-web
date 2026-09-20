@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { appRootStore } from '../../stores/root.store';
 import { Button } from '../../components/ui/Button';
@@ -17,15 +17,32 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
   const [code, setCode] = useState('');
   const [redeeming, setRedeeming] = useState(false);
   const billing = managedStore.billing;
-  if (!billing) return null;
+
+  // Les paliers peuvent etre demandes avant que la facturation soit revenue —
+  // la modale du depot les ouvre a la demande. On recharge alors plutot que de
+  // ne rien rendre : un `return null` ici donnait une fenetre vide, sans que
+  // rien n'indique quoi faire.
+  useEffect(() => {
+    if (!billing) managedStore.load();
+  }, [billing, managedStore]);
 
   const balance = walletStore.getUsdtWallet()?.balance ?? 0;
-  // Repli sur les prix seuls : une app plus ancienne que le champ `tiers` doit
-  // continuer a pouvoir s'abonner, sans plafond affiche.
+  // Repli sur les prix seuls : une API plus ancienne que le champ `tiers` doit
+  // continuer a permettre l'abonnement, sans plafond affiche. Les deux listes
+  // sont lues defensivement : une reponse partielle ne doit pas casser le rendu.
   const tiers =
-    billing.tiers?.length > 0
+    billing?.tiers && billing.tiers.length > 0
       ? billing.tiers
-      : billing.plans.map(price => ({ price, cap: null }));
+      : (billing?.plans ?? []).map(price => ({ price, cap: null }));
+
+  if (tiers.length === 0) {
+    return (
+      <div className="bot-note bot-note--promo">
+        <div className="bot-note__title">🔓 Abonnement au robot</div>
+        <p>Chargement des paliers…</p>
+      </div>
+    );
+  }
 
   const subscribe = async (plan: number) => {
     if (busyPlan !== null) return;
@@ -60,7 +77,7 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
       <div className="bot-note__title">🔓 Abonnement au robot</div>
       <p>
         Le palier fixe le capital que le robot gère pour vous, pendant{' '}
-        {billing.subscriptionDays} jours. Disponible : {balance.toFixed(2)} USDT
+        {billing?.subscriptionDays ?? 30} jours. Disponible : {balance.toFixed(2)} USDT
       </p>
       {/* Le plafond fait toute la difference entre deux paliers : sans lui la
           carte n'affiche qu'une grille de prix, et rien ne dit pourquoi payer

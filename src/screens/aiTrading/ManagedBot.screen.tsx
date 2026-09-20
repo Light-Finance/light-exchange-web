@@ -213,6 +213,9 @@ export const ManagedBot = observer(() => {
             // l'utilisateur voulait deposer.
             if (!managedStore.hasBotAccess) {
               setAskPlans(true);
+              // La facturation peut ne pas etre revenue : sans ce rechargement
+              // la modale s'ouvrait vide.
+              if (!managedStore.billing) managedStore.load();
               return;
             }
             setDialog('deposit');
