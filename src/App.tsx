@@ -18,7 +18,6 @@ import { WalletHistory } from './screens/wallet/WalletHistory.screen';
 import { WalletDeposit } from './screens/wallet/WalletDeposit.screen';
 import { WalletWithdraw } from './screens/wallet/WalletWithdraw.screen';
 import { WalletTransfer } from './screens/wallet/WalletTransfer.screen';
-import { WalletConvert } from './screens/wallet/WalletConvert.screen';
 import { PaymentMethod } from './screens/wallet/PaymentMethod.screen';
 import { ManagedBot } from './screens/aiTrading/ManagedBot.screen';
 import { RunningBots } from './screens/aiTrading/RunningBots.screen';
@@ -29,7 +28,6 @@ import { ManagedHistory } from './screens/aiTrading/ManagedHistory.screen';
 import { NotificationList } from './screens/notification/NotificationList.screen';
 import { Profil } from './screens/profil/Profil.screen';
 import { AffiliateProgram } from './screens/profil/AffiliateProgram.screen';
-import { Merchant } from './screens/profil/Merchant.screen';
 import { TutorialList } from './screens/tutorials/TutorialList.screen';
 import { TutorialDetail } from './screens/tutorials/TutorialDetail.screen';
 import { ComingSoon } from './screens/ComingSoon.screen';
@@ -88,7 +86,6 @@ export const App = observer(() => {
           <Route path="/wallet/deposit" element={<WalletDeposit />} />
           <Route path="/wallet/withdraw" element={<WalletWithdraw />} />
           <Route path="/wallet/transfer" element={<WalletTransfer />} />
-          <Route path="/wallet/convert" element={<WalletConvert />} />
           <Route path="/wallet/payment-method" element={<PaymentMethod />} />
 
           <Route path="/ai-trading" element={<ManagedBot />} />
@@ -106,7 +103,6 @@ export const App = observer(() => {
           <Route path="/notifications" element={<NotificationList />} />
           <Route path="/profile" element={<Profil />} />
           <Route path="/affiliate" element={<AffiliateProgram />} />
-          <Route path="/merchant" element={<Merchant />} />
           <Route path="/user-numbers" element={<ComingSoon titleKey="tabs.userNumbers" />} />
         </Route>
 

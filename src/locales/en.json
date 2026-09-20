@@ -64,7 +64,6 @@
     "phoneTxt": "Your phone number",
     "affiliateBtn": "Affiliate Program",
     "shareBtn": "Share the App",
-    "merchantBtn": "Be USDT Merchant",
     "tutorialsBtn": "Tutorials",
     "shareReferralCode": "Use my referral code:",
     "shareCopied": "Link & referral code copied!",
@@ -243,7 +242,6 @@
     "rechargeBtn": "Buy & Sell",
     "transferBtn": "Transfer",
     "withdrawBtn": "Withdraw",
-    "convertBtn": "Convert",
     "depositBtn": "Add Funds",
     "comingSoonTxt": "Coming soon",
     "learnBtn": "Tutorials",
@@ -261,16 +259,6 @@
     "noticeTxt": "Use info above to proceed",
     "warningTxt": "Rate may vary due to market volatility",
     "search": "Search"
-  },
-  "walletConvert": {
-    "title": "Convert",
-    "convertBtn": "Convert",
-    "token1Txt": "Crypto to convert",
-    "token2Txt": "Crypto to receive",
-    "amountSpentTxt": "Amount to convert",
-    "amountReceivedTxt": "Amount to receive",
-    "rateTxt": "Rate",
-    "noWalletTxt": "Deposit first to convert"
   },
   "walletDeposit": {
     "tokensTxt": "Choose a crypto",
@@ -490,17 +478,5 @@
     "secureTitle": "Verified account",
     "secureTxt": "ID verification and email confirmation protect withdrawals.",
     "storeSmall": "Get it on"
-  },
-  "merchant": {
-    "title": "USDT Merchant",
-    "headline": "Become a USDT Merchant",
-    "description": "Our USDT Merchant programme lets you buy USDT directly from us at a preferential price, to resell it and earn a margin.",
-    "priceLabel": "Preferential price",
-    "priceUnit": "for 1 USDT",
-    "conditionsTitle": "Conditions to become a merchant",
-    "condition1": "Experienced with P2P trading on other platforms",
-    "condition2": "Have used at least one product on Light Exchange",
-    "description2": "Interested? Contact us on WhatsApp and our team will guide you through the process.",
-    "contactBtn": "Contact us on WhatsApp"
   }
 }

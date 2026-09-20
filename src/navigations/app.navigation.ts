@@ -30,7 +30,6 @@ export const ROUTE_PATHS: Record<string, string> = {
   [TAB.walletNavigation.navigator]: '/wallet',
   [TAB.walletNavigation.walletHome]: '/wallet',
   [TAB.walletNavigation.walletHistory]: '/wallet/history',
-  [TAB.walletNavigation.walletConvert]: '/wallet/convert',
   [TAB.walletNavigation.walletDeposit]: '/wallet/deposit',
   [TAB.walletNavigation.walletTransfer]: '/wallet/transfer',
   [TAB.walletNavigation.walletWithdraw]: '/wallet/withdraw',
@@ -60,7 +59,6 @@ export const ROUTE_PATHS: Record<string, string> = {
   [PROFIL.profil]: '/profile',
   [PROFIL.notification]: '/notifications',
   [PROFIL.affiliateProgram]: '/affiliate',
-  [PROFIL.merchant]: '/merchant',
   [PROFIL.userNumber]: '/user-numbers',
 };
 

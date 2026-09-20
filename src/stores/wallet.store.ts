@@ -60,12 +60,6 @@ export class WalletStore {
       ROUTES.mainNavigation.tabNavigation.walletNavigation.walletWithdraw,
     );
   };
-  @action navigateToConvert = () => {
-    this.setDepositStatus(false);
-    navigate(
-      ROUTES.mainNavigation.tabNavigation.walletNavigation.walletConvert,
-    );
-  };
 
   @action navigateToAddFunds = () => {
     this.setDepositStatus(false);

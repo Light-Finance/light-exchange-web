@@ -14,7 +14,6 @@ import {
   faPowerOff,
   faShareNodes,
   faShieldAlt,
-  faStore,
   faIdCard,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
@@ -110,7 +109,6 @@ export const Profil = observer(() => {
       <div className="profil-section">{translate('profil.sectionMore')}</div>
       <div className="card profil-card">
         <MenuRow icon={faShareNodes} label={translate('profil.affiliateBtn')} onClick={() => navigate('/affiliate')} />
-        <MenuRow icon={faStore} label={translate('profil.merchantBtn')} onClick={() => navigate('/merchant')} />
         <MenuRow icon={faPlayCircle} label={translate('profil.tutorialsBtn')} onClick={() => navigate('/tutorials')} />
         <MenuRow icon={faShareNodes} label={translate('profil.shareBtn')} onClick={shareApp} />
         <MenuRow

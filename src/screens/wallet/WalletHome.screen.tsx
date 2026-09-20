@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faArrowRightArrowLeft,
   faArrowUpFromBracket,
   faHistory,
   faPaperPlane,
@@ -37,7 +36,6 @@ export const WalletHome = observer(() => {
   const actions = [
     { label: translate('walletHome.depositBtn'), icon: faPlus, onClick: () => walletStore.navigateToAddFunds() },
     { label: translate('walletHome.withdrawBtn'), icon: faArrowUpFromBracket, onClick: () => walletStore.navigateToWithdraw() },
-    { label: translate('walletHome.convertBtn'), icon: faArrowRightArrowLeft, onClick: () => walletStore.navigateToConvert() },
     { label: translate('walletHome.transferBtn'), icon: faPaperPlane, onClick: () => walletStore.navigateToTransfer() },
     { label: translate('walletHome.contactBtn'), icon: faWhatsapp, onClick: () => authStore.toContactUs() },
     { label: translate('walletHome.learnBtn'), icon: faPlayCircle, onClick: () => navigate('/tutorials') },
