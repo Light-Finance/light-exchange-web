@@ -47,7 +47,7 @@ const Protected = observer(() => {
 
 /** Auth screens redirect away once the user is signed in. */
 const PublicOnly = observer(({ children }: { children: JSX.Element }) => {
-  if (appRootStore.authStore.user?.connected) return <Navigate to="/wallet" replace />;
+  if (appRootStore.authStore.user?.connected) return <Navigate to="/market" replace />;
   return children;
 });
 

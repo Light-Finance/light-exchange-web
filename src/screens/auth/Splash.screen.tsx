@@ -21,7 +21,7 @@ export const Splash = observer(() => {
       const { authStore } = appRootStore;
       if (!authStore.isHydrated) await authStore.rehydrateStore();
       if (cancelled) return;
-      navigate(authStore.user?.connected ? '/wallet' : '/welcome', { replace: true });
+      navigate(authStore.user?.connected ? '/market' : '/welcome', { replace: true });
     })();
     return () => {
       cancelled = true;
