@@ -727,3 +727,40 @@
   white-space: nowrap;
   cursor: help;
 }
+
+/* Paliers d'abonnement : prix au-dessus, plafond en dessous. C'est le plafond
+   qui distingue deux paliers, donc il a sa propre ligne plutot qu'une
+   parenthese. */
+.bot-tiers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  margin-top: var(--space-small);
+}
+.bot-tier {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  text-align: left;
+  cursor: pointer;
+}
+.bot-tier:hover:not(:disabled) {
+  border-color: var(--color-secondary);
+}
+.bot-tier:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.bot-tier__price {
+  font-size: var(--font-medium);
+  font-weight: 800;
+  color: var(--color-secondary);
+}
+.bot-tier__cap {
+  font-size: var(--font-small);
+  color: var(--color-text-muted);
+}

@@ -125,6 +125,11 @@ const BOT_BILLING = gql`
   query botBilling($userId: ID) {
     botBilling(userId: $userId) {
       plans
+      tiers {
+        price
+        cap
+      }
+      planCap
       subscriptionDays
       hasAccess
       accessCode
@@ -163,8 +168,17 @@ export interface IBotSubscription {
   endAt: string;
 }
 
+export interface IBotTier {
+  price: number;
+  /** Capital maximum géré, null pour illimité. */
+  cap: number | null;
+}
+
 export interface IBotBilling {
   plans: number[];
+  tiers: IBotTier[];
+  /** Plafond du palier en cours, null si illimité, 0 sans abonnement. */
+  planCap?: number | null;
   subscriptionDays: number;
   hasAccess: boolean;
   accessCode?: string | null;

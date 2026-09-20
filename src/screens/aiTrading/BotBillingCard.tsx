@@ -20,6 +20,12 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
   if (!billing) return null;
 
   const balance = walletStore.getUsdtWallet()?.balance ?? 0;
+  // Repli sur les prix seuls : une app plus ancienne que le champ `tiers` doit
+  // continuer a pouvoir s'abonner, sans plafond affiche.
+  const tiers =
+    billing.tiers?.length > 0
+      ? billing.tiers
+      : billing.plans.map(price => ({ price, cap: null }));
 
   const subscribe = async (plan: number) => {
     if (busyPlan !== null) return;
@@ -53,19 +59,30 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
     <div className="bot-note bot-note--promo">
       <div className="bot-note__title">🔓 Abonnement au robot</div>
       <p>
-        Choisissez un palier pour activer le robot pendant {billing.subscriptionDays} jours.
-        Disponible : {balance.toFixed(2)} USDT
+        Le palier fixe le capital que le robot gère pour vous, pendant{' '}
+        {billing.subscriptionDays} jours. Disponible : {balance.toFixed(2)} USDT
       </p>
-      <div className="bot-plans">
-        {billing.plans.map(plan => (
-          <Button
-            key={plan}
-            loading={busyPlan === plan}
-            disabled={busyPlan !== null || balance < plan}
-            onClick={() => subscribe(plan)}
+      {/* Le plafond fait toute la difference entre deux paliers : sans lui la
+          carte n'affiche qu'une grille de prix, et rien ne dit pourquoi payer
+          davantage. */}
+      <div className="bot-tiers">
+        {tiers.map(tier => (
+          <button
+            key={tier.price}
+            type="button"
+            className="bot-tier"
+            disabled={busyPlan !== null || balance < tier.price}
+            onClick={() => subscribe(tier.price)}
           >
-            {plan} USDT
-          </Button>
+            <span className="bot-tier__price">
+              {busyPlan === tier.price ? '…' : `${tier.price} USDT`}
+            </span>
+            <span className="bot-tier__cap">
+              {tier.cap === null
+                ? 'capital illimité'
+                : `jusqu'à ${tier.cap.toLocaleString('fr-FR')} USDT gérés`}
+            </span>
+          </button>
         ))}
       </div>
       {/* Free access handed out by the team: unlocks the bot without paying,
