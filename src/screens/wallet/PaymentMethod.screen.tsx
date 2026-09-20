@@ -38,7 +38,7 @@ const WalletAddressField = observer(() => {
 const WithdrawForm = observer(() => {
   const { tradeStore, walletStore } = appRootStore;
   const transaction = tradeStore.transaction;
-  const fee = lightexchange.app.WALLET.WITHDRAWAL_FEE ?? 2;
+  const rate = lightexchange.app.WALLET.WITHDRAWAL_FEE_RATE ?? 0.03;
   const selectedWallet = walletStore.selectedWallet;
   const unit =
     selectedWallet?.crypto?.name?.toUpperCase() ||
@@ -48,8 +48,9 @@ const WithdrawForm = observer(() => {
   const amount = parseFloat(transaction?.spend ?? '') || 0;
   // Le montant saisi est brut : les frais sont preleves dessus, donc le net est
   // ce qui arrive vraiment — c'est le chiffre qui compte pour l'utilisateur.
+  const fee = amount * rate;
   const net = Math.max(0, amount - fee);
-  const min = APP.WALLET.MIN_WITHDRAWAL + fee;
+  const min = Math.ceil(APP.WALLET.MIN_WITHDRAWAL / (1 - rate));
   const notEnough = amount > balance;
   const belowMin = amount > 0 && amount < min;
 
@@ -76,7 +77,7 @@ const WithdrawForm = observer(() => {
           />
           <SummaryLine
             label={translate('trading.feesTxt')}
-            value={`- ${fee} ${unit}`}
+            value={`- ${fee.toFixed(2)} ${unit}`}
             tone="fee"
           />
           <SummaryLine

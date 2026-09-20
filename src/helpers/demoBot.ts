@@ -145,10 +145,7 @@ export function demoDeposit(
   };
 }
 
-/**
- * Retrait virtuel, frais de 5 % compris — les mêmes que sur le compte réel,
- * sans quoi la démo promettrait un rendement que le vrai bot ne tient pas.
- */
+/** Retrait virtuel. Sans frais, comme sur le compte réel. */
 export function demoWithdraw(
   state: IDemoState,
   amount: number,
@@ -159,7 +156,7 @@ export function demoWithdraw(
   if (!(amount > 0) || amount > equity + 1e-9) return null;
   const units = amount / nav;
   return {
-    balance: state.balance + amount * 0.95,
+    balance: state.balance + amount,
     units: Math.max(0, state.units - units),
     principal: Math.max(0, state.principal - amount),
     startedAt: state.units - units > 1e-9 ? state.startedAt : null,

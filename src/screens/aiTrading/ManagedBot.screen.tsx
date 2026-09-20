@@ -275,10 +275,8 @@ export const ManagedBot = observer(() => {
               <>
                 <p className="muted">Valeur du bot : {equity.toFixed(2)} USDT</p>
                 <p style={{ color: 'var(--color-secondary-dark)', fontWeight: 800 }}>
-                  Vous recevrez : {Math.max(0, (parseFloat(amount) || 0) * 0.95).toFixed(2)} USDT{' '}
-                  <span className="muted" style={{ fontWeight: 400 }}>
-                    (frais 5% : {((parseFloat(amount) || 0) * 0.05).toFixed(2)} USDT)
-                  </span>
+                  Vous recevrez : {Math.max(0, parseFloat(amount) || 0).toFixed(2)} USDT{' '}
+                  <span className="muted" style={{ fontWeight: 400 }}>(sans frais)</span>
                 </p>
               </>
             )}

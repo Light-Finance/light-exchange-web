@@ -154,8 +154,9 @@ export let amountToWithdrawValidation = async spend => {
 export let minWithdrawalValidation = async spend => {
   // the entered amount is gross: the withdrawal fee is deducted by the API,
   // so require fee + MIN_WITHDRAWAL to guarantee a 10 USDT net payout
-  const fee = lightexchange.app.WALLET.WITHDRAWAL_FEE ?? 2;
-  const min = APP.WALLET.MIN_WITHDRAWAL + fee;
+  const rate = lightexchange.app.WALLET.WITHDRAWAL_FEE_RATE ?? 0.03;
+  const min = Math.ceil(APP.WALLET.MIN_WITHDRAWAL / (1 - rate));
+  const fee = +(min * rate).toFixed(2);
   const result = await yup.number().min(min).required().isValid(spend);
   if (result) {
     return true;

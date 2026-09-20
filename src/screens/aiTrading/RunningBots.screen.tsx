@@ -65,7 +65,6 @@ export const RunningBots = observer(() => {
 
   const pnlColor = (v: number) => (v >= 0 ? 'var(--color-secondary)' : 'var(--color-red)');
   const signed = (v: number) => `${v >= 0 ? '+' : ''}${v.toFixed(2)} USDT`;
-  const copyFee = lightexchange.app.BOT?.COPY_FEE ?? 10;
 
   return (
     <div className="stack">
@@ -216,7 +215,6 @@ export const RunningBots = observer(() => {
         <Modal onClose={() => setConfirming(null)}>
           <div className="stack">
             <h2>{translate('aiTrading.closePosition')}</h2>
-            <p>{copyFee} USDT copy fee will be deducted from your return.</p>
             <div className="bot-actions">
               <Button block variant="secondary" onClick={() => setConfirming(null)}>
                 {translate('transactionConfirmation.cancelBtn')}
