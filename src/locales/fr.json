@@ -4,7 +4,15 @@
   },
   "welcome": {
     "welcomeTxt": "Bienvenue",
-    "tutorialsBtn": "Comment fonctionne Light Exchange ?"
+    "tutorialsBtn": "Comment fonctionne Light Exchange ?",
+    "badgeTxt": "Robot IA · rapport quotidien",
+    "openAccountBtn": "Ouvrir un compte",
+    "demoHint": "Essayez le robot en mode démo, sans aucun dépôt.",
+    "previewLabel": "Valeur de votre bot",
+    "previewTag": "Exemple",
+    "previewSince": "17 jours d'activités",
+    "previewNote": "Chiffres illustratifs. Les performances passées ne garantissent pas les performances futures.",
+    "appStripTxt": "L'application Android, pour suivre le robot partout."
   },
   "contactUs": {
     "whatsappError": "Installer WhatsApp"

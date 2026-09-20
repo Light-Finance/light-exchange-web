@@ -4,7 +4,15 @@
   },
   "welcome": {
     "welcomeTxt": "Welcome",
-    "tutorialsBtn": "How Light Exchange works ?"
+    "tutorialsBtn": "How Light Exchange works ?",
+    "badgeTxt": "AI bot · daily report",
+    "openAccountBtn": "Open an account",
+    "demoHint": "Try the bot in demo mode, with no deposit.",
+    "previewLabel": "Your bot value",
+    "previewTag": "Example",
+    "previewSince": "17 days of activity",
+    "previewNote": "Illustrative figures. Past performance does not guarantee future results.",
+    "appStripTxt": "The Android app, to follow the bot anywhere."
   },
   "contactUs": {
     "whatsappError": "Install WhatsApp"

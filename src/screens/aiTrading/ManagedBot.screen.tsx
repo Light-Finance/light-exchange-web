@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRobot } from '@fortawesome/free-solid-svg-icons';
+import { faRobot, faFlask } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import {
   scheduleBotPositionNotifications,
@@ -15,13 +15,14 @@ import { BtcSparkline } from './BtcSparkline';
 import { BotBillingCard } from './BotBillingCard';
 import { botSinceLabel } from '../../helpers/botUptime';
 import { ToastService } from '../../services/toast.service';
+import { DEMO_START_BALANCE } from '../../helpers/demoBot';
 import './aiTrading.css';
 
 type Dialog = null | 'deposit' | 'withdraw';
 
 export const ManagedBot = observer(() => {
   const navigate = useNavigate();
-  const { managedStore, walletStore } = appRootStore;
+  const { managedStore } = appRootStore;
   const [dialog, setDialog] = useState<Dialog>(null);
   const [amount, setAmount] = useState('');
   const [busy, setBusy] = useState(false);
@@ -31,13 +32,13 @@ export const ManagedBot = observer(() => {
   useEffect(() => {
     (async () => {
       await managedStore.load();
-      // Bot-position notifications are only meaningful for a funded account.
-      if ((managedStore.account?.principal ?? 0) > 0) scheduleBotPositionNotifications();
-      else cancelBotPositionNotifications();
+      syncNotifications();
     })();
   }, [managedStore]);
 
-  const lfcBalance = walletStore.getLFCWallet()?.balance ?? 0;
+  // Solde alimentant le bot : virtuel en demo, portefeuille LFC sinon.
+  const lfcBalance = managedStore.availableBalance;
+  const demo = managedStore.isDemo;
   const equity = account?.equity ?? 0;
   const principal = account?.principal ?? 0;
   // Le gain du mois, pas le cumul depuis l'ouverture : c'est le chiffre que la
@@ -49,6 +50,24 @@ export const ManagedBot = observer(() => {
   const curve = (account?.curve ?? []).map(p => p.value);
   const since = botSinceLabel(account?.startedAt);
   const up = pnl >= 0;
+
+  // Les positions simulees ne meritent pas de notification : elles ne
+  // correspondent a aucun ordre reellement passe.
+  function syncNotifications() {
+    if (!managedStore.isDemo && (managedStore.account?.principal ?? 0) > 0) {
+      scheduleBotPositionNotifications();
+    } else cancelBotPositionNotifications();
+  }
+
+  const toggleDemo = async (on: boolean) => {
+    managedStore.setDemo(on);
+    setDialog(null);
+    setAmount('');
+    // Quitter la demo doit rendre les vrais chiffres, pas ceux laisses en
+    // cache avant le passage en demo.
+    if (!on) await managedStore.load();
+    syncNotifications();
+  };
 
   const submit = async () => {
     const value = parseFloat(amount);
@@ -62,8 +81,7 @@ export const ManagedBot = observer(() => {
     if (ok) {
       setDialog(null);
       setAmount('');
-      if ((managedStore.account?.principal ?? 0) > 0) scheduleBotPositionNotifications();
-      else cancelBotPositionNotifications();
+      syncNotifications();
     }
   };
 
@@ -79,12 +97,32 @@ export const ManagedBot = observer(() => {
     <div className="stack">
       <h1 className="screen-title">LE AI BOT</h1>
 
+      {/* L'interrupteur démo / réel, au-dessus des chiffres qu'il change. */}
+      <div className="bot-modeswitch">
+        {[false, true].map(on => (
+          <button
+            key={String(on)}
+            type="button"
+            className={`bot-modeswitch__tab${demo === on ? ' is-on' : ''}`}
+            onClick={() => toggleDemo(on)}
+          >
+            {on ? 'Démo' : 'Réel'}
+          </button>
+        ))}
+      </div>
+
       <section className="bot-hero">
         <div className="bot-hero__top">
           <span className="bot-hero__badge">
             <FontAwesomeIcon icon={faRobot} />
             LE AI BOT
           </span>
+          {demo ? (
+            <span className="bot-hero__demo">
+              <FontAwesomeIcon icon={faFlask} />
+              DÉMO
+            </span>
+          ) : null}
           <span className="bot-hero__pill">
             {monthPct >= 0 ? '▲ +' : '▼ '}
             {monthPct.toFixed(2)}% ce mois
@@ -157,7 +195,9 @@ export const ManagedBot = observer(() => {
       </button>
 
       <p className="bot-available">
-        Disponible dans le portefeuille : {lfcBalance.toFixed(2)} LFC
+        {demo
+          ? `Solde démo disponible : ${lfcBalance.toFixed(2)} LFC`
+          : `Disponible dans le portefeuille : ${lfcBalance.toFixed(2)} LFC`}
       </p>
 
       <div className="bot-actions">
@@ -166,6 +206,13 @@ export const ManagedBot = observer(() => {
           onClick={() => {
             // Deposits are what a subscription pays for, so they are the only
             // action blocked in paid mode; withdrawals stay open.
+            if (demo && lfcBalance <= 0) {
+              ToastService.show(
+                'Solde démo épuisé — réinitialisez la démo',
+                ToastService.ERROR,
+              );
+              return;
+            }
             if (!managedStore.hasBotAccess) {
               ToastService.show(
                 'Abonnement requis pour alimenter le robot',
@@ -191,7 +238,26 @@ export const ManagedBot = observer(() => {
         </Button>
       </div>
 
-      <BotBillingCard onSubscribed={() => managedStore.load()} />
+      {/* En demo il n'y a rien a facturer : le robot est deverrouille par nature. */}
+      {demo ? (
+        <section className="bot-demo-card">
+          <h3>🧪 Mode démo</h3>
+          <p>
+            Vous testez le robot avec {DEMO_START_BALANCE} LFC virtuels. Aucun
+            argent réel n'est engagé, et ces gains ne sont pas retirables.
+          </p>
+          <div className="bot-actions">
+            <Button block variant="secondary" onClick={() => managedStore.resetDemo()}>
+              Réinitialiser la démo
+            </Button>
+            <Button block variant="secondary" onClick={() => toggleDemo(false)}>
+              Passer en réel
+            </Button>
+          </div>
+        </section>
+      ) : (
+        <BotBillingCard onSubscribed={() => managedStore.load()} />
+      )}
 
       {dialog ? (
         <Modal onClose={() => (busy ? undefined : setDialog(null))}>

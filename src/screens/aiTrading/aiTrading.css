@@ -677,3 +677,53 @@
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
+
+/* Interrupteur démo / réel du LE AI BOT. */
+.bot-modeswitch {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--color-bg-muted, #eef1f4);
+}
+.bot-modeswitch__tab {
+  flex: 1;
+  border: 0;
+  border-radius: 8px;
+  padding: 7px 0;
+  background: transparent;
+  font-size: 12px;
+  font-weight: 700;
+  color: #8a94a0;
+  cursor: pointer;
+}
+.bot-modeswitch__tab.is-on {
+  background: #fff;
+  color: var(--color-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.bot-hero__demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+}
+.bot-demo-card {
+  border-radius: 12px;
+  padding: 16px;
+  background: #f2f6ff;
+}
+.bot-demo-card h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+.bot-demo-card p {
+  margin: 0 0 12px;
+  font-size: 13px;
+}

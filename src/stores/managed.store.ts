@@ -1,4 +1,13 @@
 import { makeAutoObservable } from 'mobx';
+import { PersistStoreMap, makePersistable } from 'mobx-persist-store';
+import AsyncStorage from '../platform/storage';
+import {
+  IDemoState,
+  demoAccount,
+  demoDeposit,
+  demoInitialState,
+  demoWithdraw,
+} from '../helpers/demoBot';
 import gql from 'graphql-tag';
 import { RootStore } from './root.store';
 import { Service } from '../services/service.service';
@@ -170,20 +179,67 @@ export interface IBotBilling {
 
 export class ManagedStore {
   rootStore: RootStore;
-  account: IManagedAccount | null = null;
+  serverAccount: IManagedAccount | null = null;
   isLoading = false;
-  history: IManagedEntry[] = [];
+  serverHistory: IManagedEntry[] = [];
   isLoadingHistory = false;
   team: IReferralTeam | null = null;
   isLoadingTeam = false;
   billing: IBotBilling | null = null;
 
+  /** Mode demo : aucun appel serveur, aucun argent reel. */
+  isDemo = false;
+  demo: IDemoState = demoInitialState();
+
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
     makeAutoObservable(this);
+    // Le mode demo et son etat survivent au rechargement : sans cela, un
+    // utilisateur qui revient retrouverait un portefeuille virtuel remis a
+    // neuf et un bot qui n'a jamais travaille.
+    if (
+      !Array.from(PersistStoreMap.values())
+        .map(item => item.storageName)
+        .includes('ManagedStore')
+    ) {
+      makePersistable(this, {
+        name: 'ManagedStore',
+        properties: ['isDemo', 'demo'],
+        storage: AsyncStorage,
+      });
+    }
+  }
+
+  /**
+   * Le compte affiche partout : simule en demo, celui du serveur sinon. Les
+   * ecrans qui le lisent ne savent pas lequel c'est.
+   */
+  get account(): IManagedAccount | null {
+    return this.isDemo ? demoAccount(this.demo) : this.serverAccount;
+  }
+
+  get history(): IManagedEntry[] {
+    return this.isDemo ? this.demo.history : this.serverHistory;
+  }
+
+  /** Solde LFC disponible pour alimenter le bot (virtuel en demo). */
+  get availableBalance(): number {
+    if (this.isDemo) return this.demo.balance;
+    return this.rootStore.walletStore.getLFCWallet()?.balance ?? 0;
+  }
+
+  setDemo(on: boolean) {
+    this.isDemo = on;
+  }
+
+  /** Remet le portefeuille virtuel et les positions demo a leur etat initial. */
+  resetDemo() {
+    this.demo = demoInitialState();
   }
 
   async load() {
+    // Rien a charger en demo : tout est calcule localement.
+    if (this.isDemo) return;
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return;
     this.isLoading = true;
@@ -192,12 +248,14 @@ export class ManagedStore {
       Service.query({ userId }, BOT_BILLING, false),
     ]);
     this.isLoading = false;
-    if (r?.data?.managedAccount) this.account = r.data.managedAccount;
+    if (r?.data?.managedAccount) this.serverAccount = r.data.managedAccount;
     if (b?.data?.botBilling) this.billing = b.data.botBilling;
   }
 
   /** True while the bot is free, or once the user holds a live subscription. */
   get hasBotAccess(): boolean {
+    // La demo sert justement a essayer le robot avant de payer.
+    if (this.isDemo) return true;
     // Unknown billing must not lock the screen: a failed fetch is not a paywall.
     return this.billing ? this.billing.hasAccess : true;
   }
@@ -222,12 +280,13 @@ export class ManagedStore {
   }
 
   async loadHistory() {
+    if (this.isDemo) return;
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return;
     this.isLoadingHistory = true;
     const r = await Service.query({ userId }, MANAGED_HISTORY, false);
     this.isLoadingHistory = false;
-    if (r?.data?.managedHistory) this.history = r.data.managedHistory;
+    if (r?.data?.managedHistory) this.serverHistory = r.data.managedHistory;
   }
 
   async loadTeam() {
@@ -240,6 +299,11 @@ export class ManagedStore {
   }
 
   async deposit(amount: number): Promise<boolean> {
+    if (this.isDemo) {
+      const next = demoDeposit(this.demo, amount);
+      if (next) this.demo = next;
+      return !!next;
+    }
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return false;
     const r = await Service.mutation({ userId, amount }, MANAGED_DEPOSIT, true);
@@ -251,6 +315,11 @@ export class ManagedStore {
   }
 
   async withdraw(amount: number): Promise<boolean> {
+    if (this.isDemo) {
+      const next = demoWithdraw(this.demo, amount);
+      if (next) this.demo = next;
+      return !!next;
+    }
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return false;
     const r = await Service.mutation({ userId, amount }, MANAGED_WITHDRAW, true);
