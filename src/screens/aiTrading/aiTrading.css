@@ -711,14 +711,16 @@
 }
 
 /* Robot en pause : l'etat se lit sur la carte, a la place du pourcentage du
-   mois, qui n'avance plus. */
+   mois, qui n'avance plus.
+   Rouge plein plutot que le rouge de la palette (rgb(170,0,0)) : ce dernier est
+   trop sombre sur le violet de la carte pour se detacher. */
 .bot-hero__paused {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.26);
+  background: #e5484d;
   color: #fff;
   font-size: var(--font-small);
   font-weight: 800;
