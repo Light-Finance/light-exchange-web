@@ -1,0 +1,176 @@
+/* ── Market ───────────────────────────────────────────────────────────────
+   Surfaces blanches et texte noir, comme la carte d'abonnement : les chiffres
+   sont ce qu'on vient lire ici, ils ne supportent pas d'etre attenues. */
+
+.mk-balance {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-small);
+  padding: 10px 12px;
+  border-radius: var(--radius-medium);
+  background: rgba(128, 57, 221, 0.08);
+  font-size: var(--font-normal);
+  color: var(--color-text);
+}
+.mk-balance strong {
+  font-size: var(--font-medium);
+  font-weight: 800;
+  color: var(--color-secondary-dark);
+}
+
+.mk-folio {
+  padding: var(--space-medium);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-large);
+  background: var(--color-surface);
+}
+.mk-folio__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-small);
+}
+.mk-folio__label {
+  font-size: var(--font-normal);
+  color: var(--color-text-muted);
+}
+.mk-folio__pnl {
+  font-size: var(--font-normal);
+  font-weight: 800;
+}
+.mk-folio__value {
+  margin: 2px 0 var(--space-small);
+  font-size: var(--font-xlarge);
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.mk-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  padding: 10px 0;
+  border-top: 1px solid var(--color-border);
+}
+.mk-row__left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.mk-row__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+.mk-row__name {
+  font-size: var(--font-normal);
+  font-weight: 800;
+  color: var(--color-text);
+}
+.mk-row__value {
+  font-size: var(--font-normal);
+  font-weight: 800;
+  color: var(--color-text);
+}
+.mk-row__sub {
+  font-size: var(--font-small);
+  color: var(--color-text-muted);
+}
+.mk-sell {
+  padding: 6px 12px;
+  border: 1px solid var(--color-secondary);
+  border-radius: var(--radius-small);
+  background: none;
+  color: var(--color-secondary);
+  font-size: var(--font-small);
+  font-weight: 700;
+  cursor: pointer;
+}
+.mk-sell:hover {
+  background: rgba(128, 57, 221, 0.08);
+}
+
+.mk-heading {
+  margin: var(--space-medium) 0 0;
+  font-size: var(--font-medium);
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.mk-assets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+.mk-asset {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  text-align: left;
+  cursor: pointer;
+}
+.mk-asset:hover:not(:disabled) {
+  border-color: var(--color-secondary);
+  background: rgba(128, 57, 221, 0.04);
+}
+/* Un actif sans cours ne peut pas etre achete : un fond gris le dit sans
+   effacer son nom, contrairement a la transparence. */
+.mk-asset:disabled {
+  background: #f1eff5;
+  border-color: #e3dfea;
+  cursor: not-allowed;
+}
+.mk-asset__top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+}
+.mk-asset__ticker {
+  font-size: var(--font-medium);
+  font-weight: 800;
+  color: var(--color-text);
+}
+.mk-asset__price {
+  font-size: var(--font-normal);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.mk-asset__name {
+  font-size: var(--font-small);
+  color: var(--color-text-muted);
+}
+.mk-asset__held {
+  margin-top: 2px;
+  font-size: var(--font-small);
+  font-weight: 700;
+  color: var(--color-secondary-dark);
+}
+
+.mk-preview {
+  margin: 0;
+  font-weight: 800;
+  color: var(--color-secondary-dark);
+}
+.mk-max {
+  align-self: flex-start;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-secondary-dark);
+  font-size: var(--font-normal);
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.mk-actions {
+  display: flex;
+  gap: var(--space-small);
+}

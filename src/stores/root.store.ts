@@ -8,6 +8,7 @@ import { SystemStore } from './system.store';
 import { AiStore } from './ai.store';
 import { TutorialStore } from './tutorial.store';
 import { ManagedStore } from './managed.store';
+import { MarketStore } from './market.store';
 
 export class RootStore {
   @observable authStore: AuthStore;
@@ -19,6 +20,7 @@ export class RootStore {
   @observable aiStore: AiStore;
   @observable tutorialStore: TutorialStore;
   @observable managedStore: ManagedStore;
+  @observable marketStore: MarketStore;
   constructor() {
     this.authStore = new AuthStore(this);
     this.tradeStore = new TradeStore(this);
@@ -29,6 +31,7 @@ export class RootStore {
     this.aiStore = new AiStore(this);
     this.tutorialStore = new TutorialStore(this);
     this.managedStore = new ManagedStore(this);
+    this.marketStore = new MarketStore(this);
   }
   @action setInitialState() {
     this.authStore.setInitialState();

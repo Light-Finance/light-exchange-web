@@ -20,6 +20,7 @@ import { WalletWithdraw } from './screens/wallet/WalletWithdraw.screen';
 import { WalletTransfer } from './screens/wallet/WalletTransfer.screen';
 import { PaymentMethod } from './screens/wallet/PaymentMethod.screen';
 import { ManagedBot } from './screens/aiTrading/ManagedBot.screen';
+import { Market } from './screens/market/Market.screen';
 import { RunningBots } from './screens/aiTrading/RunningBots.screen';
 import { Orders } from './screens/aiTrading/Orders.screen';
 import { MyTeam } from './screens/aiTrading/MyTeam.screen';
@@ -89,6 +90,7 @@ export const App = observer(() => {
           <Route path="/wallet/payment-method" element={<PaymentMethod />} />
 
           <Route path="/ai-trading" element={<ManagedBot />} />
+          <Route path="/market" element={<Market />} />
           <Route path="/ai-trading/running-bots" element={<RunningBots />} />
           <Route path="/ai-trading/orders" element={<Orders />} />
           <Route path="/ai-trading/my-team" element={<MyTeam />} />

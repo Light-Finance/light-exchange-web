@@ -446,7 +446,8 @@
     "tutorials": "Tutorials",
     "profile": "Profile",
     "notifications": "Notifications",
-    "userNumbers": "Payment numbers"
+    "userNumbers": "Payment numbers",
+    "market": "Market"
   },
   "transactionStatus": {
     "initiated": "Initiated",

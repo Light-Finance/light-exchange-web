@@ -28,6 +28,10 @@ export const ROUTES = {
         myTeam: 'myTeam',
         analysis: 'analysis',
       },
+      marketNavigation: {
+        navigator: 'Market',
+        market: 'market',
+      },
       tutorialsNavigation: {
         navigator: 'Tutoriels',
         tutorialList: 'tutorialList',
