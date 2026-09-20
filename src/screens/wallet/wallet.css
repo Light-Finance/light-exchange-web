@@ -697,3 +697,44 @@
   color: var(--color-secondary);
   box-shadow: var(--shadow-card);
 }
+
+/* Le solde quand il n'y a rien a choisir : meme place et meme taille que le
+   menu qu'il remplace, sans la fleche ni le curseur qui promettent un choix. */
+.balance__value {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 var(--space-small);
+  color: var(--color-text);
+  font-size: var(--font-medium);
+  font-weight: 700;
+}
+
+/* Acheter des USDT ailleurs : une recherche deja formulee par moyen de
+   paiement, plutot qu'une liste de tutoriels a maintenir. */
+.w-buyhint {
+  margin: 0 0 4px;
+  font-size: var(--font-medium);
+  font-weight: 800;
+  color: var(--color-text);
+}
+.w-buymethods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--space-small);
+}
+.w-buymethod {
+  padding: 8px 14px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 999px;
+  color: var(--color-secondary-dark);
+  font-size: var(--font-normal);
+  font-weight: 700;
+  text-decoration: none;
+}
+.w-buymethod:hover {
+  background: rgba(128, 57, 221, 0.08);
+}

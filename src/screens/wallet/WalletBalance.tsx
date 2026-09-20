@@ -10,6 +10,10 @@ const capitalize = (name = '') => name.charAt(0).toUpperCase() + name.slice(1);
 /**
  * Wallet selector + balance (mobile's Balance.component). Falls back to the
  * crypto list when the user has no wallets yet, same as mobile.
+ *
+ * Un seul choix ne se choisit pas : depuis la fusion LFC dans l'USDT il n'y a
+ * qu'une crypto, et un menu deroulant a une ligne demande un geste pour ne
+ * rien changer. Il redevient un menu des qu'une seconde ligne existe.
  */
 export const WalletBalance = observer(({ cryptoOnly }: { cryptoOnly?: boolean }) => {
   const { walletStore, systemStore, tradeStore } = appRootStore;
@@ -24,25 +28,34 @@ export const WalletBalance = observer(({ cryptoOnly }: { cryptoOnly?: boolean })
   }, [walletStore, systemStore]);
 
   const hasWallets = (wallets?.length ?? 0) > 0;
+  const oneWallet = (wallets?.length ?? 0) === 1;
+  const oneCrypto = (systemStore.cryptos?.length ?? 0) === 1;
 
   return (
     <div className="balance">
       {hasWallets && !cryptoOnly ? (
         <>
-          <select
-            className="balance__select"
-            value={selectedWallet?.id ?? ''}
-            // Mobile locks the picker while a transfer recipient is chosen.
-            disabled={tradeStore.recipient?.username !== ''}
-            onChange={e => walletStore.setSelectedWallet(e.target.value)}
-            aria-label="Wallet"
-          >
-            {wallets!.map(wallet => (
-              <option key={wallet.id} value={wallet.id}>
-                {wallet.balance?.toFixed(5)} {capitalize(wallet.crypto?.name)}
-              </option>
-            ))}
-          </select>
+          {oneWallet ? (
+            <span className="balance__value">
+              {wallets![0].balance?.toFixed(5)}{' '}
+              {capitalize(wallets![0].crypto?.name)}
+            </span>
+          ) : (
+            <select
+              className="balance__select"
+              value={selectedWallet?.id ?? ''}
+              // Mobile locks the picker while a transfer recipient is chosen.
+              disabled={tradeStore.recipient?.username !== ''}
+              onChange={e => walletStore.setSelectedWallet(e.target.value)}
+              aria-label="Wallet"
+            >
+              {wallets!.map(wallet => (
+                <option key={wallet.id} value={wallet.id}>
+                  {wallet.balance?.toFixed(5)} {capitalize(wallet.crypto?.name)}
+                </option>
+              ))}
+            </select>
+          )}
           <button
             type="button"
             className="balance__refresh"
@@ -52,6 +65,8 @@ export const WalletBalance = observer(({ cryptoOnly }: { cryptoOnly?: boolean })
             <FontAwesomeIcon icon={faRefresh} />
           </button>
         </>
+      ) : oneCrypto ? (
+        <span className="balance__value">{systemStore.cryptos![0].name}</span>
       ) : (
         <select
           className="balance__select"

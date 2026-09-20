@@ -281,7 +281,9 @@
       "onchain": "On-chain transfer",
       "email": "By email"
     },
-    "emailHint": "Give this email to whoever is sending you dollars from Light Exchange. The amount lands straight in your balance, with no network fee."
+    "emailHint": "Give this email to whoever is sending you dollars from Light Exchange. The amount lands straight in your balance, with no network fee.",
+    "otherMethodsTitle": "Another payment method?",
+    "otherMethodsText": "Deposits are made in USDT. If you need to buy some first, here is how with your payment method:"
   },
   "tradingHome": {
     "title": "Trading",
