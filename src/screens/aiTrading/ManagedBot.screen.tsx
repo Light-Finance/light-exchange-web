@@ -189,30 +189,6 @@ export const ManagedBot = observer(() => {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="bot-orders-btn"
-        onClick={() => navigate('/ai-trading/orders')}
-      >
-        📊 Voir les ordres du bot
-      </button>
-
-      <button
-        type="button"
-        className="bot-orders-btn"
-        onClick={() => navigate('/ai-trading/analysis')}
-      >
-        🧠 Analyse de marché
-      </button>
-
-      <button
-        type="button"
-        className="bot-orders-btn"
-        onClick={() => navigate('/ai-trading/my-team')}
-      >
-        👥 Mon équipe
-      </button>
-
       <p className="bot-available">
         {demo
           ? `Solde démo disponible : ${usdtBalance.toFixed(2)} USDT`
@@ -256,6 +232,30 @@ export const ManagedBot = observer(() => {
           Retirer
         </Button>
       </div>
+
+      <button
+        type="button"
+        className="bot-orders-btn"
+        onClick={() => navigate('/ai-trading/orders')}
+      >
+        📊 Voir les ordres du bot
+      </button>
+
+      <button
+        type="button"
+        className="bot-orders-btn"
+        onClick={() => navigate('/ai-trading/analysis')}
+      >
+        🧠 Analyse de marché
+      </button>
+
+      <button
+        type="button"
+        className="bot-orders-btn"
+        onClick={() => navigate('/ai-trading/my-team')}
+      >
+        👥 Mon équipe
+      </button>
 
       {/* En demo il n'y a rien a facturer : le robot est deverrouille par nature. */}
       {demo ? (
