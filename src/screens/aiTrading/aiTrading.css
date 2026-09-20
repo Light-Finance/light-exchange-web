@@ -140,11 +140,6 @@
   border: 1px solid;
 }
 
-.bot-note--info {
-  background: #eaf3ff;
-  border-color: #3b82f6;
-  color: #1e3a8a;
-}
 
 .bot-note--info .bot-note__title {
   color: #1d4ed8;
@@ -713,4 +708,20 @@
 .bot-demo-card p {
   margin: 0 0 12px;
   font-size: 13px;
+}
+
+/* Robot en pause : l'etat se lit sur la carte, a la place du pourcentage du
+   mois, qui n'avance plus. */
+.bot-hero__paused {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.26);
+  color: #fff;
+  font-size: var(--font-small);
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: help;
 }

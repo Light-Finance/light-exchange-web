@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRobot, faFlask } from '@fortawesome/free-solid-svg-icons';
+import {
+  faRobot,
+  faFlask,
+  faCirclePause,
+} from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import {
   scheduleBotPositionNotifications,
@@ -39,6 +43,9 @@ export const ManagedBot = observer(() => {
   // Solde alimentant le bot : virtuel en demo, portefeuille USDT sinon.
   const usdtBalance = managedStore.availableBalance;
   const demo = managedStore.isDemo;
+  // L'etat de pause se lit sur la carte, la ou se lit la valeur du robot. En
+  // demo il n'y a rien a payer, donc rien a mettre en pause.
+  const paused = !demo && managedStore.billing != null && !managedStore.hasBotAccess;
   const equity = account?.equity ?? 0;
   const principal = account?.principal ?? 0;
   // Le gain du mois, pas le cumul depuis l'ouverture : c'est le chiffre que la
@@ -123,10 +130,20 @@ export const ManagedBot = observer(() => {
               DÉMO
             </span>
           ) : null}
-          <span className="bot-hero__pill">
-            {monthPct >= 0 ? '▲ +' : '▼ '}
-            {monthPct.toFixed(2)}% ce mois
-          </span>
+          {paused ? (
+            <span
+              className="bot-hero__paused"
+              title="Sans abonnement le robot ne travaille plus. Votre solde reste disponible au retrait."
+            >
+              <FontAwesomeIcon icon={faCirclePause} />
+              En pause
+            </span>
+          ) : (
+            <span className="bot-hero__pill">
+              {monthPct >= 0 ? '▲ +' : '▼ '}
+              {monthPct.toFixed(2)}% ce mois
+            </span>
+          )}
         </div>
 
         <div className="bot-hero__labelrow">

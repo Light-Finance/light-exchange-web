@@ -93,20 +93,10 @@ export const BotBillingCard = observer(({ onSubscribed }: { onSubscribed?: () =>
     );
   }
 
-  if (!billing.hasAccess) {
-    return (
-      <>
-        <div className="bot-note bot-note--info">
-          <div className="bot-note__title">🔒 Robot en pause</div>
-          <p>
-            Le robot fonctionne sur abonnement. Votre solde reste disponible au retrait, mais
-            le robot ne travaille plus tant qu'aucun abonnement n'est actif.
-          </p>
-        </div>
-        {plans}
-      </>
-    );
-  }
+  // Pas de bandeau "robot en pause" ici : l'etat vit sur la carte du robot,
+  // a cote de sa valeur. Repeter l'information sous les paliers la noyait
+  // au moment meme ou l'ecran demande d'agir.
+  if (!billing.hasAccess) return plans;
 
   if (sub) {
     const endsIn = Math.max(0, Math.ceil((new Date(sub.endAt).getTime() - Date.now()) / 86400000));
