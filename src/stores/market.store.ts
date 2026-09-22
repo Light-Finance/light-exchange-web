@@ -42,6 +42,24 @@ const MARKET_PORTFOLIO = gql`
     }
   }
 `;
+// L'historique des ordres de l'utilisateur. Le prix est celui de l'execution,
+// fige : le recalculer au cours du jour reecrirait ce qui s'est passe.
+const MARKET_TRADES = gql`
+  query marketTrades($userId: ID!) {
+    marketTrades(userId: $userId) {
+      id
+      shortName
+      name
+      kind
+      ipo
+      side
+      quantity
+      price
+      amount
+      at
+    }
+  }
+`;
 const MARKET_BUY = gql`
   mutation marketBuy($userId: ID!, $symbol: String!, $amount: Float!) {
     marketBuy(userId: $userId, symbol: $symbol, amount: $amount) {
@@ -95,10 +113,25 @@ export interface IMarketPosition {
   pnlPct: number | null;
 }
 
+export interface IMarketTrade {
+  id: string;
+  shortName: string;
+  name: string;
+  kind: string;
+  /** Vrai pour une souscription, fige a l'execution. */
+  ipo: boolean;
+  side: 'buy' | 'sell';
+  quantity: number;
+  price: number;
+  amount: number;
+  at: string;
+}
+
 export class MarketStore {
   rootStore: RootStore;
   assets: IMarketAsset[] = [];
   positions: IMarketPosition[] = [];
+  trades: IMarketTrade[] = [];
   totalValue = 0;
   totalCost = 0;
   isLoading = false;
@@ -129,12 +162,14 @@ export class MarketStore {
   async load() {
     const userId = this.rootStore.authStore.user?.id;
     this.isLoading = true;
-    const [a, p] = await Promise.all([
+    const [a, p, t] = await Promise.all([
       Service.query({}, MARKET_ASSETS, false),
       userId ? Service.query({ userId }, MARKET_PORTFOLIO, false) : Promise.resolve(null),
+      userId ? Service.query({ userId }, MARKET_TRADES, false) : Promise.resolve(null),
     ]);
     this.isLoading = false;
     if (a?.data?.marketAssets) this.assets = a.data.marketAssets;
+    if (t?.data?.marketTrades) this.trades = t.data.marketTrades;
     const folio = p?.data?.marketPortfolio;
     if (folio) {
       this.positions = folio.positions;

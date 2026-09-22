@@ -315,3 +315,72 @@
 .mk-empty:hover {
   background: var(--color-surface-3);
 }
+
+/* ── Historique ───────────────────────────────────────────────────────────
+   Une liste dense, une ligne par ordre, comme l'historique Binance : ce qu'on
+   y cherche, c'est un montant et une date, pas une carte par operation. */
+.mk-history {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+}
+.mk-hist {
+  display: flex;
+  align-items: center;
+  gap: var(--space-small);
+  padding: 12px 14px;
+  border-top: 1px solid var(--color-border);
+}
+.mk-hist:first-child {
+  border-top: 0;
+}
+.mk-hist__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+.mk-hist__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--font-normal);
+  font-weight: 600;
+}
+.mk-hist__buy {
+  color: var(--color-up-ink);
+}
+.mk-hist__sell {
+  color: var(--color-down-ink);
+}
+.mk-hist__sub {
+  font-size: var(--font-normal);
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+/* Le montant dit le sens du mouvement sur le solde : il sort a l'achat, il
+   rentre a la vente. */
+.mk-hist__amount {
+  font-size: var(--font-normal);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.mk-hist__amount.is-out {
+  color: var(--color-text);
+}
+.mk-hist__amount.is-in {
+  color: var(--color-up-ink);
+}
+.mk-kind-tag {
+  padding: 1px 7px;
+  border-radius: var(--radius-small);
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.mk-kind-tag.is-ipo {
+  background: var(--color-down-bg);
+  color: var(--color-down-ink);
+}

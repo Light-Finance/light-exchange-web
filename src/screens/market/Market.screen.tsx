@@ -31,6 +31,28 @@ const price = (n: number | null, kind?: string) =>
 
 const day = (iso: string) => new Date(iso).toLocaleDateString('fr-FR');
 
+
+/** Date et heure courtes, a la francaise. */
+const when = (iso: string) =>
+  new Date(iso).toLocaleString('fr-FR', {
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+/**
+ * Ce qu'un ordre a ete, en mots. Une souscription n'est pas un achat
+ * ordinaire : elle ne se revend pas avant la cotation, et l'utilisateur doit
+ * pouvoir la reconnaitre dans son historique.
+ */
+const sideLabel = (t: { side: string; ipo: boolean }) =>
+  t.side === 'sell' ? 'Vente' : t.ipo ? 'Souscription' : 'Achat';
+
+const kindLabel = (t: { kind: string; ipo: boolean }) =>
+  t.ipo ? 'IPO' : t.kind === 'stock' ? 'Action' : 'Crypto';
+
 export const Market = observer(() => {
   const navigate = useNavigate();
   const { marketStore, walletStore } = appRootStore;
@@ -274,6 +296,45 @@ export const Market = observer(() => {
           </p>
         ) : null}
       </div>
+
+      {marketStore.trades.length > 0 ? (
+        <>
+          <h2 className="mk-heading">Historique</h2>
+          <div className="mk-history">
+            {marketStore.trades.map(t => {
+              const c = colorOf(t.shortName);
+              const sell = t.side === 'sell';
+              return (
+                <div className="mk-hist" key={t.id}>
+                  <span
+                    className="mk-badge"
+                    style={{ background: c.tint, color: c.ink }}
+                  >
+                    {t.shortName}
+                  </span>
+                  <div className="mk-hist__main">
+                    <span className="mk-hist__title">
+                      <span className={sell ? 'mk-hist__sell' : 'mk-hist__buy'}>
+                        {sideLabel(t)}
+                      </span>
+                      <span className={`mk-kind-tag${t.ipo ? ' is-ipo' : ''}`}>
+                        {kindLabel(t)}
+                      </span>
+                    </span>
+                    <span className="mk-hist__sub">
+                      {when(t.at)} · {money(t.quantity, 6)} à {price(t.price, t.kind)} $
+                    </span>
+                  </div>
+                  <span className={`mk-hist__amount ${sell ? 'is-in' : 'is-out'}`}>
+                    {sell ? '+' : '−'}
+                    {money(t.amount)} $
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : null}
 
       {dialog && asset ? (
         <Modal onClose={() => (busy ? undefined : setDialog(null))} label="Ordre">
