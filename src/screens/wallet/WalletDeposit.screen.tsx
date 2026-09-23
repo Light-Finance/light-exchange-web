@@ -137,31 +137,6 @@ export const WalletDeposit = observer(() => {
         </Button>
       </WalletCard>
 
-      {/* Les depots arrivent en USDT ; acheter des USDT se fait ailleurs, et
-          avec un moyen de paiement que nous ne connaissons pas d'avance. Plutot
-          que de tenir une liste de tutoriels qui vieillirait, on ouvre la
-          recherche deja formulee. */}
-      <WalletCard>
-        <p className="w-buyhint">{translate('walletDeposit.otherMethodsTitle')}</p>
-        <p className="mk-note">{translate('walletDeposit.otherMethodsText')}</p>
-        <div className="w-buymethods">
-          {(lightexchange.app.BUY_METHODS as string[]).map(
-            method => (
-              <a
-                key={method}
-                className="w-buymethod"
-                href={`https://www.google.com/search?q=${encodeURIComponent(
-                  `comment acheter des USDT avec ${method}`,
-                )}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {method}
-              </a>
-            ),
-          )}
-        </div>
-      </WalletCard>
 
       <p className="w-foot">{translate('rechargeCrypto.actionTxt')}</p>
     </WalletLayout>
