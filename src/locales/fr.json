@@ -281,19 +281,18 @@
     "title": "Ajouter des fonds",
     "noticeTxt": "Voir infos plus haut",
     "step1": "Envoyez vos fonds à cette adresse",
-    "step2": "Puis déclarez votre dépôt",
-    "amountLabel": "Montant envoye",
-    "referenceLabel": "Référence de la transaction (TXID)",
     "networkLabel": "Réseau",
     "addressCopied": "Adresse copiée",
-    "reviewNote": "Votre dépôt est crédité une fois la transaction vérifiée par l’équipe.",
     "mode": {
       "onchain": "Envoi on-chain",
       "email": "Par email"
     },
     "emailHint": "Communiquez cet email à la personne qui vous envoie des dollars depuis Light Exchange. Le montant arrive directement sur votre solde, sans frais de réseau.",
     "otherMethodsTitle": "Un autre moyen de paiement ?",
-    "otherMethodsText": "Les dépôts se font en USDT. Si vous devez d'abord en acheter, voici comment faire avec votre moyen de paiement :"
+    "otherMethodsText": "Les dépôts se font en USDT. Si vous devez d'abord en acheter, voici comment faire avec votre moyen de paiement :",
+    "notCreditedTitle": "Votre compte n'est pas crédité ?",
+    "notCreditedText": "Les fonds envoyés à cette adresse sont crédités automatiquement. Si votre solde n'a pas bougé après quelques minutes, écrivez-nous avec la preuve de votre envoi.",
+    "contactBtn": "Contactez-nous"
   },
   "tradingHome": {
     "title": "Trading",

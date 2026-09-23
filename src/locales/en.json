@@ -279,19 +279,18 @@
     "title": "Add funds",
     "noticeTxt": "Use info above to proceed",
     "step1": "Send your funds to this address",
-    "step2": "Then declare your deposit",
-    "amountLabel": "Amount sent",
-    "referenceLabel": "Transaction reference (TXID)",
     "networkLabel": "Network",
     "addressCopied": "Address copied",
-    "reviewNote": "Your deposit is credited once the team has checked the transaction.",
     "mode": {
       "onchain": "On-chain transfer",
       "email": "By email"
     },
     "emailHint": "Give this email to whoever is sending you dollars from Light Exchange. The amount lands straight in your balance, with no network fee.",
     "otherMethodsTitle": "Another payment method?",
-    "otherMethodsText": "Deposits are made in USDT. If you need to buy some first, here is how with your payment method:"
+    "otherMethodsText": "Deposits are made in USDT. If you need to buy some first, here is how with your payment method:",
+    "notCreditedTitle": "Account not credited?",
+    "notCreditedText": "Funds sent to this address are credited automatically. If your balance has not moved after a few minutes, message us with proof of your transfer.",
+    "contactBtn": "Contact us"
   },
   "tradingHome": {
     "title": "Trading",

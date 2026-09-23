@@ -1,23 +1,16 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faCopy } from '@fortawesome/free-solid-svg-icons';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import lightexchange from 'light-exchange';
 import { translate } from '../../helpers/localization';
 import { ToastService } from '../../services/toast.service';
-import { ROUTES } from '../../consts/routes';
-import { Input } from '../../components/ui/Field';
 import { Button } from '../../components/ui/Button';
 import { WalletBalance } from './WalletBalance';
 import { WalletLayout } from './components';
-import {
-  AmountInput,
-  FieldLabel,
-  InfoBanner,
-  StepHeader,
-  WalletCard,
-} from './ui';
+import { InfoBanner, WalletCard } from './ui';
 
 /** Mobile uses @react-native-clipboard; the browser has the async clipboard. */
 const copyToClipboard = async (text: string) => {
@@ -29,33 +22,8 @@ const copyToClipboard = async (text: string) => {
   }
 };
 
-const RechargeCompleted = observer(() => {
-  const { tradeStore } = appRootStore;
-  return (
-    <div className="card stack" style={{ textAlign: 'center', alignItems: 'center' }}>
-      <h2>{translate('rechargeCryptoCompleted.successful')}</h2>
-      <FontAwesomeIcon
-        icon={faCheckCircle}
-        style={{ fontSize: 48, color: 'var(--color-secondary)' }}
-      />
-      <p>{translate('rechargeCryptoCompleted.successfulDescription')}</p>
-      <Button
-        onClick={() =>
-          tradeStore.newTransaction(
-            ROUTES.mainNavigation.tabNavigation.walletNavigation.walletHome,
-          )
-        }
-      >
-        {translate('rechargeCryptoCompleted.goBackHomeTxt')}
-      </Button>
-    </div>
-  );
-});
-
 export const WalletDeposit = observer(() => {
   const { walletStore, systemStore, authStore } = appRootStore;
-  const [amount, setAmount] = useState('');
-  const [reference, setReference] = useState('');
   const [mode, setMode] = useState<'onchain' | 'email'>('onchain');
 
   useEffect(() => {
@@ -75,23 +43,7 @@ export const WalletDeposit = observer(() => {
     ? authStore.user?.email
     : userWallet?.address || selectedCrypto?.address || '';
 
-  const declareDeposit = async () => {
-    // The declared amount pre-fills the admin's approval prompt on the dashboard,
-    // so require a sensible number rather than silently sending nothing.
-    const parsed = parseFloat(amount.replace(',', '.'));
-    if (isNaN(parsed) || parsed <= 0) {
-      ToastService.show(translate('rechargeCrypto.amountInvalid'));
-      return;
-    }
-    await walletStore.userWalletCreate();
-    await walletStore.depositRequest({
-      cryptoId: selectedCrypto?.id,
-      txid: reference.trim(),
-      amount: parsed,
-    });
-  };
 
-  if (walletStore.depositStatus) return <RechargeCompleted />;
 
   return (
     <WalletLayout title={translate('walletDeposit.title')}>
@@ -100,7 +52,8 @@ export const WalletDeposit = observer(() => {
       {/* Etape 1 : l'adresse. C'est ce que l'utilisateur vient chercher, donc
           elle passe en premier et en grand. */}
       <WalletCard>
-        <StepHeader n={1}>{translate('walletDeposit.step1')}</StepHeader>
+        {/* Un seul geste desormais : le numeroter n'apprendrait rien. */}
+        <p className="w-buyhint">{translate('walletDeposit.step1')}</p>
 
         <div className="w-modes">
           {(['onchain', 'email'] as const).map(m => (
@@ -133,34 +86,21 @@ export const WalletDeposit = observer(() => {
         </InfoBanner>
       </WalletCard>
 
-      {/* Etape 2 : la declaration, qui declenche la verification. */}
+      {/* Plus de declaration de depot.
+          Demander a l'utilisateur de declarer ce qu'il vient d'envoyer creait
+          une file d'attente que personne ne traitait, et lui laissait croire
+          que son depot ne serait credite qu'une fois cette declaration
+          validee. Les fonds arrivent sur l'adresse, ils sont credites : il n'y
+          a rien a declarer. Reste le cas ou cela n'arrive pas, et la ce qu'il
+          faut c'est nous joindre. */}
       <WalletCard>
-        <StepHeader n={2}>{translate('walletDeposit.step2')}</StepHeader>
-
-        <FieldLabel>{translate('walletDeposit.amountLabel')}</FieldLabel>
-        <AmountInput
-          value={amount}
-          unit={selectedCrypto?.name?.toUpperCase()}
-          onChange={setAmount}
-        />
-
-        {!byEmail ? (
-          <>
-            <FieldLabel>{translate('walletDeposit.referenceLabel')}</FieldLabel>
-            <Input
-              placeholder="TXID"
-              value={reference}
-              onChange={e => setReference(e.target.value)}
-            />
-          </>
-        ) : null}
-
-        <InfoBanner>{translate('walletDeposit.reviewNote')}</InfoBanner>
+        <p className="w-buyhint">{translate('walletDeposit.notCreditedTitle')}</p>
+        <p className="mk-note">{translate('walletDeposit.notCreditedText')}</p>
+        <Button block onClick={() => authStore.toContactUs()}>
+          <FontAwesomeIcon icon={faWhatsapp} />{' '}
+          {translate('walletDeposit.contactBtn')}
+        </Button>
       </WalletCard>
-
-      <Button block onClick={declareDeposit}>
-        {translate('rechargeCrypto.rechargeBtn')}
-      </Button>
 
       {/* Les depots arrivent en USDT ; acheter des USDT se fait ailleurs, et
           avec un moyen de paiement que nous ne connaissons pas d'avance. Plutot
