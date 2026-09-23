@@ -34,6 +34,7 @@ export const WalletWithdraw = observer(() => {
     tradeStore.getPaymentMethods();
   }, [tradeStore]);
 
+  const { authStore } = appRootStore;
   const paymentMethods = tradeStore.paymentMethods ?? [];
   const choose = (name: string) => {
     walletStore.setPaymentMethod(name);
@@ -56,7 +57,18 @@ export const WalletWithdraw = observer(() => {
               key={method.name}
               type="button"
               className="pm-card"
-              onClick={() => choose(method.name!)}
+              // Seul le wallet crypto se traite dans l'application : les
+              // autres moyens passent par le support, qui donne les
+              // coordonnees du moment.
+              onClick={() =>
+                isWallet
+                  ? choose(method.name!)
+                  : authStore.toContactUsAbout(
+                      translate('paymentMethod.withdrawMsg', {
+                        method: method.name,
+                      }),
+                    )
+              }
             >
               <span className="pm-card__logo">
                 <img src={getIcon(method.name!)} alt="" />
@@ -66,7 +78,7 @@ export const WalletWithdraw = observer(() => {
                 <span className="pm-card__hint">
                   {isWallet
                     ? translate('paymentMethod.walletHint')
-                    : translate('paymentMethod.mobileHint')}
+                    : translate('paymentMethod.supportHint')}
                 </span>
               </span>
               <span className="pm-card__chevron">

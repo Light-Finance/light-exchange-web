@@ -187,7 +187,10 @@
     "noticeTxt": "Tap above to proceed",
     "walletHint": "To a crypto address",
     "mobileHint": "To your mobile money number",
-    "chooseTitle": "Choose a withdrawal method"
+    "chooseTitle": "Choose a withdrawal method",
+    "supportHint": "We send you the details on WhatsApp",
+    "withdrawMsg": "Hello, I would like to withdraw via %{method}.",
+    "depositMsg": "Hello, I would like to deposit via %{method}."
   },
   "recharge": {
     "titleTxt": "Recharge account",
@@ -290,7 +293,9 @@
     "otherMethodsText": "Deposits are made in USDT. If you need to buy some first, here is how with your payment method:",
     "notCreditedTitle": "Account not credited?",
     "notCreditedText": "Funds sent to this address are credited automatically. If your balance has not moved after a few minutes, message us with proof of your transfer.",
-    "contactBtn": "Contact us"
+    "contactBtn": "Contact us",
+    "otherPaymentTitle": "Pay another way?",
+    "otherPaymentText": "Pick a payment method: we send you the details to use on WhatsApp, and credit your account as soon as we receive it."
   },
   "tradingHome": {
     "title": "Trading",

@@ -23,11 +23,20 @@ const copyToClipboard = async (text: string) => {
 };
 
 export const WalletDeposit = observer(() => {
-  const { walletStore, systemStore, authStore } = appRootStore;
+  const { walletStore, systemStore, authStore, tradeStore } = appRootStore;
+  // Les moyens de paiement viennent du dashboard : la liste change sans
+  // republier le site. Le wallet crypto a deja sa propre carte au-dessus.
+  const otherMethods = (tradeStore.paymentMethods ?? []).filter(
+    m =>
+      m.name?.toLowerCase() !==
+      lightexchange.app.PAYMENT_METHOD.WALLET.toLowerCase(),
+  );
   const [mode, setMode] = useState<'onchain' | 'email'>('onchain');
 
   useEffect(() => {
     systemStore.cryptoList();
+    // Les moyens de paiement viennent du dashboard.
+    tradeStore.getPaymentMethods();
   }, [systemStore]);
 
   const selectedCrypto = systemStore.selectedCrypto;
@@ -85,6 +94,32 @@ export const WalletDeposit = observer(() => {
           {translate(byEmail ? 'walletDeposit.emailHint' : 'rechargeCrypto.warningTxt')}
         </InfoBanner>
       </WalletCard>
+
+      {/* Les autres moyens de paiement passent par le support : les
+          coordonnees changent, et les publier ici obligerait a republier le
+          site a chaque changement. */}
+      {otherMethods.length > 0 ? (
+        <WalletCard>
+          <p className="w-buyhint">{translate('walletDeposit.otherPaymentTitle')}</p>
+          <p className="mk-note">{translate('walletDeposit.otherPaymentText')}</p>
+          <div className="w-buymethods">
+            {otherMethods.map(m => (
+              <button
+                key={m.name}
+                type="button"
+                className="w-buymethod"
+                onClick={() =>
+                  authStore.toContactUsAbout(
+                    translate('paymentMethod.depositMsg', { method: m.name }),
+                  )
+                }
+              >
+                {m.name}
+              </button>
+            ))}
+          </div>
+        </WalletCard>
+      ) : null}
 
       {/* Plus de declaration de depot.
           Demander a l'utilisateur de declarer ce qu'il vient d'envoyer creait

@@ -91,6 +91,29 @@ export class AuthStore {
   @action setUserData(data: any, property: string) {
     this.user![`${property}`] = data;
   }
+  /**
+   * Ouvre WhatsApp sur le support avec un message deja ecrit.
+   *
+   * Les moyens de paiement autres que la crypto sont traites a la main : les
+   * coordonnees changent, et les publier dans l'application obligerait a
+   * republier a chaque changement. L'utilisateur demande, on repond avec les
+   * coordonnees du moment.
+   */
+  toContactUsAbout = async (subject: string) => {
+    const number = await this.rootStore?.systemStore.systemGetNumbers(
+      lightexchange.app.NUMBERS_TYPE.CUSTOMER_SUPPORT,
+    );
+    const url = `whatsapp://send?text=${encodeURIComponent(subject)}&phone=${number}`;
+    if (await Linking.canOpenURL(url)) {
+      await Linking.openURL(url);
+    } else {
+      ToastService.show(
+        translate('contactUs.whatsappError'),
+        ToastService.ERROR,
+      );
+    }
+  };
+
   toContactUs = async () => {
     const number = await this.rootStore?.systemStore.systemGetNumbers(
       lightexchange.app.NUMBERS_TYPE.CUSTOMER_SUPPORT,
