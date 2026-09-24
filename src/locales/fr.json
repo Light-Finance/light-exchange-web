@@ -494,5 +494,11 @@
     "secureTitle": "Compte vérifié",
     "secureTxt": "Vérification d'identité et confirmation par email protègent les retraits.",
     "storeSmall": "Disponible sur"
+  },
+  "support": {
+    "title": "Support",
+    "empty": "Écrivez-nous, nous répondons ici.",
+    "placeholder": "Votre message…",
+    "send": "Envoyer"
   }
 }

@@ -15,6 +15,7 @@ import { EmailConfirmation } from './screens/auth/EmailConfirmation.screen';
 import { Splash } from './screens/auth/Splash.screen';
 import { WalletHome } from './screens/wallet/WalletHome.screen';
 import { WalletHistory } from './screens/wallet/WalletHistory.screen';
+import { Support } from './screens/support/Support.screen';
 import { WalletDeposit } from './screens/wallet/WalletDeposit.screen';
 import { WalletWithdraw } from './screens/wallet/WalletWithdraw.screen';
 import { WalletTransfer } from './screens/wallet/WalletTransfer.screen';
@@ -87,6 +88,7 @@ export const App = observer(() => {
         <Route element={<Protected />}>
           <Route path="/wallet" element={<WalletHome />} />
           <Route path="/wallet/history" element={<WalletHistory />} />
+          <Route path="/support" element={<Support />} />
           <Route path="/wallet/deposit" element={<WalletDeposit />} />
           <Route path="/wallet/withdraw" element={<WalletWithdraw />} />
           <Route path="/wallet/transfer" element={<WalletTransfer />} />

@@ -492,5 +492,11 @@
     "secureTitle": "Verified account",
     "secureTxt": "ID verification and email confirmation protect withdrawals.",
     "storeSmall": "Get it on"
+  },
+  "support": {
+    "title": "Support",
+    "empty": "Write to us, we answer here.",
+    "placeholder": "Your message…",
+    "send": "Send"
   }
 }

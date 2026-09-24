@@ -10,8 +10,8 @@ import {
   faPlayCircle,
   faPlus,
   faRefresh,
+  faComments,
 } from '@fortawesome/free-solid-svg-icons';
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import { translate } from '../../helpers/localization';
 import { IWallet } from '../../models';
@@ -41,7 +41,9 @@ export const WalletHome = observer(() => {
     // Le marche se finance depuis ce solde : l'atteindre d'ici evite de
     // repasser par la barre d'onglets pour aller depenser ce qu'on regarde.
     { label: translate('walletHome.marketBtn'), icon: faChartLine, onClick: () => navigate('/market') },
-    { label: translate('walletHome.contactBtn'), icon: faWhatsapp, onClick: () => authStore.toContactUs() },
+    // Le support se tient desormais dans l'application : la conversation reste
+    // attachee au compte, et se relit d'un appareil a l'autre.
+    { label: translate('walletHome.contactBtn'), icon: faComments, onClick: () => navigate('/support') },
     { label: translate('walletHome.learnBtn'), icon: faPlayCircle, onClick: () => navigate('/tutorials') },
   ];
 
