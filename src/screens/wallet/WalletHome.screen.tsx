@@ -21,11 +21,13 @@ const capitalize = (name = '') => name.charAt(0).toUpperCase() + name.slice(1);
 
 export const WalletHome = observer(() => {
   const navigate = useNavigate();
-  const { walletStore, systemStore, authStore } = appRootStore;
+  const { supportStore, walletStore, systemStore, authStore } = appRootStore;
   const wallets = walletStore.wallets ?? [];
   const selectedWallet = walletStore.selectedWallet;
 
   useEffect(() => {
+    // Le compteur se recharge a chaque passage sur cet ecran.
+    supportStore.loadUnread();
     (async () => {
       // Silent on mount: the screen renders its own placeholder while loading.
       await walletStore.getWallets(false);
@@ -43,7 +45,9 @@ export const WalletHome = observer(() => {
     { label: translate('walletHome.marketBtn'), icon: faChartLine, onClick: () => navigate('/market') },
     // Le support se tient desormais dans l'application : la conversation reste
     // attachee au compte, et se relit d'un appareil a l'autre.
-    { label: translate('walletHome.contactBtn'), icon: faComments, onClick: () => navigate('/support') },
+    // Une reponse du support attend : le dire ici, sinon rien ne distingue
+    // cette carte des cinq autres.
+    { label: translate('walletHome.contactBtn'), icon: faComments, onClick: () => navigate('/support'), badge: supportStore.unread },
     { label: translate('walletHome.learnBtn'), icon: faPlayCircle, onClick: () => navigate('/tutorials') },
   ];
 
@@ -113,6 +117,11 @@ export const WalletHome = observer(() => {
           >
             <span className="wallet-action__icon">
               <FontAwesomeIcon icon={action.icon} />
+              {action.badge ? (
+                <span className="wallet-action__badge">
+                  {action.badge > 9 ? '9+' : action.badge}
+                </span>
+              ) : null}
             </span>
             <span className="wallet-action__label">{action.label}</span>
           </button>

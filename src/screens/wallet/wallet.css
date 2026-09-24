@@ -738,3 +738,25 @@
 .w-buymethod:hover {
   background: rgba(128, 57, 221, 0.08);
 }
+
+/* Pastille des messages non lus, posee sur l'icone du support. L'icone est le
+   seul point fixe de la carte : le libelle change de longueur d'une langue a
+   l'autre. */
+.wallet-action__icon {
+  position: relative;
+}
+.wallet-action__badge {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--color-down);
+  color: var(--color-white);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
