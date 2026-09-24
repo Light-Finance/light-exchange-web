@@ -498,5 +498,8 @@
     "empty": "Write to us, we answer here.",
     "placeholder": "Your message…",
     "send": "Send"
+  },
+  "social": {
+    "title": "Join us"
   }
 }

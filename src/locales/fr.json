@@ -500,5 +500,8 @@
     "empty": "Écrivez-nous, nous répondons ici.",
     "placeholder": "Votre message…",
     "send": "Envoyer"
+  },
+  "social": {
+    "title": "Rejoignez-nous"
   }
 }

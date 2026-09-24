@@ -17,6 +17,7 @@ import { translate } from '../../helpers/localization';
 // ou un logo blanc sur transparent ne se verrait pas.
 import appIcon from '../../assets/imgs/appIcon.png';
 import { LandingTicker } from './LandingTicker';
+import { SocialLinks } from '../../components/SocialLinks';
 import './landing.css';
 import { AppVersion } from '../../components/AppVersion';
 
@@ -158,6 +159,10 @@ export const Welcome = () => {
           </span>
         </span>
       </a>
+
+      <div className="land__ticker">
+        <SocialLinks />
+      </div>
 
       <footer className="land__footer">
         {lightexchange.app.INFO.COPYRIGHT} <AppVersion />

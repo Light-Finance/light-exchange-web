@@ -26,6 +26,7 @@ import { API_BASE_URL } from '../../consts/api';
 import { ToastService } from '../../services/toast.service';
 import './profil.css';
 import { AppVersion } from '../../components/AppVersion';
+import { SocialLinks } from '../../components/SocialLinks';
 
 const MAX_UPDATES = 2;
 type IdType = 'front' | 'back' | 'selfie';
@@ -124,6 +125,8 @@ export const Profil = observer(() => {
         <FontAwesomeIcon icon={faPowerOff} />
         {translate('profil.signOutBtn')}
       </button>
+
+      <SocialLinks />
 
       <div className="profil-version">
         {lightexchange.app.INFO.COPYRIGHT} <AppVersion />

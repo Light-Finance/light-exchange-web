@@ -1,0 +1,39 @@
+/* ── Liens sociaux ────────────────────────────────────────────────────────
+   Une rangee de puces, meme grammaire que le reste : surface blanche, filet
+   gris, violet au survol. */
+
+.soc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-small);
+}
+
+.soc__title {
+  font-size: var(--font-medium);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.soc__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.soc__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-normal);
+  font-weight: 600;
+  text-decoration: none;
+}
+.soc__link:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
