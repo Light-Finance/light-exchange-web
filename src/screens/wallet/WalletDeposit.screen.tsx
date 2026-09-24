@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
@@ -23,6 +24,7 @@ const copyToClipboard = async (text: string) => {
 };
 
 export const WalletDeposit = observer(() => {
+  const navigate = useNavigate();
   const { walletStore, systemStore, authStore, tradeStore } = appRootStore;
   // Les moyens de paiement viennent du dashboard : la liste change sans
   // republier le site. Le wallet crypto a deja sa propre carte au-dessus.
@@ -109,9 +111,13 @@ export const WalletDeposit = observer(() => {
                 type="button"
                 className="w-buymethod"
                 onClick={() =>
-                  authStore.toContactUsAbout(
-                    translate('paymentMethod.depositMsg', { method: m.name }),
-                  )
+                  navigate('/support', {
+                    state: {
+                      prefill: translate('paymentMethod.depositMsg', {
+                        method: m.name,
+                      }),
+                    },
+                  })
                 }
               >
                 {m.name}
@@ -131,7 +137,7 @@ export const WalletDeposit = observer(() => {
       <WalletCard>
         <p className="w-buyhint">{translate('walletDeposit.notCreditedTitle')}</p>
         <p className="mk-note">{translate('walletDeposit.notCreditedText')}</p>
-        <Button block onClick={() => authStore.toContactUs()}>
+        <Button block onClick={() => navigate('/support')}>
           <FontAwesomeIcon icon={faWhatsapp} />{' '}
           {translate('walletDeposit.contactBtn')}
         </Button>

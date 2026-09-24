@@ -63,11 +63,13 @@ export const WalletWithdraw = observer(() => {
               onClick={() =>
                 isWallet
                   ? choose(method.name!)
-                  : authStore.toContactUsAbout(
-                      translate('paymentMethod.withdrawMsg', {
-                        method: method.name,
-                      }),
-                    )
+                  : navigate('/support', {
+                      state: {
+                        prefill: translate('paymentMethod.withdrawMsg', {
+                          method: method.name,
+                        }),
+                      },
+                    })
               }
             >
               <span className="pm-card__logo">

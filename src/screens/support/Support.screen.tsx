@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
@@ -20,7 +21,12 @@ const when = (iso: string) =>
 
 export const Support = observer(() => {
   const { supportStore } = appRootStore;
-  const [draft, setDraft] = useState('');
+  // Un message pre-rempli quand on arrive depuis un moyen de paiement : la
+  // conversation part avec son contexte au lieu de le faire retaper.
+  const location = useLocation();
+  const [draft, setDraft] = useState<string>(
+    (location.state as any)?.prefill ?? '',
+  );
   const bottom = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
