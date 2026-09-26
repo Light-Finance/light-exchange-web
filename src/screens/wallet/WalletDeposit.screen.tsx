@@ -124,6 +124,22 @@ export const WalletDeposit = observer(() => {
               </button>
             ))}
           </div>
+
+          {/* La liste des moyens de paiement est la notre, pas celle du monde :
+              quelqu'un qui n'y trouve pas le sien repartait sans rien dire. Ce
+              bouton ouvre la conversation avec la demande deja ecrite, et nous
+              apprend ce qui manque. */}
+          <button
+            type="button"
+            className="w-askmethod"
+            onClick={() =>
+              navigate('/support', {
+                state: { prefill: translate('paymentMethod.requestMsg') },
+              })
+            }
+          >
+            {translate('paymentMethod.requestBtn')}
+          </button>
         </WalletCard>
       ) : null}
 

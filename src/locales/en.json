@@ -190,7 +190,9 @@
     "chooseTitle": "Choose a withdrawal method",
     "supportHint": "We send you the details on WhatsApp",
     "withdrawMsg": "Hello, I would like to withdraw via %{method}.",
-    "depositMsg": "Hello, I would like to deposit via %{method}."
+    "depositMsg": "Hello, I would like to deposit via %{method}.",
+    "requestBtn": "I have another payment method",
+    "requestMsg": "Hello, I would like to deposit with a payment method that is not listed: "
   },
   "recharge": {
     "titleTxt": "Recharge account",

@@ -191,7 +191,9 @@
     "chooseTitle": "Choisissez une méthode de retrait",
     "supportHint": "Nous vous donnons les coordonnées sur WhatsApp",
     "withdrawMsg": "Bonjour, je souhaite faire un retrait par %{method}.",
-    "depositMsg": "Bonjour, je souhaite faire un dépôt par %{method}."
+    "depositMsg": "Bonjour, je souhaite faire un dépôt par %{method}.",
+    "requestBtn": "J'ai un autre moyen de paiement",
+    "requestMsg": "Bonjour, je souhaite déposer avec un moyen de paiement qui n'est pas dans la liste : "
   },
   "recharge": {
     "titleTxt": "Recharger le compte",
