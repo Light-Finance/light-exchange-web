@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import { translate } from '../../helpers/localization';
+import { SocialLinks } from '../../components/SocialLinks';
 import './support.css';
 
 // La conversation se rafraichit toute seule : une reponse du support ne doit
@@ -48,6 +49,10 @@ export const Support = observer(() => {
   return (
     <div className="stack">
       <h1 className="screen-title">{translate('support.title')}</h1>
+
+      {/* Epinglee : rejoindre le canal ou le groupe repond a une bonne part
+          des questions avant meme qu'elles soient posees. */}
+      <SocialLinks compact />
 
       <div className="sup-thread">
         {supportStore.messages.length === 0 ? (

@@ -48,7 +48,7 @@ const ICONS: Record<string, any> = {
 /** Un nom d'icone inconnu retombe sur un maillon plutot que sur un vide. */
 const iconOf = (name: string) => ICONS[(name || '').toLowerCase()] ?? faLink;
 
-export const SocialLinks = () => {
+export const SocialLinks = ({ compact = false }: { compact?: boolean }) => {
   const [links, setLinks] = useState<ILink[]>([]);
 
   useEffect(() => {
@@ -66,8 +66,11 @@ export const SocialLinks = () => {
   if (links.length === 0) return null;
 
   return (
-    <section className="soc">
-      <h2 className="soc__title">{translate('social.title')}</h2>
+    <section className={`soc${compact ? ' soc--compact' : ''}`}>
+      {/* Epinglee au-dessus de la conversation, la barre n'a pas besoin de son
+          titre : les puces se lisent seules, et le titre prendrait la place du
+          premier message. */}
+      {compact ? null : <h2 className="soc__title">{translate('social.title')}</h2>}
       <div className="soc__row">
         {links.map(l => (
           <a

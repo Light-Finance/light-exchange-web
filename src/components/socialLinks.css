@@ -37,3 +37,20 @@
   border-color: var(--color-secondary);
   color: var(--color-secondary);
 }
+
+/* Version epinglee, au-dessus d'une conversation : une seule rangee qui defile
+   plutot qu'un pave qui repousse les messages hors de l'ecran. */
+.soc--compact .soc__row {
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+.soc--compact .soc__row::-webkit-scrollbar {
+  display: none;
+}
+.soc--compact .soc__link {
+  padding: 7px 13px;
+  font-size: var(--font-normal);
+  white-space: nowrap;
+}
