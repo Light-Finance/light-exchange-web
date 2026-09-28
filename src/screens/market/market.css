@@ -3,9 +3,31 @@
    mise en forme Binance : surfaces blanches, separations par un filet gris,
    chiffres en noir, et la couleur reservee a la variation. */
 
+/* Le raccourci vers l'historique, en tete de page. */
+.mk-histbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent);
+  border-radius: 17px;
+  background: var(--color-surface);
+  color: var(--color-secondary-dark, var(--color-secondary));
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.mk-histbtn:hover {
+  border-color: var(--color-secondary);
+}
+
 .mk-balance {
   display: flex;
-  align-items: baseline;
+  /* Centre et non baseline : la rangee porte desormais un bouton a droite,
+     qu'un alignement sur la ligne de base faisait flotter. */
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-small);
   padding: 12px 14px;

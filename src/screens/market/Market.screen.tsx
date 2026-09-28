@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { appRootStore } from '../../stores/root.store';
@@ -120,8 +122,27 @@ export const Market = observer(() => {
       <h1 className="screen-title">Market</h1>
 
       <div className="mk-balance">
-        <span>Solde disponible</span>
-        <strong>{money(balance)} $</strong>
+        <div>
+          <span>Solde disponible</span>
+          <strong>{money(balance)} $</strong>
+        </div>
+
+        {/* L'historique est en bas de page, apres toute la liste des actifs :
+            il fallait faire defiler une centaine de lignes pour y arriver.
+            Masque quand il n'y a rien a voir. */}
+        {marketStore.trades.length > 0 ? (
+          <button
+            type="button"
+            className="mk-histbtn"
+            onClick={() =>
+              document
+                .getElementById("mk-history")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
+          >
+            <FontAwesomeIcon icon={faClockRotateLeft} /> Historique
+          </button>
+        ) : null}
       </div>
 
       {/* Un solde vide bloque tout achat : le dire ici, avec le chemin pour le
@@ -299,7 +320,9 @@ export const Market = observer(() => {
 
       {marketStore.trades.length > 0 ? (
         <>
-          <h2 className="mk-heading">Historique</h2>
+          <h2 className="mk-heading" id="mk-history">
+            Historique
+          </h2>
           <div className="mk-history">
             {marketStore.trades.map(t => {
               const c = colorOf(t.shortName);
