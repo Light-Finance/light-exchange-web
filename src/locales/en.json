@@ -295,7 +295,8 @@
     "notCreditedText": "Funds sent to this address are credited automatically. If your balance has not moved after a few minutes, message us with proof of your transfer.",
     "contactBtn": "Contact us",
     "otherPaymentTitle": "Pay another way?",
-    "otherPaymentText": "Pick a payment method: we send you the details to use on WhatsApp, and credit your account as soon as we receive it."
+    "otherPaymentText": "Pick a payment method: we send you the details to use on WhatsApp, and credit your account as soon as we receive it.",
+    "scanHint": "Scan this code from your wallet"
   },
   "tradingHome": {
     "title": "Trading",
@@ -497,6 +498,9 @@
   },
   "support": {
     "title": "Support",
+    "emptyTitle": "Any question?",
+    "today": "Today",
+    "yesterday": "Yesterday",
     "empty": "Write to us, we answer here.",
     "placeholder": "Your message…",
     "send": "Send"

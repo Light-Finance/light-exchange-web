@@ -1,12 +1,14 @@
 /* ── Support ──────────────────────────────────────────────────────────────
    Une conversation : les messages de l'utilisateur a droite en violet, ceux
    du support a gauche sur gris. Meme grammaire que le reste du site, surfaces
-   blanches et separations par un filet. */
+   blanches et separations par un filet. Sur telephone le fil prend toute la
+   hauteur disponible : lue au pouce, une messagerie ne doit pas defiler dans
+   une fenetre qui defile elle-meme. */
 
 .sup-thread {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   min-height: 300px;
   max-height: 60vh;
   overflow-y: auto;
@@ -14,13 +16,55 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
   background: var(--color-surface);
+  /* Le defilement s'arrete dans le fil au lieu d'entrainer la page. */
+  overscroll-behavior: contain;
 }
 
 .sup-empty {
-  margin: auto;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   color: var(--color-text-muted);
-  font-size: var(--font-normal);
   text-align: center;
+}
+.sup-empty strong {
+  color: var(--color-text);
+  font-size: 16px;
+}
+.sup-empty p {
+  margin: 0;
+  max-width: 30ch;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+.sup-empty__icon {
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 62px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background: rgba(128, 57, 221, 0.1);
+  color: var(--color-secondary);
+  font-size: 24px;
+}
+
+/* Le jour, pose au milieu du fil comme une etiquette. */
+.sup-day {
+  display: flex;
+  justify-content: center;
+  margin: 8px 0 2px;
+}
+.sup-day span {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-size: 11.5px;
+  font-weight: 700;
 }
 
 .sup-row {
@@ -32,22 +76,34 @@
 .sup-row.is-them {
   justify-content: flex-start;
 }
+/* Une salve du meme cote se lit comme un bloc : bulles rapprochees, coins
+   pleins, et une seule heure a la fin. */
+.sup-row.is-stacked {
+  margin-bottom: -4px;
+}
 
 .sup-bubble {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  max-width: 78%;
-  padding: 9px 12px;
-  border-radius: var(--radius-medium);
+  max-width: 82%;
+  padding: 9px 13px;
+  border-radius: 18px;
   background: var(--color-surface-3);
 }
 .sup-row.is-me .sup-bubble {
   background: var(--color-secondary);
 }
+.sup-row.is-tail.is-me .sup-bubble {
+  border-bottom-right-radius: 5px;
+}
+.sup-row.is-tail.is-them .sup-bubble {
+  border-bottom-left-radius: 5px;
+}
 
 .sup-text {
-  font-size: var(--font-normal);
+  font-size: 15px;
+  line-height: 1.45;
   color: var(--color-text);
   /* Les retours a la ligne tapes par l'utilisateur sont conserves : sans cela
      un message en plusieurs points se lisait d'un seul bloc. */
@@ -59,28 +115,35 @@
 }
 
 .sup-time {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--color-text-muted);
   align-self: flex-end;
 }
 .sup-row.is-me .sup-time {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .sup-compose {
   display: flex;
+  align-items: flex-end;
   gap: var(--space-small);
 }
 
 .sup-input {
   flex: 1;
-  min-height: var(--height-input);
-  padding: 0 12px;
+  min-height: 46px;
+  max-height: 120px;
+  padding: 12px 16px;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-medium);
+  /* Arrondi complet : la zone de saisie se distingue du fil sans cadre dur. */
+  border-radius: 23px;
   background: var(--color-surface-2);
   color: var(--color-text);
-  font-size: var(--font-normal);
+  font-family: inherit;
+  /* 16px : en dessous, iOS zoome sur le champ des qu'on le touche. */
+  font-size: 16px;
+  line-height: 1.35;
+  resize: none;
 }
 .sup-input:focus {
   outline: none;
@@ -89,15 +152,39 @@
 }
 
 .sup-send {
-  min-width: 52px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
   border: 0;
-  border-radius: var(--radius-medium);
+  border-radius: 50%;
   background: var(--color-secondary);
   color: var(--color-white);
-  font-size: var(--font-medium);
+  font-size: 16px;
   cursor: pointer;
 }
 .sup-send:disabled {
-  opacity: 0.5;
+  opacity: 0.45;
   cursor: not-allowed;
+}
+
+/* Sur telephone, la conversation occupe l'ecran : le fil prend la hauteur
+   restante et la saisie reste posee dessous, au pouce. */
+@media (max-width: 720px) {
+  .sup-thread {
+    /* dvh et non vh : la barre d'adresse mobile se replie, et vh laissait la
+       saisie sous le bord de l'ecran. Une hauteur bornee plutot que flex:1,
+       qui ne contraint rien tant que la page elle-meme n'a pas de hauteur. */
+    height: 62dvh;
+    max-height: none;
+    min-height: 0;
+    padding: var(--space-small);
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+    /* Deborde les marges de la page : les bulles etaient serrees au point de
+       casser leurs lignes sur les petits ecrans. */
+    margin-inline: calc(-1 * var(--space-medium));
+  }
 }

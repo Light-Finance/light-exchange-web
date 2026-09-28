@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
+import { faPaperPlane, faHeadset } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import { translate } from '../../helpers/localization';
 import { SocialLinks } from '../../components/SocialLinks';
@@ -12,13 +12,25 @@ import './support.css';
 // pas obliger a recharger la page. Dix secondes suffisent pour de l'ecrit.
 const POLL_MS = 10000;
 
-const when = (iso: string) =>
-  new Date(iso).toLocaleString('fr-FR', {
+const hour = (iso: string) =>
+  new Date(iso).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+const dayKey = (iso: string) => new Date(iso).toDateString();
+
+/** Le jour en toutes lettres, avec "aujourd'hui" et "hier" pour les recents. */
+const dayLabel = (iso: string) => {
+  const d = new Date(iso);
+  const today = new Date();
+  const yesterday = new Date(today.getTime() - 86400000);
+  if (d.toDateString() === today.toDateString()) return translate('support.today');
+  if (d.toDateString() === yesterday.toDateString())
+    return translate('support.yesterday');
+  return d.toLocaleDateString('fr-FR', {
     day: '2-digit',
-    month: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
+    month: 'long',
+    year: d.getFullYear() === today.getFullYear() ? undefined : 'numeric',
   });
+};
 
 export const Support = observer(() => {
   const { supportStore } = appRootStore;
@@ -41,7 +53,20 @@ export const Support = observer(() => {
     bottom.current?.scrollIntoView({ block: 'end' });
   }, [supportStore.messages.length]);
 
-  const send = async (e: React.FormEvent) => {
+  // `dayStart` porte le separateur de date, `tail` marque la fin d'une salve du
+  // meme cote : seule cette bulle garde l'heure et le coin pointu.
+  const messages = useMemo(() => {
+    const list = supportStore.messages.slice();
+    return list.map((m, i) => ({
+      ...m,
+      dayStart: i === 0 || dayKey(list[i - 1].at) !== dayKey(m.at),
+      tail: i === list.length - 1 || list[i + 1].fromAdmin !== m.fromAdmin,
+    }));
+  }, [supportStore.messages]);
+
+  // Appele par le formulaire comme par la touche Entree : seul
+  // preventDefault est utilise.
+  const send = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (await supportStore.send(draft)) setDraft('');
   };
@@ -55,30 +80,57 @@ export const Support = observer(() => {
       <SocialLinks compact />
 
       <div className="sup-thread">
-        {supportStore.messages.length === 0 ? (
-          <p className="sup-empty">{translate('support.empty')}</p>
+        {messages.length === 0 ? (
+          <div className="sup-empty">
+            <span className="sup-empty__icon">
+              <FontAwesomeIcon icon={faHeadset} />
+            </span>
+            <strong>{translate('support.emptyTitle')}</strong>
+            <p>{translate('support.empty')}</p>
+          </div>
         ) : (
-          supportStore.messages.map(m => (
-            <div
-              key={m.id}
-              className={`sup-row ${m.fromAdmin ? 'is-them' : 'is-me'}`}
-            >
-              <div className="sup-bubble">
-                <span className="sup-text">{m.text}</span>
-                <span className="sup-time">{when(m.at)}</span>
+          messages.map(m => (
+            <Fragment key={m.id}>
+              {/* Un separateur des que le jour change : sans lui, deux messages
+                  a une semaine d'intervalle se suivent sans rien le dire. */}
+              {m.dayStart ? (
+                <div className="sup-day">
+                  <span>{dayLabel(m.at)}</span>
+                </div>
+              ) : null}
+              <div
+                className={`sup-row ${m.fromAdmin ? 'is-them' : 'is-me'}${
+                  m.tail ? ' is-tail' : ' is-stacked'
+                }`}
+              >
+                <div className="sup-bubble">
+                  <span className="sup-text">{m.text}</span>
+                  {/* Une seule heure par salve : repetee a chaque bulle, elle
+                      hachait la lecture. */}
+                  {m.tail ? <span className="sup-time">{hour(m.at)}</span> : null}
+                </div>
               </div>
-            </div>
+            </Fragment>
           ))
         )}
         <div ref={bottom} />
       </div>
 
       <form className="sup-compose" onSubmit={send}>
-        <input
+        <textarea
           className="sup-input"
           placeholder={translate('support.placeholder')}
           value={draft}
           onChange={e => setDraft(e.target.value)}
+          rows={1}
+          // Entree envoie, Maj+Entree passe a la ligne : le reflexe d'une
+          // messagerie, et un message en plusieurs points reste possible.
+          onKeyDown={e => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              send(e);
+            }
+          }}
         />
         <button
           className="sup-send"

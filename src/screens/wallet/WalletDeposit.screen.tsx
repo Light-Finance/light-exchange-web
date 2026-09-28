@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { QRCodeSVG } from 'qrcode.react';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { appRootStore } from '../../stores/root.store';
@@ -83,6 +84,18 @@ export const WalletDeposit = observer(() => {
           <span className="w-network">
             {translate('walletDeposit.networkLabel')} · {selectedCrypto.network}
           </span>
+        ) : null}
+
+        {/* Le QR code : une adresse BEP20 fait 42 caracteres, la recopier d'un
+            ecran a l'autre est le meilleur moyen de perdre des fonds. Seulement
+            pour un envoi on-chain — une adresse email se tape. */}
+        {!byEmail && depositAddress ? (
+          <div className="w-qr">
+            <div className="w-qr__box">
+              <QRCodeSVG value={depositAddress} size={170} level="M" />
+            </div>
+            <span className="w-qr__hint">{translate('walletDeposit.scanHint')}</span>
+          </div>
         ) : null}
 
         <div className="w-address">

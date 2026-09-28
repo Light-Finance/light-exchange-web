@@ -482,6 +482,28 @@
   font-weight: 800;
   font-size: 13.5px;
 }
+/* Un carre blanc autour du code : les lecteurs tolerent mal un QR pose
+   directement sur une surface coloree, et le fond de la page suit le theme. */
+.w-qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.w-qr__box {
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: #fff;
+  line-height: 0;
+}
+.w-qr__hint {
+  color: var(--color-text-muted);
+  font-size: 12px;
+  text-align: center;
+}
+
 .w-address {
   background: var(--color-surface-2);
   border: 1px solid var(--color-border);
