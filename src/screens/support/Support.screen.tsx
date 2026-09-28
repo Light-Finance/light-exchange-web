@@ -2,7 +2,12 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaperPlane, faHeadset } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPaperPlane,
+  faHeadset,
+  faImage,
+  faXmark,
+} from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import { translate } from '../../helpers/localization';
 import { SocialLinks } from '../../components/SocialLinks';
@@ -40,6 +45,8 @@ export const Support = observer(() => {
   const [draft, setDraft] = useState<string>(
     (location.state as any)?.prefill ?? '',
   );
+  // Image choisie, en attente d'envoi : on veut souvent l'accompagner d'un mot.
+  const [image, setImage] = useState<{ data: string; name: string } | null>(null);
   const bottom = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,7 +75,22 @@ export const Support = observer(() => {
   // preventDefault est utilise.
   const send = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    if (await supportStore.send(draft)) setDraft('');
+    if (await supportStore.send(draft, image?.data)) {
+      setDraft('');
+      setImage(null);
+    }
+  };
+
+  const pickImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    // Le champ est remis a zero pour que choisir deux fois le meme fichier
+    // declenche bien l'evenement la seconde fois.
+    e.target.value = '';
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = () =>
+      setImage({ data: String(reader.result), name: file.name });
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -104,7 +126,14 @@ export const Support = observer(() => {
                 }`}
               >
                 <div className="sup-bubble">
-                  <span className="sup-text">{m.text}</span>
+                  {m.imageUrl ? (
+                    /* Ouverte dans un onglet : une capture d'ecran est
+                       illisible a la taille d'une bulle. */
+                    <a href={m.imageUrl} target="_blank" rel="noreferrer">
+                      <img className="sup-img" src={m.imageUrl} alt="" />
+                    </a>
+                  ) : null}
+                  {m.text ? <span className="sup-text">{m.text}</span> : null}
                   {/* Une seule heure par salve : repetee a chaque bulle, elle
                       hachait la lecture. */}
                   {m.tail ? <span className="sup-time">{hour(m.at)}</span> : null}
@@ -116,7 +145,28 @@ export const Support = observer(() => {
         <div ref={bottom} />
       </div>
 
+      {/* L'apercu avant envoi : on voit ce qu'on s'apprete a joindre, et on
+          peut encore le retirer. */}
+      {image ? (
+        <div className="sup-preview">
+          <img src={image.data} alt="" />
+          <span className="sup-preview__name">{image.name}</span>
+          <button
+            type="button"
+            className="sup-preview__drop"
+            onClick={() => setImage(null)}
+            aria-label="Retirer l'image"
+          >
+            <FontAwesomeIcon icon={faXmark} />
+          </button>
+        </div>
+      ) : null}
+
       <form className="sup-compose" onSubmit={send}>
+        <label className="sup-attach" title="Joindre une image">
+          <FontAwesomeIcon icon={faImage} />
+          <input type="file" accept="image/*" hidden onChange={pickImage} />
+        </label>
         <textarea
           className="sup-input"
           placeholder={translate('support.placeholder')}
@@ -135,7 +185,7 @@ export const Support = observer(() => {
         <button
           className="sup-send"
           type="submit"
-          disabled={supportStore.sending || !draft.trim()}
+          disabled={supportStore.sending || (!draft.trim() && !image)}
           aria-label={translate('support.send')}
         >
           <FontAwesomeIcon icon={faPaperPlane} />

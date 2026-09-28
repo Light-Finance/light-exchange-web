@@ -188,3 +188,66 @@
     margin-inline: calc(-1 * var(--space-medium));
   }
 }
+
+/* Une image jointe occupe la largeur de la bulle, jamais plus : au-dela, elle
+   ferait deborder les 82 % que les bulles s'autorisent. */
+.sup-img {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  border-radius: 12px;
+}
+.sup-img + .sup-text {
+  margin-top: 6px;
+}
+
+.sup-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  background: var(--color-surface-2);
+}
+.sup-preview img {
+  width: 54px;
+  height: 54px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.sup-preview__name {
+  flex: 1;
+  overflow: hidden;
+  color: var(--color-text-muted);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sup-preview__drop {
+  border: 0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+/* Le trombone : meme gabarit que le bouton d'envoi, pour que la rangee de
+   saisie reste alignee. */
+.sup-attach {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.sup-attach:hover {
+  color: var(--color-secondary);
+  border-color: var(--color-secondary);
+}

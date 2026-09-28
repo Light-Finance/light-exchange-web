@@ -13,6 +13,7 @@ const SUPPORT_MESSAGES = gql`
       id
       fromAdmin
       text
+      imageUrl
       read
       at
     }
@@ -26,11 +27,12 @@ const SUPPORT_UNREAD = gql`
 `;
 
 const SUPPORT_SEND = gql`
-  mutation supportSend($userId: ID!, $text: String!) {
-    supportSend(userId: $userId, text: $text) {
+  mutation supportSend($userId: ID!, $text: String, $imageBase64: String) {
+    supportSend(userId: $userId, text: $text, imageBase64: $imageBase64) {
       id
       fromAdmin
       text
+      imageUrl
       read
       at
     }
@@ -47,6 +49,8 @@ export interface ISupportMessage {
   id: string;
   fromAdmin: boolean;
   text: string;
+  /** Image jointe, vide quand il n'y en a pas. */
+  imageUrl?: string | null;
   read: boolean;
   at: string;
 }
@@ -90,13 +94,18 @@ export class SupportStore {
     this.unread = 0;
   }
 
-  async send(text: string): Promise<boolean> {
+  /** Envoie un message, avec ou sans image. Une image seule suffit. */
+  async send(text: string, imageBase64?: string | null): Promise<boolean> {
     const body = text.trim();
     const userId = this.userId;
-    if (!body || !userId || this.sending) return false;
+    if ((!body && !imageBase64) || !userId || this.sending) return false;
     this.sending = true;
     try {
-      const r = await Service.mutation({ userId, text: body }, SUPPORT_SEND, false);
+      const r = await Service.mutation(
+        { userId, text: body, imageBase64: imageBase64 || undefined },
+        SUPPORT_SEND,
+        false,
+      );
       if (!r?.data?.supportSend) return false;
       this.messages = [...this.messages, r.data.supportSend];
       return true;
