@@ -35,7 +35,11 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
   const tiers =
     billing?.tiers && billing.tiers.length > 0
       ? billing.tiers
-      : (billing?.plans ?? []).map(price => ({ price, cap: null }));
+      : (billing?.plans ?? []).map((price, i) => ({
+          name: `VIP${i}`,
+          price,
+          cap: null,
+        }));
 
   if (tiers.length === 0) {
     return (
@@ -123,6 +127,9 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
               disabled={busyPlan !== null || !affordable}
               onClick={() => subscribe(tier.price)}
             >
+              {/* Le nom d'abord : c'est lui qu'on retient et qu'on se raconte,
+                  le prix vient le qualifier. */}
+              <span className="bot-tier__name">{tier.name}</span>
               <span className="bot-tier__top">
                 <span className="bot-tier__price">
                   {busyPlan === tier.price ? '…' : `${tier.price} $`}
@@ -198,9 +205,14 @@ export const BotBillingCard = observer(
     const cap = billing.planCap;
     return (
       <div className="bot-note bot-note--promo">
-        <div className="bot-note__title">✅ Abonnement actif</div>
+        {/* Le nom du palier quand l'API le donne ; le prix seul sinon, pour
+            les serveurs anterieurs au champ. */}
+        <div className="bot-note__title">
+          ✅ Abonnement {sub.planName ?? 'actif'}
+        </div>
         <p>
-          Palier {sub.plan} $ ·{' '}
+          {sub.planName ? `${sub.planName} — ` : 'Palier '}
+          {sub.plan} $ ·{' '}
           {cap === null || cap === undefined
             ? 'capital illimité'
             : `gère jusqu'à ${cap.toLocaleString('fr-FR')} $`}{' '}

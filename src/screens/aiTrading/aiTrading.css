@@ -799,6 +799,15 @@
   border-color: var(--color-border);
   cursor: not-allowed;
 }
+/* Le nom du palier, au-dessus du prix : c'est lui qu'on retient. */
+.bot-tier__name {
+  display: block;
+  color: var(--color-secondary-dark, var(--color-secondary));
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
 .bot-tier__top {
   display: flex;
   align-items: center;

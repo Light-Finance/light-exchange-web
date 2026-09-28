@@ -126,6 +126,7 @@ const BOT_BILLING = gql`
     botBilling(userId: $userId) {
       plans
       tiers {
+        name
         price
         cap
       }
@@ -136,6 +137,7 @@ const BOT_BILLING = gql`
       subscription {
         id
         plan
+        planName
         startAt
         endAt
       }
@@ -162,6 +164,8 @@ const AI_BOT_SUBSCRIBE = gql`
 `;
 
 export interface IBotSubscription {
+  /** Nom du palier : VIP0 a VIP5. */
+  planName?: string;
   id: string;
   plan: number;
   startAt: string;
@@ -169,6 +173,8 @@ export interface IBotSubscription {
 }
 
 export interface IBotTier {
+  /** VIP0 a VIP5. */
+  name: string;
   price: number;
   /** Capital maximum géré, null pour illimité. */
   cap: number | null;
