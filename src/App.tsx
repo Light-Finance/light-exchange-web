@@ -16,6 +16,7 @@ import { Splash } from './screens/auth/Splash.screen';
 import { WalletHome } from './screens/wallet/WalletHome.screen';
 import { WalletHistory } from './screens/wallet/WalletHistory.screen';
 import { Support } from './screens/support/Support.screen';
+import { Mining } from './screens/aiTrading/Mining.screen';
 import { WalletDeposit } from './screens/wallet/WalletDeposit.screen';
 import { WalletWithdraw } from './screens/wallet/WalletWithdraw.screen';
 import { WalletTransfer } from './screens/wallet/WalletTransfer.screen';
@@ -101,6 +102,7 @@ export const App = observer(() => {
           <Route path="/ai-trading/my-team" element={<MyTeam />} />
           <Route path="/ai-trading/analysis" element={<Analysis />} />
           <Route path="/ai-trading/history" element={<ManagedHistory />} />
+          <Route path="/ai-trading/mining" element={<Mining />} />
 
           {/* Ported in a later pass; routed now so the tabs and any store
               redirect land somewhere real instead of 404-ing. */}

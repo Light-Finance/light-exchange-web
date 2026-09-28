@@ -1,0 +1,141 @@
+/* ── Minage ───────────────────────────────────────────────────────────────
+   Une seule carte, qui ne montre que ce qu'on peut faire maintenant : lancer,
+   attendre, ou reclamer. Le reste de la page tient l'historique. */
+
+.min-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-large);
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+  background: var(--color-surface);
+  text-align: center;
+}
+
+.min-badge {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+  color: var(--color-secondary);
+  font-size: 20px;
+}
+.min-badge--off {
+  background: color-mix(in srgb, var(--color-text) 8%, transparent);
+  color: var(--color-text-muted);
+}
+
+.min-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+/* Le chiffre qu'on vient chercher : compte a rebours ou montant. Tabulaire,
+   pour que le decompte ne fasse pas danser la ligne a chaque seconde. */
+.min-big {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: var(--color-secondary-dark, var(--color-secondary));
+  font-variant-numeric: tabular-nums;
+}
+.min-text {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.min-action {
+  margin-top: 12px;
+  height: 46px;
+  padding: 0 26px;
+  border: 0;
+  border-radius: 23px;
+  background: var(--color-secondary);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.min-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.min-balance {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: var(--space-medium);
+  border-radius: 14px;
+  background: var(--color-surface-3);
+}
+.min-balance__label {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 12.5px;
+  font-weight: 700;
+}
+.min-balance__value {
+  font-size: 19px;
+  font-weight: 800;
+}
+.min-transfer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--color-secondary-dark, var(--color-secondary));
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.min-transfer:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.min-section {
+  margin: 8px 0 0;
+  font-size: 15px;
+  font-weight: 800;
+}
+.min-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.min-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.min-entry__date {
+  color: var(--color-text-muted);
+  font-size: 12.5px;
+}
+.min-entry__amount {
+  color: var(--color-up);
+  font-size: 14.5px;
+  font-weight: 800;
+}
+.min-empty {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-align: center;
+}
