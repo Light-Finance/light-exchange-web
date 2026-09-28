@@ -4,8 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faArrowRightArrowLeft,
+  faCopy,
   faHammer,
   faLock,
+  faUserGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import { ToastService } from '../../services/toast.service';
@@ -53,6 +55,17 @@ export const Mining = observer(() => {
         ? `${usdt(amount)} ajoutés à votre gain`
         : 'Le maximum du jour est atteint, réessayez demain',
     );
+  };
+
+  const copyCode = async () => {
+    if (!s?.referralCode) return;
+    try {
+      await navigator.clipboard.writeText(s.referralCode);
+      ToastService.show('Code copié');
+    } catch {
+      // Le presse-papiers est refuse hors connexion securisee : le code reste
+      // selectionnable a la main, inutile d'alarmer.
+    }
   };
 
   const transfer = async () => {
@@ -122,6 +135,14 @@ export const Mining = observer(() => {
         <p className="min-text">
           par session de {s.sessionHours} h. Revenez la réclamer, puis relancez.
         </p>
+        {/* La decomposition, seulement quand le parrainage y contribue : sinon
+            elle repete le chiffre du dessus. */}
+        {s.referralBonus > 0 ? (
+          <p className="min-breakdown">
+            {s.baseRate.toFixed(2)} de votre palier + {s.referralBonus.toFixed(2)} de
+            vos filleuls
+          </p>
+        ) : null}
         <button
           className="min-action"
           onClick={() => miningStore.start()}
@@ -154,6 +175,56 @@ export const Mining = observer(() => {
             <FontAwesomeIcon icon={faArrowRightArrowLeft} /> Vers mon solde
           </button>
         </div>
+      ) : null}
+
+      {/* Le parrainage a rejoint le minage : l'effort et la recompense se
+          lisent au meme endroit, et le taux du haut contient deja ce que les
+          filleuls rapportent. */}
+      {s?.referralCode ? (
+        <section className="min-team">
+          <h2 className="min-team__title">
+            <FontAwesomeIcon icon={faUserGroup} /> Parrainage
+          </h2>
+          <p className="min-team__text">
+            Vous gagnez 10 % de ce que minent vos filleuls, chaque jour, sans
+            que cela leur retire quoi que ce soit.
+          </p>
+
+          <button type="button" className="min-code" onClick={copyCode}>
+            <span>{s.referralCode}</span>
+            <FontAwesomeIcon icon={faCopy} />
+          </button>
+
+          <div className="min-team__stats">
+            <div>
+              <strong>{s.activeReferrals}</strong>
+              <span>
+                filleul{s.activeReferrals > 1 ? 's' : ''} abonné
+                {s.activeReferrals > 1 ? 's' : ''}
+              </span>
+            </div>
+            <div>
+              <strong>+{(s.referralBonus || 0).toFixed(2)}</strong>
+              <span>USDT par jour</span>
+            </div>
+            <div>
+              <strong>{s.referrals}</strong>
+              <span>inscrits</span>
+            </div>
+          </div>
+
+          {/* Dit pourquoi le compteur reste a zero quand des filleuls sont
+              inscrits sans avoir pris d'abonnement. */}
+          {s.referrals > s.activeReferrals ? (
+            <p className="min-team__hint">
+              {s.referrals - s.activeReferrals} filleul
+              {s.referrals - s.activeReferrals > 1 ? 's' : ''} sans abonnement
+              actif ne rapporte
+              {s.referrals - s.activeReferrals > 1 ? 'nt' : ''} rien pour
+              l'instant.
+            </p>
+          ) : null}
+        </section>
       ) : null}
 
       {history.length > 0 ? (

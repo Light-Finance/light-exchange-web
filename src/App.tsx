@@ -25,7 +25,6 @@ import { ManagedBot } from './screens/aiTrading/ManagedBot.screen';
 import { Market } from './screens/market/Market.screen';
 import { RunningBots } from './screens/aiTrading/RunningBots.screen';
 import { Orders } from './screens/aiTrading/Orders.screen';
-import { MyTeam } from './screens/aiTrading/MyTeam.screen';
 import { Analysis } from './screens/aiTrading/Analysis.screen';
 import { ManagedHistory } from './screens/aiTrading/ManagedHistory.screen';
 import { NotificationList } from './screens/notification/NotificationList.screen';
@@ -99,7 +98,6 @@ export const App = observer(() => {
           <Route path="/market" element={<Market />} />
           <Route path="/ai-trading/running-bots" element={<RunningBots />} />
           <Route path="/ai-trading/orders" element={<Orders />} />
-          <Route path="/ai-trading/my-team" element={<MyTeam />} />
           <Route path="/ai-trading/analysis" element={<Analysis />} />
           <Route path="/ai-trading/history" element={<ManagedHistory />} />
           <Route path="/ai-trading/mining" element={<Mining />} />

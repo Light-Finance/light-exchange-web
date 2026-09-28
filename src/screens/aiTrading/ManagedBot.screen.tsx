@@ -262,14 +262,6 @@ export const ManagedBot = observer(() => {
         🧠 Analyse de marché
       </button>
 
-      <button
-        type="button"
-        className="bot-orders-btn"
-        onClick={() => navigate('/ai-trading/my-team')}
-      >
-        👥 Mon équipe
-      </button>
-
       {/* Le minage vit ici et non dans un onglet a lui : il n'a de sens qu'avec
           un abonnement, et c'est cet ecran qui le vend. */}
       <button
@@ -277,7 +269,7 @@ export const ManagedBot = observer(() => {
         className="bot-orders-btn"
         onClick={() => navigate('/ai-trading/mining')}
       >
-        ⛏️ Minage
+        ⛏️ Minage et parrainage
       </button>
 
       {/* En demo il n'y a rien a facturer : le robot est deverrouille par nature. */}

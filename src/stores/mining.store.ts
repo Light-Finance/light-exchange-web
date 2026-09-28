@@ -13,6 +13,11 @@ const MINING_STATUS = gql`
     miningStatus(userId: $userId) {
       allowed
       rate
+      baseRate
+      referralBonus
+      referralCode
+      activeReferrals
+      referrals
       sessionHours
       balance
       withdrawMin
@@ -67,7 +72,16 @@ const MINING_TRANSFER = gql`
 
 export interface IMiningStatus {
   allowed: boolean;
+  /** Taux du jour, bonus de parrainage compris. */
   rate: number;
+  /** Taux du palier seul. */
+  baseRate: number;
+  /** Part des filleuls abonnes, par jour. */
+  referralBonus: number;
+  referralCode: string;
+  /** Filleuls dont l'abonnement court : eux seuls rapportent. */
+  activeReferrals: number;
+  referrals: number;
   sessionHours: number;
   balance: number;
   withdrawMin: number;
