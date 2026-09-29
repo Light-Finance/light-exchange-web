@@ -17,6 +17,7 @@ import { WalletHome } from './screens/wallet/WalletHome.screen';
 import { WalletHistory } from './screens/wallet/WalletHistory.screen';
 import { Support } from './screens/support/Support.screen';
 import { Mining } from './screens/aiTrading/Mining.screen';
+import { MarketHistory } from './screens/market/MarketHistory.screen';
 import { WalletDeposit } from './screens/wallet/WalletDeposit.screen';
 import { WalletWithdraw } from './screens/wallet/WalletWithdraw.screen';
 import { WalletTransfer } from './screens/wallet/WalletTransfer.screen';
@@ -96,6 +97,7 @@ export const App = observer(() => {
 
           <Route path="/ai-trading" element={<ManagedBot />} />
           <Route path="/market" element={<Market />} />
+          <Route path="/market/history" element={<MarketHistory />} />
           <Route path="/ai-trading/running-bots" element={<RunningBots />} />
           <Route path="/ai-trading/orders" element={<Orders />} />
           <Route path="/ai-trading/analysis" element={<Analysis />} />

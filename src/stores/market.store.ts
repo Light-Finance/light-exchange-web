@@ -159,6 +159,19 @@ export class MarketStore {
     return this.positions.find(p => p.symbol === symbol)?.quantity ?? 0;
   }
 
+  /**
+   * Les ordres seuls, pour l'ecran d'historique.
+   *
+   * `load` recharge aussi les actifs et le portefeuille : trois requetes la ou
+   * une suffit quand on vient seulement relire ses ordres.
+   */
+  async loadTrades() {
+    const userId = this.rootStore.authStore.user?.id;
+    if (!userId) return;
+    const t = await Service.query({ userId }, MARKET_TRADES, false);
+    if (t?.data?.marketTrades) this.trades = t.data.marketTrades;
+  }
+
   async load() {
     const userId = this.rootStore.authStore.user?.id;
     this.isLoading = true;
