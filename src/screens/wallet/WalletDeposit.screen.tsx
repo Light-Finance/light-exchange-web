@@ -57,6 +57,21 @@ export const WalletDeposit = observer(() => {
 
 
 
+  /**
+   * Le message pre-rempli pour le support, avec le pays quand il est connu.
+   *
+   * Les coordonnees de paiement dependent du pays : sans lui, le support
+   * repondait « vous etes dans quel pays ? » et la conversation perdait un
+   * aller-retour a chaque fois.
+   */
+  const prefill = (key: string, method?: string) => {
+    const base = translate(key, method ? { method } : undefined);
+    const country = authStore.user?.country?.name;
+    return country
+      ? `${base}\n${translate('paymentMethod.fromCountry', { country })}`
+      : base;
+  };
+
   return (
     <WalletLayout title={translate('walletDeposit.title')}>
       <WalletBalance cryptoOnly />
@@ -105,6 +120,12 @@ export const WalletDeposit = observer(() => {
           </Button>
         </div>
 
+        {/* Le depot on-chain est credite par le surveillant de la chaine,
+            sans intervention : le dire evite l'attente inquiete. */}
+        {!byEmail ? (
+          <p className="w-instant">{translate('walletDeposit.instantCredit')}</p>
+        ) : null}
+
         <InfoBanner tone={byEmail ? 'info' : 'warn'}>
           {translate(byEmail ? 'walletDeposit.emailHint' : 'rechargeCrypto.warningTxt')}
         </InfoBanner>
@@ -126,14 +147,18 @@ export const WalletDeposit = observer(() => {
                 onClick={() =>
                   navigate('/support', {
                     state: {
-                      prefill: translate('paymentMethod.depositMsg', {
-                        method: m.name,
-                      }),
+                      prefill: prefill('paymentMethod.depositMsg', m.name),
                     },
                   })
                 }
               >
                 {m.name}
+                {/* Le delai annonce, sous le nom : payer sans savoir combien
+                    de temps attendre envoyait l'utilisateur au support au bout
+                    de dix minutes. */}
+                {m.creditDelay ? (
+                  <span className="w-buymethod__delay">{m.creditDelay}</span>
+                ) : null}
               </button>
             ))}
           </div>
@@ -147,7 +172,7 @@ export const WalletDeposit = observer(() => {
             className="w-askmethod"
             onClick={() =>
               navigate('/support', {
-                state: { prefill: translate('paymentMethod.requestMsg') },
+                state: { prefill: prefill('paymentMethod.requestMsg') },
               })
             }
           >

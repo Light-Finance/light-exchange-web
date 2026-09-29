@@ -1,4 +1,5 @@
 import { action, makeAutoObservable, observable } from 'mobx';
+import gql from 'graphql-tag';
 import { IPaymentMethod, IRate, IToken, ITransaction, IUser } from '../models';
 import lightexchange from 'light-exchange';
 import { RootStore } from './root.store';
@@ -10,6 +11,23 @@ import { ROUTES } from '../consts/routes';
 import { Linking } from '../platform/linking';
 import { ToastService } from '../services/toast.service';
 import { translate } from '../helpers/localization';
+
+
+// Le delai de credit annonce a l'utilisateur. Demande ici et non dans le
+// paquet npm partage : republier le paquet pour un seul champ obligerait a
+// mettre a jour l'API dans la foulee.
+const PAYMENT_METHOD_LIST_WITH_DELAY = gql`
+  query paymentMethodList {
+    paymentMethodList {
+      id
+      name
+      informations
+      paymentService
+      paymentServiceId
+      creditDelay
+    }
+  }
+`;
 
 export class TradeStore {
   /* variables definition */
@@ -126,7 +144,7 @@ export class TradeStore {
   @action async getPaymentMethods() {
     const response = await Service.query(
       {},
-      lightexchange.graphql.query.PAYMENT_METHOD_LIST,
+      PAYMENT_METHOD_LIST_WITH_DELAY,
     );
     if (response.data) {
       this.setPaymentMethods(response.data.paymentMethodList);

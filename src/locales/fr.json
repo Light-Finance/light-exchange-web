@@ -193,7 +193,8 @@
     "withdrawMsg": "Bonjour, je souhaite faire un retrait par %{method}.",
     "depositMsg": "Bonjour, je souhaite faire un dépôt par %{method}.",
     "requestBtn": "J'ai un autre moyen de paiement",
-    "requestMsg": "Bonjour, je souhaite déposer avec un moyen de paiement qui n'est pas dans la liste : "
+    "requestMsg": "Bonjour, je souhaite déposer avec un moyen de paiement qui n'est pas dans la liste : ",
+    "fromCountry": "Je suis au/en %{country}."
   },
   "recharge": {
     "titleTxt": "Recharger le compte",
@@ -298,7 +299,8 @@
     "contactBtn": "Contactez-nous",
     "otherPaymentTitle": "Payer autrement ?",
     "otherPaymentText": "Choisissez un moyen de paiement : nous vous envoyons les coordonnées à utiliser sur WhatsApp, et créditons votre compte dès réception.",
-    "scanHint": "Scannez ce code depuis votre portefeuille"
+    "scanHint": "Scannez ce code depuis votre portefeuille",
+    "instantCredit": "⚡ Crédité automatiquement dès réception"
   },
   "tradingHome": {
     "title": "Trading",
@@ -505,7 +507,9 @@
     "yesterday": "Hier",
     "empty": "Écrivez-nous, nous répondons ici.",
     "placeholder": "Votre message…",
-    "send": "Envoyer"
+    "send": "Envoyer",
+    "tutorialsTitle": "Voir les tutoriels",
+    "tutorialsText": "La réponse à votre question s'y trouve peut-être déjà."
   },
   "social": {
     "title": "Rejoignez-nous"

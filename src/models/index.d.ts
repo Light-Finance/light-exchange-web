@@ -80,6 +80,8 @@ export interface IPaymentMethod {
   id?: string;
   name?: string;
   informations?: string;
+  /** Le delai de credit annonce, en toutes lettres : "5 min - 24 h". */
+  creditDelay?: string;
   buyRate?: number;
   sellRate?: number;
 }

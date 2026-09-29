@@ -1,12 +1,14 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPaperPlane,
   faHeadset,
   faImage,
   faXmark,
+  faGraduationCap,
+  faChevronRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import { translate } from '../../helpers/localization';
@@ -42,6 +44,7 @@ export const Support = observer(() => {
   // Un message pre-rempli quand on arrive depuis un moyen de paiement : la
   // conversation part avec son contexte au lieu de le faire retaper.
   const location = useLocation();
+  const navigate = useNavigate();
   const [draft, setDraft] = useState<string>(
     (location.state as any)?.prefill ?? '',
   );
@@ -99,6 +102,24 @@ export const Support = observer(() => {
 
       {/* Epinglee : rejoindre le canal ou le groupe repond a une bonne part
           des questions avant meme qu'elles soient posees. */}
+      {/* Epingle au-dessus de la conversation : une bonne part des questions
+          posees ici ont deja leur reponse en tutoriel, et l'utilisateur
+          attendait parfois des heures pour l'apprendre. */}
+      <button
+        type="button"
+        className="sup-tuto"
+        onClick={() => navigate('/tutorials')}
+      >
+        <span className="sup-tuto__icon">
+          <FontAwesomeIcon icon={faGraduationCap} />
+        </span>
+        <span className="sup-tuto__text">
+          <strong>{translate('support.tutorialsTitle')}</strong>
+          <span>{translate('support.tutorialsText')}</span>
+        </span>
+        <FontAwesomeIcon icon={faChevronRight} className="sup-tuto__chev" />
+      </button>
+
       <SocialLinks compact />
 
       <div className="sup-thread">

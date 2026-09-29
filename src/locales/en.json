@@ -192,7 +192,8 @@
     "withdrawMsg": "Hello, I would like to withdraw via %{method}.",
     "depositMsg": "Hello, I would like to deposit via %{method}.",
     "requestBtn": "I have another payment method",
-    "requestMsg": "Hello, I would like to deposit with a payment method that is not listed: "
+    "requestMsg": "Hello, I would like to deposit with a payment method that is not listed: ",
+    "fromCountry": "I am in %{country}."
   },
   "recharge": {
     "titleTxt": "Recharge account",
@@ -296,7 +297,8 @@
     "contactBtn": "Contact us",
     "otherPaymentTitle": "Pay another way?",
     "otherPaymentText": "Pick a payment method: we send you the details to use on WhatsApp, and credit your account as soon as we receive it.",
-    "scanHint": "Scan this code from your wallet"
+    "scanHint": "Scan this code from your wallet",
+    "instantCredit": "⚡ Credited automatically on arrival"
   },
   "tradingHome": {
     "title": "Trading",
@@ -503,7 +505,9 @@
     "yesterday": "Yesterday",
     "empty": "Write to us, we answer here.",
     "placeholder": "Your message…",
-    "send": "Send"
+    "send": "Send",
+    "tutorialsTitle": "Browse the tutorials",
+    "tutorialsText": "Your question may already be answered there."
   },
   "social": {
     "title": "Join us"
