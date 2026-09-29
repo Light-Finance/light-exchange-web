@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { QRCodeSVG } from 'qrcode.react';
+import { FiatRates } from '../../components/FiatRates';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { appRootStore } from '../../stores/root.store';
@@ -137,6 +138,10 @@ export const WalletDeposit = observer(() => {
       {otherMethods.length > 0 ? (
         <WalletCard>
           <p className="w-buyhint">{translate('walletDeposit.otherPaymentTitle')}</p>
+
+          {/* Le taux, la ou l'on paie en monnaie locale : c'est ce que
+              l'utilisateur calcule de tete avant d'envoyer. */}
+          <FiatRates />
           <p className="mk-note">{translate('walletDeposit.otherPaymentText')}</p>
           <div className="w-buymethods">
             {otherMethods.map(m => (

@@ -9,6 +9,7 @@ import { translate } from '../../helpers/localization';
 import { Button } from '../../components/ui/Button';
 import { WalletBalance } from './WalletBalance';
 import { WalletLayout } from './components';
+import { FiatRates } from '../../components/FiatRates';
 import orangeMoney from '../../assets/imgs/orangeMoney.jpeg';
 import mtnMoney from '../../assets/imgs/mtnMoney.png';
 import wave from '../../assets/imgs/wave.png';
@@ -46,6 +47,10 @@ export const WalletWithdraw = observer(() => {
       <WalletBalance />
 
       <div>
+        {/* Le taux avant le choix de la methode : c'est ce que l'utilisateur
+            calcule de tete pour savoir combien il va toucher. */}
+        <FiatRates />
+
         <p className="pm-title">{translate('paymentMethod.chooseTitle')}</p>
         {paymentMethods.map(method => {
           // A row is worth a tap only if it says where the money lands.
