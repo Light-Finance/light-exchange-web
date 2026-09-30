@@ -9,10 +9,12 @@ import {
   faXmark,
   faGraduationCap,
   faChevronRight,
+  faClock,
 } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import { translate } from '../../helpers/localization';
 import { SocialLinks } from '../../components/SocialLinks';
+import { ToastService } from '../../services/toast.service';
 import './support.css';
 
 // La conversation se rafraichit toute seule : une reponse du support ne doit
@@ -76,11 +78,20 @@ export const Support = observer(() => {
 
   // Appele par le formulaire comme par la touche Entree : seul
   // preventDefault est utilise.
+  // Le delai de reponse, rappele une fois par visite au premier envoi : la
+  // note en haut le dit deja, mais c'est au moment d'envoyer que l'on se
+  // demande quand on aura une reponse.
+  const toldDelay = useRef(false);
+
   const send = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (await supportStore.send(draft, image?.data)) {
       setDraft('');
       setImage(null);
+      if (!toldDelay.current) {
+        toldDelay.current = true;
+        ToastService.show(translate('support.sentToast'));
+      }
     }
   };
 
@@ -121,6 +132,12 @@ export const Support = observer(() => {
       </button>
 
       <SocialLinks compact />
+
+      {/* Le delai de reponse, dit avant qu'on ne le demande : sans lui, le
+          deuxieme message d'une conversation etait souvent « vous etes la ? ». */}
+      <p className="sup-delay">
+        <FontAwesomeIcon icon={faClock} /> {translate('support.replyNote')}
+      </p>
 
       <div className="sup-thread">
         {messages.length === 0 ? (

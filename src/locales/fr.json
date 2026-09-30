@@ -511,7 +511,9 @@
     "placeholder": "Votre message…",
     "send": "Envoyer",
     "tutorialsTitle": "Voir les tutoriels",
-    "tutorialsText": "La réponse à votre question s'y trouve peut-être déjà."
+    "tutorialsText": "La réponse à votre question s'y trouve peut-être déjà.",
+    "replyNote": "Nous vous répondons sous 24 h au maximum.",
+    "sentToast": "Message envoyé — réponse sous 24 h au maximum."
   },
   "social": {
     "title": "Rejoignez-nous"

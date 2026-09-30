@@ -297,3 +297,18 @@
   color: var(--color-text-muted);
   font-size: 13px;
 }
+
+/* Le delai de reponse, en tete de conversation. */
+.sup-delay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-secondary) 6%, transparent);
+  color: var(--color-secondary-dark, var(--color-secondary));
+  font-size: 11.5px;
+  font-weight: 700;
+}
