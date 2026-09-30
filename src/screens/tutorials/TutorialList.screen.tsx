@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSync } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import './tutorials.css';
+import './learn.css';
 
 const getYoutubeId = (url: string): string | null => {
   const match = url.match(/(?:v=|youtu\.be\/|embed\/|shorts\/|live\/)([A-Za-z0-9_-]{11})/);
@@ -37,6 +38,18 @@ export const TutorialList = observer(({ publicView = false }: { publicView?: boo
           <FontAwesomeIcon icon={faSync} />
         </button>
       </div>
+
+      {/* Les formations remunerees en tete des tutoriels : c'est le meme
+          onglet, et c'est l'entree que l'on veut faire voir. */}
+      {!publicView ? (
+        <button type="button" className="tut-learn" onClick={() => navigate('/academy')}>
+          <div style={{ flex: 1 }}>
+            <strong>🎓 Formations rémunérées</strong>
+            <span>Apprenez la crypto, réussissez le quiz, gagnez des crédits pour votre abonnement au robot IA.</span>
+          </div>
+          <b>→</b>
+        </button>
+      ) : null}
 
       {isLoading ? (
         <div className="empty-state">

@@ -153,8 +153,18 @@ const AI_BOT_REDEEM_CODE = gql`
   }
 `;
 const AI_BOT_SUBSCRIBE = gql`
-  mutation aiBotSubscribe($userId: ID!, $plan: Float!) {
-    aiBotSubscribe(userId: $userId, plan: $plan) {
+  mutation aiBotSubscribe(
+    $userId: ID!
+    $plan: Float!
+    $useMining: Boolean
+    $useLearnCredits: Boolean
+  ) {
+    aiBotSubscribe(
+      userId: $userId
+      plan: $plan
+      useMining: $useMining
+      useLearnCredits: $useLearnCredits
+    ) {
       id
       plan
       startAt
@@ -282,10 +292,21 @@ export class ManagedStore {
     return !!r?.data?.aiBotRedeemCode;
   }
 
-  async subscribe(plan: number): Promise<boolean> {
+  /**
+   * Souscrit un palier. Les credits de formation et le gain de minage peuvent
+   * regler tout ou partie du prix ; le portefeuille paie le reste.
+   */
+  async subscribe(
+    plan: number,
+    pay: { useMining?: boolean; useLearnCredits?: boolean } = {},
+  ): Promise<boolean> {
     const userId = this.rootStore.authStore.user?.id;
     if (!userId) return false;
-    const r = await Service.mutation({ userId, plan }, AI_BOT_SUBSCRIBE, true);
+    const r = await Service.mutation(
+      { userId, plan, useMining: !!pay.useMining, useLearnCredits: !!pay.useLearnCredits },
+      AI_BOT_SUBSCRIBE,
+      true,
+    );
     return !!r?.data?.aiBotSubscribe;
   }
 

@@ -5,6 +5,7 @@ import { appRootStore } from '../../stores/root.store';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Field';
 import { ToastService } from '../../services/toast.service';
+import '../tutorials/learn.css';
 
 /**
  * Les paliers d'abonnement et le champ de code d'acces. Extrait de la carte
@@ -14,8 +15,20 @@ import { ToastService } from '../../services/toast.service';
  */
 export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void }) => {
   const navigate = useNavigate();
-  const { managedStore, walletStore } = appRootStore;
+  const { managedStore, walletStore, learnStore, miningStore } = appRootStore;
   const [busyPlan, setBusyPlan] = useState<number | null>(null);
+  // Ce qui peut payer l'abonnement sans toucher au portefeuille : les credits
+  // de formation et le gain de minage, coches par defaut — personne ne veut
+  // payer en argent ce qu'il a deja gagne.
+  const [useCredits, setUseCredits] = useState(true);
+  const [useMining, setUseMining] = useState(true);
+  const credits = learnStore.status?.credits ?? 0;
+  const mined = miningStore.status?.balance ?? 0;
+  const coveredFor = (plan: number) => {
+    const c = useCredits ? Math.min(credits, plan) : 0;
+    const m = useMining ? Math.min(mined, plan - c) : 0;
+    return c + m;
+  };
   const [code, setCode] = useState('');
   const [redeeming, setRedeeming] = useState(false);
   const billing = managedStore.billing;
@@ -24,6 +37,11 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
   // la modale du depot les ouvre a la demande. On recharge alors plutot que de
   // ne rien rendre : un `return null` ici donnait une fenetre vide, sans que
   // rien n'indique quoi faire.
+  useEffect(() => {
+    learnStore.load(false);
+    miningStore.load(false);
+  }, [learnStore, miningStore]);
+
   useEffect(() => {
     if (!billing) managedStore.load();
   }, [billing, managedStore]);
@@ -52,12 +70,12 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
 
   const subscribe = async (plan: number) => {
     if (busyPlan !== null) return;
-    if (balance < plan) {
+    if (balance + coveredFor(plan) < plan) {
       ToastService.show('Solde $ insuffisant', ToastService.ERROR);
       return;
     }
     setBusyPlan(plan);
-    const ok = await managedStore.subscribe(plan);
+    const ok = await managedStore.subscribe(plan, { useLearnCredits: useCredits, useMining });
     setBusyPlan(null);
     if (ok) {
       ToastService.show('Abonnement activé', ToastService.SUCCESS);
@@ -99,6 +117,23 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
         <strong>{balance.toFixed(2)} $</strong>
       </div>
 
+      {credits > 0 || mined > 0 ? (
+        <div className="bot-paywith">
+          {credits > 0 ? (
+            <label>
+              <input type="checkbox" checked={useCredits} onChange={e => setUseCredits(e.target.checked)} />
+              Utiliser mes crédits de formation ({credits.toFixed(0)})
+            </label>
+          ) : null}
+          {mined > 0 ? (
+            <label>
+              <input type="checkbox" checked={useMining} onChange={e => setUseMining(e.target.checked)} />
+              Utiliser mon gain de minage ({mined.toFixed(2)} $)
+            </label>
+          ) : null}
+        </div>
+      ) : null}
+
       {/* Sans solde, aucun palier n'est a portee : mieux vaut indiquer le
           chemin du depot que laisser l'utilisateur cliquer sur des cartes
           toutes grisees. */}
@@ -118,7 +153,8 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
           davantage. */}
       <div className="bot-tiers">
         {tiers.map(tier => {
-          const affordable = balance >= tier.price;
+          const covered = coveredFor(tier.price);
+          const affordable = balance + covered >= tier.price;
           return (
             <button
               key={tier.price}
@@ -147,7 +183,9 @@ export const BotPlans = observer(({ onSubscribed }: { onSubscribed?: () => void 
                   dit deja, et chiffrer le manque enfonce le clou. */}
               {affordable ? (
                 <span className="bot-tier__after">
-                  Solde après : {(balance - tier.price).toFixed(2)} $
+                  {covered > 0
+                    ? `${covered.toFixed(2)} $ couverts · solde après : ${(balance - Math.max(0, tier.price - covered)).toFixed(2)} $`
+                    : `Solde après : ${(balance - tier.price).toFixed(2)} $`}
                 </span>
               ) : null}
             </button>

@@ -18,6 +18,8 @@ import { WalletHistory } from './screens/wallet/WalletHistory.screen';
 import { Support } from './screens/support/Support.screen';
 import { Mining } from './screens/aiTrading/Mining.screen';
 import { MarketHistory } from './screens/market/MarketHistory.screen';
+import { LearnList } from './screens/tutorials/LearnList.screen';
+import { Lesson } from './screens/tutorials/Lesson.screen';
 import { WalletDeposit } from './screens/wallet/WalletDeposit.screen';
 import { WalletWithdraw } from './screens/wallet/WalletWithdraw.screen';
 import { WalletTransfer } from './screens/wallet/WalletTransfer.screen';
@@ -108,6 +110,8 @@ export const App = observer(() => {
               redirect land somewhere real instead of 404-ing. */}
           <Route path="/trade" element={<ComingSoon titleKey="tradingTradeCrypto.titleTxt" />} />
           <Route path="/tutorials" element={<TutorialList />} />
+          <Route path="/academy" element={<LearnList />} />
+          <Route path="/academy/lesson" element={<Lesson />} />
           <Route path="/tutorials/detail" element={<TutorialDetail />} />
           <Route path="/notifications" element={<NotificationList />} />
           <Route path="/profile" element={<Profil />} />
