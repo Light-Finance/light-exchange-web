@@ -300,7 +300,9 @@
     "otherPaymentTitle": "Payer autrement ?",
     "otherPaymentText": "Choisissez un moyen de paiement : nous vous envoyons les coordonnées à utiliser sur WhatsApp, et créditons votre compte dès réception.",
     "scanHint": "Scannez ce code depuis votre portefeuille",
-    "instantCredit": "⚡ Crédité automatiquement dès réception"
+    "instantCredit": "⚡ Crédité automatiquement dès réception",
+    "chooseCountryText": "Choisissez votre pays pour voir les moyens de paiement disponibles chez vous.",
+    "noMethodText": "Aucun moyen de paiement local n'est encore disponible pour votre pays. Dites-nous lequel vous utilisez."
   },
   "tradingHome": {
     "title": "Trading",

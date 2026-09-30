@@ -298,7 +298,9 @@
     "otherPaymentTitle": "Pay another way?",
     "otherPaymentText": "Pick a payment method: we send you the details to use on WhatsApp, and credit your account as soon as we receive it.",
     "scanHint": "Scan this code from your wallet",
-    "instantCredit": "⚡ Credited automatically on arrival"
+    "instantCredit": "⚡ Credited automatically on arrival",
+    "chooseCountryText": "Choose your country to see the payment methods available to you.",
+    "noMethodText": "No local payment method is available for your country yet. Tell us which one you use."
   },
   "tradingHome": {
     "title": "Trading",

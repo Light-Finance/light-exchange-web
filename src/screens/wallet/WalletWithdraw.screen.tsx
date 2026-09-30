@@ -36,7 +36,16 @@ export const WalletWithdraw = observer(() => {
   }, [tradeStore]);
 
   const { authStore } = appRootStore;
-  const paymentMethods = tradeStore.paymentMethods ?? [];
+  // Seulement les moyens du pays de l'utilisateur, et ceux valables partout.
+  // Depuis qu'un meme moyen existe une fois par pays, la liste complete
+  // montrerait "Orange Money" en double, avec les coordonnees d'ailleurs.
+  const countryId = appRootStore.authStore.user?.country?.id;
+  const paymentMethods = (tradeStore.paymentMethods ?? []).filter(
+    m =>
+      m.countryId == null ||
+      !countryId ||
+      String(m.countryId) === String(countryId),
+  );
   const choose = (name: string) => {
     walletStore.setPaymentMethod(name);
     navigate('/wallet/payment-method');

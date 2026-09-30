@@ -7,7 +7,6 @@ import { FiatRates } from '../../components/FiatRates';
 import { faCopy } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { appRootStore } from '../../stores/root.store';
-import lightexchange from 'light-exchange';
 import { translate } from '../../helpers/localization';
 import { ToastService } from '../../services/toast.service';
 import { Button } from '../../components/ui/Button';
@@ -27,21 +26,42 @@ const copyToClipboard = async (text: string) => {
 
 export const WalletDeposit = observer(() => {
   const navigate = useNavigate();
-  const { walletStore, systemStore, authStore, tradeStore } = appRootStore;
+  const { walletStore, systemStore, authStore, tradeStore, supportStore } =
+    appRootStore;
   // Les moyens de paiement viennent du dashboard : la liste change sans
   // republier le site. Le wallet crypto a deja sa propre carte au-dessus.
-  const otherMethods = (tradeStore.paymentMethods ?? []).filter(
-    m =>
-      m.name?.toLowerCase() !==
-      lightexchange.app.PAYMENT_METHOD.WALLET.toLowerCase(),
-  );
   const [mode, setMode] = useState<'onchain' | 'email'>('onchain');
 
   useEffect(() => {
     systemStore.cryptoList();
     // Les moyens de paiement viennent du dashboard.
     tradeStore.getPaymentMethods();
+    // Le pays et ses moyens de paiement, tels que le serveur les connait.
+    tradeStore.loadDepositOptions();
   }, [systemStore]);
+
+  const options = tradeStore.depositOptions;
+
+  /**
+   * Le pays, choisi ici par qui n'en a pas encore.
+   *
+   * Les moyens de paiement en dependent : sans pays, on ne saurait pas
+   * lesquels proposer ni quelles coordonnees envoyer. Le premier choix ne
+   * consomme pas un des changements de pays autorises.
+   */
+  const chooseCountry = async (countryId: string) => {
+    await authStore.userUpdateCountry(String(countryId));
+    await tradeStore.loadDepositOptions();
+  };
+
+  /**
+   * Un moyen de paiement choisi : la demande part dans le support, et les
+   * informations de paiement y arrivent aussitot. On ouvre ensuite la
+   * conversation, ou l'utilisateur les trouve deja.
+   */
+  const requestPayment = async (paymentMethodId: string) => {
+    if (await supportStore.requestPayment(paymentMethodId)) navigate('/support');
+  };
 
   const selectedCrypto = systemStore.selectedCrypto;
   // The user's wallet for the selected crypto carries the per-user address.
@@ -132,57 +152,79 @@ export const WalletDeposit = observer(() => {
         </InfoBanner>
       </WalletCard>
 
-      {/* Les autres moyens de paiement passent par le support : les
-          coordonnees changent, et les publier ici obligerait a republier le
-          site a chaque changement. */}
-      {otherMethods.length > 0 ? (
+      {/* Les moyens de paiement locaux. Ils dependent du pays : on le demande
+          d'abord a qui ne l'a pas renseigne, puis on montre ceux de son pays.
+          Un clic envoie la demande au support, et les informations de paiement
+          arrivent aussitot dans la conversation. */}
+      {options ? (
         <WalletCard>
-          <p className="w-buyhint">{translate('walletDeposit.otherPaymentTitle')}</p>
+          <p className="w-buyhint">
+            {translate('walletDeposit.otherPaymentTitle')}
+            {options.country ? ` · ${options.country.name}` : ''}
+          </p>
 
-          {/* Le taux, la ou l'on paie en monnaie locale : c'est ce que
-              l'utilisateur calcule de tete avant d'envoyer. */}
-          <FiatRates />
-          <p className="mk-note">{translate('walletDeposit.otherPaymentText')}</p>
-          <div className="w-buymethods">
-            {otherMethods.map(m => (
+          {!options.country ? (
+            <>
+              <p className="mk-note">{translate('walletDeposit.chooseCountryText')}</p>
+              <div className="w-buymethods">
+                {options.countries.map(c => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    className="w-buymethod"
+                    onClick={() => chooseCountry(c.id)}
+                  >
+                    {c.name}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Le taux, la ou l'on paie en monnaie locale : c'est ce que
+                  l'utilisateur calcule de tete avant d'envoyer. */}
+              <FiatRates />
+              <p className="mk-note">
+                {options.methods.length > 0
+                  ? translate('walletDeposit.otherPaymentText')
+                  : translate('walletDeposit.noMethodText')}
+              </p>
+              <div className="w-buymethods">
+                {options.methods.map(m => (
+                  <button
+                    key={m.id}
+                    type="button"
+                    className="w-buymethod"
+                    onClick={() => requestPayment(m.id)}
+                  >
+                    {m.name}
+                    {/* Le delai annonce, sous le nom : payer sans savoir
+                        combien de temps attendre envoyait l'utilisateur au
+                        support au bout de dix minutes. */}
+                    {m.creditDelay ? (
+                      <span className="w-buymethod__delay">{m.creditDelay}</span>
+                    ) : null}
+                  </button>
+                ))}
+              </div>
+
+              {/* La liste des moyens de paiement est la notre, pas celle du
+                  monde : quelqu'un qui n'y trouve pas le sien repartait sans
+                  rien dire. Ce bouton ouvre la conversation avec la demande
+                  deja ecrite, et nous apprend ce qui manque. */}
               <button
-                key={m.name}
                 type="button"
-                className="w-buymethod"
+                className="w-askmethod"
                 onClick={() =>
                   navigate('/support', {
-                    state: {
-                      prefill: prefill('paymentMethod.depositMsg', m.name),
-                    },
+                    state: { prefill: prefill('paymentMethod.requestMsg') },
                   })
                 }
               >
-                {m.name}
-                {/* Le delai annonce, sous le nom : payer sans savoir combien
-                    de temps attendre envoyait l'utilisateur au support au bout
-                    de dix minutes. */}
-                {m.creditDelay ? (
-                  <span className="w-buymethod__delay">{m.creditDelay}</span>
-                ) : null}
+                {translate('paymentMethod.requestBtn')}
               </button>
-            ))}
-          </div>
-
-          {/* La liste des moyens de paiement est la notre, pas celle du monde :
-              quelqu'un qui n'y trouve pas le sien repartait sans rien dire. Ce
-              bouton ouvre la conversation avec la demande deja ecrite, et nous
-              apprend ce qui manque. */}
-          <button
-            type="button"
-            className="w-askmethod"
-            onClick={() =>
-              navigate('/support', {
-                state: { prefill: prefill('paymentMethod.requestMsg') },
-              })
-            }
-          >
-            {translate('paymentMethod.requestBtn')}
-          </button>
+            </>
+          )}
         </WalletCard>
       ) : null}
 

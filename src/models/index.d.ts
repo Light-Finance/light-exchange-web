@@ -82,6 +82,8 @@ export interface IPaymentMethod {
   informations?: string;
   /** Le delai de credit annonce, en toutes lettres : "5 min - 24 h". */
   creditDelay?: string;
+  /** Le pays ou ce moyen s'applique. Vide : tous les pays. */
+  countryId?: number | string | null;
   buyRate?: number;
   sellRate?: number;
 }

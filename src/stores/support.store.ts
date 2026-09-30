@@ -39,6 +39,14 @@ const SUPPORT_SEND = gql`
   }
 `;
 
+// Ouvre une demande de depot : le serveur ecrit la demande, puis repond
+// aussitot avec les informations de paiement du moyen choisi.
+const SUPPORT_PAYMENT_REQUEST = gql`
+  mutation supportPaymentRequest($userId: ID!, $paymentMethodId: ID!) {
+    supportPaymentRequest(userId: $userId, paymentMethodId: $paymentMethodId)
+  }
+`;
+
 const SUPPORT_MARK_READ = gql`
   mutation supportMarkRead($userId: ID!) {
     supportMarkRead(userId: $userId)
@@ -92,6 +100,21 @@ export class SupportStore {
     if (!userId) return;
     await Service.mutation({ userId }, SUPPORT_MARK_READ, false);
     this.unread = 0;
+  }
+
+  /**
+   * Demande un depot par un moyen de paiement. Les informations de paiement
+   * arrivent dans la conversation sans attendre un conseiller.
+   */
+  async requestPayment(paymentMethodId: string): Promise<boolean> {
+    const userId = this.userId;
+    if (!userId) return false;
+    const r = await Service.mutation(
+      { userId, paymentMethodId },
+      SUPPORT_PAYMENT_REQUEST,
+      true,
+    );
+    return !!r?.data?.supportPaymentRequest;
   }
 
   /** Envoie un message, avec ou sans image. Une image seule suffit. */

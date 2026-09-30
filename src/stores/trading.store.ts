@@ -25,9 +25,42 @@ const PAYMENT_METHOD_LIST_WITH_DELAY = gql`
       paymentService
       paymentServiceId
       creditDelay
+      countryId
     }
   }
 `;
+
+// Ce que l'ecran de depot affiche : le pays de l'utilisateur tel que le
+// serveur le connait, les pays a proposer s'il n'en a pas, et les moyens de
+// paiement de son pays. Le serveur tranche, parce que l'application garde
+// parfois un pays par defaut en memoire sans qu'il soit en base.
+const DEPOSIT_OPTIONS = gql`
+  query depositOptions($userId: ID!) {
+    depositOptions(userId: $userId) {
+      country {
+        id
+        name
+        phoneCode
+      }
+      countries {
+        id
+        name
+        phoneCode
+      }
+      methods {
+        id
+        name
+        creditDelay
+      }
+    }
+  }
+`;
+
+export interface IDepositOptions {
+  country: { id: string; name: string; phoneCode?: string } | null;
+  countries: { id: string; name: string; phoneCode?: string }[];
+  methods: { id: string; name: string; creditDelay?: string }[];
+}
 
 export class TradeStore {
   /* variables definition */
@@ -141,6 +174,21 @@ export class TradeStore {
       this.rootStore!.walletStore.getWallets();
     }
   }
+  @observable depositOptions: IDepositOptions | undefined;
+
+  @action async loadDepositOptions() {
+    const userId = this.rootStore?.authStore.user?.id;
+    if (!userId) return;
+    const r = await Service.query({ userId }, DEPOSIT_OPTIONS, false);
+    if (r?.data?.depositOptions) {
+      this.depositOptions = r.data.depositOptions;
+      // Le pays vu par le serveur remplace celui garde en memoire : les autres
+      // ecrans (profil, retrait) doivent lire le meme.
+      const country = r.data.depositOptions.country;
+      if (country) this.rootStore?.authStore.setUserData(country, 'country');
+    }
+  }
+
   @action async getPaymentMethods() {
     const response = await Service.query(
       {},
