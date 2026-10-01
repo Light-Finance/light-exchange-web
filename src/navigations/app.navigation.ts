@@ -58,6 +58,11 @@ export const ROUTE_PATHS: Record<string, string> = {
   [TAB.tutorialsNavigation.tutorialList]: '/tutorials',
   [TAB.tutorialsNavigation.tutorialDetail]: '/tutorials/detail',
 
+  // formations
+  [TAB.learnNavigation.navigator]: '/academy',
+  [TAB.learnNavigation.learnList]: '/academy',
+  [TAB.learnNavigation.lesson]: '/academy/lesson',
+
   // profile
   [PROFIL.navigator]: '/profile',
   [PROFIL.profil]: '/profile',

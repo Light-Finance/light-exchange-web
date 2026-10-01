@@ -5,6 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faRobot,
+  faGraduationCap,
   faChartLine,
   faWallet,
   faBell,
@@ -22,13 +23,14 @@ import { AppVersion } from './AppVersion';
 const TAB = ROUTES.mainNavigation.tabNavigation;
 
 /**
- * The four bottom tabs, in the same order as mobile's tab.navigation.tsx.
+ * The five bottom tabs, in the same order as mobile's tab.navigation.tsx.
  * `end` marks routes whose nested children should not keep the tab active.
  */
 const TABS = [
   // Le marche d'abord : c'est la que l'utilisateur agit, le robot vient apres.
   { path: ROUTE_PATHS[TAB.marketNavigation.navigator], icon: faChartLine, key: 'market' },
   { path: ROUTE_PATHS[TAB.aiTradingNavigation.navigator], icon: faRobot, key: 'aiTrading' },
+  { path: ROUTE_PATHS[TAB.learnNavigation.navigator], icon: faGraduationCap, key: 'learn' },
   { path: ROUTE_PATHS[TAB.walletNavigation.navigator], icon: faWallet, key: 'wallet' },
   { path: ROUTE_PATHS[ROUTES.mainNavigation.profilNavigation.profil], icon: faUser, key: 'profile' },
 ];
@@ -41,6 +43,7 @@ const tabLabel = (key: string) => {
     const fallbacks: Record<string, string> = {
       aiTrading: TAB.aiTradingNavigation.navigator,
       market: TAB.marketNavigation.navigator,
+      learn: TAB.learnNavigation.navigator,
       wallet: TAB.walletNavigation.navigator,
       profile: ROUTES.mainNavigation.profilNavigation.profil,
     };

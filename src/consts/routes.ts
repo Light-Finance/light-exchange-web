@@ -37,6 +37,11 @@ export const ROUTES = {
         tutorialList: 'tutorialList',
         tutorialDetail: 'tutorialDetail',
       },
+      learnNavigation: {
+        navigator: 'Formations',
+        learnList: 'learnList',
+        lesson: 'lesson',
+      },
       walletNavigation: {
         navigator: 'Wallet',
         walletHistory: 'walletHistory',
