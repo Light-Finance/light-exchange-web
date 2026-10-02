@@ -820,3 +820,13 @@
 .w-askmethod:hover {
   background: var(--color-surface-2);
 }
+
+/* Pays sans moyen de paiement propre : l'USDT, et ou en acheter. */
+.w-nolocal {
+  margin-bottom: var(--space-small);
+  padding: 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--color-secondary) 8%, transparent);
+}
+.w-nolocal strong { color: var(--color-secondary-dark, var(--color-secondary)); }
+.w-nolocal a.w-askmethod { display: block; text-align: center; text-decoration: none; }

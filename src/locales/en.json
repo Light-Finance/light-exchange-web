@@ -300,7 +300,11 @@
     "scanHint": "Scan this code from your wallet",
     "instantCredit": "⚡ Credited automatically on arrival",
     "chooseCountryText": "Choose your country to see the payment methods available to you.",
-    "noMethodText": "No local payment method is available for your country yet. Tell us which one you use."
+    "noMethodText": "No local payment method is available for your country yet. Tell us which one you use.",
+    "noLocalTitle": "Use USDT",
+    "noLocalText": "We do not have a payment method specific to your country ({{country}}) yet. The easiest way is to deposit USDT (BEP20 network) to the address above: it is credited automatically. To find where to buy it, search Google for \"how to buy USDT {{country}}\".",
+    "noLocalBtn": "Search on Google",
+    "noLocalQuery": "how to buy USDT {{country}}"
   },
   "tradingHome": {
     "title": "Trading",

@@ -302,7 +302,11 @@
     "scanHint": "Scannez ce code depuis votre portefeuille",
     "instantCredit": "⚡ Crédité automatiquement dès réception",
     "chooseCountryText": "Choisissez votre pays pour voir les moyens de paiement disponibles chez vous.",
-    "noMethodText": "Aucun moyen de paiement local n'est encore disponible pour votre pays. Dites-nous lequel vous utilisez."
+    "noMethodText": "Aucun moyen de paiement local n'est encore disponible pour votre pays. Dites-nous lequel vous utilisez.",
+    "noLocalTitle": "Utilisez l'USDT",
+    "noLocalText": "Nous n'avons pas encore de moyen de paiement propre à votre pays ({{country}}). Le plus simple est de déposer en USDT (réseau BEP20) sur l'adresse ci-dessus : le crédit est automatique. Pour savoir où en acheter chez vous, cherchez sur Google « comment acheter USDT {{country}} ».",
+    "noLocalBtn": "Chercher sur Google",
+    "noLocalQuery": "comment acheter USDT {{country}}"
   },
   "tradingHome": {
     "title": "Trading",

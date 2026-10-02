@@ -51,6 +51,7 @@ const DEPOSIT_OPTIONS = gql`
         id
         name
         creditDelay
+        countryId
       }
     }
   }
@@ -59,7 +60,13 @@ const DEPOSIT_OPTIONS = gql`
 export interface IDepositOptions {
   country: { id: string; name: string; phoneCode?: string } | null;
   countries: { id: string; name: string; phoneCode?: string }[];
-  methods: { id: string; name: string; creditDelay?: string }[];
+  methods: {
+    id: string;
+    name: string;
+    creditDelay?: string;
+    /** Null : un moyen valable partout, pas propre au pays. */
+    countryId?: number | null;
+  }[];
 }
 
 export class TradeStore {

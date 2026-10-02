@@ -184,6 +184,26 @@ export const WalletDeposit = observer(() => {
               {/* Le taux, la ou l'on paie en monnaie locale : c'est ce que
                   l'utilisateur calcule de tete avant d'envoyer. */}
               <FiatRates />
+              {/* Aucun moyen propre au pays : l'USDT marche partout, et c'est
+                  Google qui sait ou l'on en achete sur place. */}
+              {!options.methods.some(m => m.countryId != null) ? (
+                <div className="w-nolocal">
+                  <strong>{translate('walletDeposit.noLocalTitle')}</strong>
+                  <p className="mk-note">
+                    {translate('walletDeposit.noLocalText', { country: options.country.name })}
+                  </p>
+                  <a
+                    className="w-askmethod"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href={`https://www.google.com/search?q=${encodeURIComponent(
+                      translate('walletDeposit.noLocalQuery', { country: options.country.name }),
+                    )}`}
+                  >
+                    {translate('walletDeposit.noLocalBtn')}
+                  </a>
+                </div>
+              ) : null}
               <p className="mk-note">
                 {options.methods.length > 0
                   ? translate('walletDeposit.otherPaymentText')
