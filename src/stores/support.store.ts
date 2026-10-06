@@ -15,6 +15,7 @@ const SUPPORT_MESSAGES = gql`
       text
       imageUrl
       read
+      readAt
       at
     }
   }
@@ -34,6 +35,7 @@ const SUPPORT_SEND = gql`
       text
       imageUrl
       read
+      readAt
       at
     }
   }
@@ -60,6 +62,8 @@ export interface ISupportMessage {
   /** Image jointe, vide quand il n'y en a pas. */
   imageUrl?: string | null;
   read: boolean;
+  /** Quand le support l'a lu ; null tant que non. */
+  readAt?: string | null;
   at: string;
 }
 
@@ -82,7 +86,13 @@ export class SupportStore {
     const userId = this.userId;
     if (!userId) return;
     const r = await Service.query({ userId }, SUPPORT_MESSAGES, false);
-    if (r?.data?.supportMessages) this.messages = r.data.supportMessages;
+    if (r?.data?.supportMessages) {
+      this.messages = r.data.supportMessages;
+      // L'ecran est ouvert : ce qui vient d'arriver est lu. Marquer a chaque
+      // rafraichissement, et non a l'ouverture seule, pour que le « vu » du
+      // support dise la verite.
+      if (this.messages.some(m => m.fromAdmin && !m.read)) await this.markRead();
+    }
   }
 
   /** Compteur pour la pastille, sans charger la conversation. */

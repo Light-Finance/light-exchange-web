@@ -174,7 +174,13 @@ export const Support = observer(() => {
                   {m.text ? <span className="sup-text">{m.text}</span> : null}
                   {/* Une seule heure par salve : repetee a chaque bulle, elle
                       hachait la lecture. */}
-                  {m.tail ? <span className="sup-time">{hour(m.at)}</span> : null}
+                  {m.tail ? (
+                    <span className="sup-time">
+                      {hour(m.at)}
+                      {/* Une coche : envoye. Deux : le support l'a ouvert. */}
+                      {!m.fromAdmin ? (m.read ? ' ✓✓' : ' ✓') : ''}
+                    </span>
+                  ) : null}
                 </div>
               </div>
             </Fragment>
