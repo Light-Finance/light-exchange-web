@@ -339,6 +339,16 @@
     "receiverTxt": "Receiver"
   },
   "walletWithdraw": {
+    "continueBtn": "Continue",
+    "recapAmount": "Withdraw %{amount} %{unit} · you receive %{net} %{unit}",
+    "edit": "Edit",
+    "methodHint": "To your number or account",
+    "accountLabel": "Your %{method} number",
+    "accountPlaceholder": "Number or account to credit",
+    "accountHint": "The account must be in your name. Check every digit: a withdrawal sent to the wrong number cannot be recovered.",
+    "debitNote": "The amount leaves your balance as soon as you confirm. You receive the money within 24 h at most; if the request is cancelled, your balance is restored.",
+    "confirmBtn": "Confirm withdrawal",
+    "sending": "Sending…",
     "titleTxt": "Withdraw",
     "goToTransfer": "Go to Transfer",
     "amountToWithdrawInput": "Withdrawal amount",

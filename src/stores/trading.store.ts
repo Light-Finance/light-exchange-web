@@ -69,6 +69,37 @@ export interface IDepositOptions {
   }[];
 }
 
+// Retrait par Mobile Money ou virement : le serveur debite et ouvre une
+// transaction en attente que l'admin traite.
+const WITHDRAWAL_REQUEST = gql`
+  mutation withdrawalRequest(
+    $userId: ID!
+    $walletId: ID!
+    $amount: Float!
+    $paymentMethodId: ID!
+    $accountNumber: String!
+  ) {
+    withdrawalRequest(
+      userId: $userId
+      walletId: $walletId
+      amount: $amount
+      paymentMethodId: $paymentMethodId
+      accountNumber: $accountNumber
+    ) {
+      id
+      transactionId
+      spend
+      receive
+      fees
+      type
+      status
+      date
+      initiatorWallet
+      walletAddress
+    }
+  }
+`;
+
 export class TradeStore {
   /* variables definition */
   @observable rootStore: RootStore | undefined;
@@ -336,6 +367,31 @@ export class TradeStore {
       this.setRecipient(APP.TRADE_STORE.recipient);
       await this.rootStore!.walletStore.getWallets();
     }
+  }
+
+  /**
+   * Demande un retrait vers un numero Mobile Money ou un compte. Le solde
+   * est debite tout de suite ; la transaction reste en attente jusqu'a ce
+   * que l'admin la valide, ou l'annule et rembourse.
+   */
+  @action async withdrawalRequest(
+    walletId: string,
+    amount: number,
+    paymentMethodId: string,
+    accountNumber: string,
+  ): Promise<boolean> {
+    const userId = this.rootStore!.authStore.user?.id;
+    if (!userId) return false;
+    const r = await Service.mutation(
+      { userId, walletId, amount, paymentMethodId, accountNumber },
+      WITHDRAWAL_REQUEST,
+      true,
+    );
+    const t = r?.data?.withdrawalRequest;
+    if (!t) return false;
+    this.setTransaction({ ...this.transaction, ...t });
+    await this.rootStore!.walletStore.getWallets();
+    return true;
   }
 
   @action async getTransactionsByUser() {

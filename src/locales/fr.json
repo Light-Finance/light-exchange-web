@@ -341,6 +341,16 @@
     "receiverTxt": "Destinataire"
   },
   "walletWithdraw": {
+    "continueBtn": "Continuer",
+    "recapAmount": "Retrait de %{amount} %{unit} · vous recevez %{net} %{unit}",
+    "edit": "Modifier",
+    "methodHint": "Vers votre numéro ou votre compte",
+    "accountLabel": "Votre numéro %{method}",
+    "accountPlaceholder": "Numéro ou compte à créditer",
+    "accountHint": "Le compte doit être à votre nom. Vérifiez chaque chiffre : un retrait envoyé au mauvais numéro ne peut pas être récupéré.",
+    "debitNote": "Le montant est retiré de votre solde dès la confirmation. Vous recevez l'argent sous 24 h au plus ; si la demande est annulée, le solde vous est remis.",
+    "confirmBtn": "Confirmer le retrait",
+    "sending": "Envoi…",
     "titleTxt": "Retrait",
     "goToTransfer": "Aller au Transfert",
     "amountToWithdrawInput": "Montant à retirer",
