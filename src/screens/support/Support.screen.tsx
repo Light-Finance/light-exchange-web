@@ -62,7 +62,7 @@ export const Support = observer(() => {
   // Une conversation se lit par le bas : c'est le dernier message qui compte.
   useEffect(() => {
     bottom.current?.scrollIntoView({ block: 'end' });
-  }, [supportStore.messages.length]);
+  }, [supportStore.messages.length, supportStore.awaitingReply]);
 
   // `dayStart` porte le separateur de date, `tail` marque la fin d'une salve du
   // meme cote : seule cette bulle garde l'heure et le coin pointu.
@@ -179,6 +179,12 @@ export const Support = observer(() => {
             </Fragment>
           ))
         )}
+        {/* Le bot ecrit : trois points, comme sur une messagerie. */}
+        {supportStore.awaitingReply ? (
+          <div className="sup-row is-them is-tail">
+            <div className="sup-bubble" aria-label="Le support écrit">…</div>
+          </div>
+        ) : null}
         <div ref={bottom} />
       </div>
 

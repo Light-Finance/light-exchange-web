@@ -72,6 +72,8 @@ export class SupportStore {
   messages: ISupportMessage[] = [];
   unread = 0;
   sending = false;
+  /** Vrai pendant qu'on attend la reponse du bot : l'ecran affiche « … ». */
+  awaitingReply = false;
 
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
@@ -124,7 +126,34 @@ export class SupportStore {
       SUPPORT_PAYMENT_REQUEST,
       true,
     );
-    return !!r?.data?.supportPaymentRequest;
+    const ok = !!r?.data?.supportPaymentRequest;
+    if (ok) {
+      await this.load();
+      this.awaitReply();
+    }
+    return ok;
+  }
+
+  /**
+   * Apres un envoi, la reponse du bot arrive en quelques secondes : on
+   * interroge vite (toutes les 1,5 s, 25 s au plus) au lieu d'attendre le
+   * rafraichissement normal de dix secondes. S'arrete des qu'une reponse
+   * du support apparait apres le dernier message du client.
+   */
+  async awaitReply() {
+    if (this.awaitingReply) return;
+    this.awaitingReply = true;
+    const until = Date.now() + 25000;
+    try {
+      while (Date.now() < until) {
+        await new Promise<void>(r => setTimeout(() => r(), 1500));
+        await this.load();
+        const last = this.messages[this.messages.length - 1];
+        if (last && last.fromAdmin) break;
+      }
+    } finally {
+      this.awaitingReply = false;
+    }
   }
 
   /** Envoie un message, avec ou sans image. Une image seule suffit. */
@@ -141,6 +170,7 @@ export class SupportStore {
       );
       if (!r?.data?.supportSend) return false;
       this.messages = [...this.messages, r.data.supportSend];
+      this.awaitReply();
       return true;
     } finally {
       this.sending = false;
