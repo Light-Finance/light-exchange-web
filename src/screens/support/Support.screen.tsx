@@ -9,7 +9,6 @@ import {
   faXmark,
   faGraduationCap,
   faChevronRight,
-  faClock,
 } from '@fortawesome/free-solid-svg-icons';
 import { appRootStore } from '../../stores/root.store';
 import { translate } from '../../helpers/localization';
@@ -132,12 +131,6 @@ export const Support = observer(() => {
       </button>
 
       <SocialLinks compact />
-
-      {/* Le delai de reponse, dit avant qu'on ne le demande : sans lui, le
-          deuxieme message d'une conversation etait souvent « vous etes la ? ». */}
-      <p className="sup-delay">
-        <FontAwesomeIcon icon={faClock} /> {translate('support.replyNote')}
-      </p>
 
       <div className="sup-thread">
         {messages.length === 0 ? (
