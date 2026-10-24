@@ -41,6 +41,7 @@ export const PAIRS: { symbol: string; label: string }[] = [
   { symbol: 'ETHUSDT', label: 'ETH/USDT' },
   { symbol: 'SOLUSDT', label: 'SOL/USDT' },
   { symbol: 'BNBUSDT', label: 'BNB/USDT' },
+  { symbol: 'XRPUSDT', label: 'XRP/USDT' },
 ];
 
 function ema(values: number[], period: number): number[] {
