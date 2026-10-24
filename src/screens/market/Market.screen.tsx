@@ -41,7 +41,7 @@ export const Market = observer(() => {
   const [amount, setAmount] = useState('');
   const [busy, setBusy] = useState(false);
   const [query, setQuery] = useState('');
-  const [kind, setKind] = useState<'all' | 'crypto' | 'stock'>('all');
+  const [kind, setKind] = useState<'all' | 'crypto' | 'stock' | 'gem'>('all');
 
   useEffect(() => {
     (async () => {
@@ -87,7 +87,9 @@ export const Market = observer(() => {
   // "apple" comme on cherche "AAPL", et parfois la paire complete.
   const needle = query.trim().toLowerCase();
   const shown = marketStore.assets.filter(a => {
-    if (kind !== 'all' && a.kind !== kind) return false;
+    if (kind === 'gem') {
+      if (!a.gem) return false;
+    } else if (kind !== 'all' && a.kind !== kind) return false;
     if (!needle) return true;
     return (
       a.shortName.toLowerCase().includes(needle) ||
@@ -212,8 +214,10 @@ export const Market = observer(() => {
           onChange={e => setQuery(e.target.value)}
         />
         <div className="mk-kinds">
+          {/* Les pepites : la selection de Light Exchange, seulement s'il y en a. */}
           {([
             ['all', 'Tous'],
+            ...(marketStore.assets.some(x => x.gem) ? [['gem', '💎 Pépites'] as const] : []),
             ['crypto', 'Cryptos'],
             ['stock', 'Actions'],
           ] as const).map(([value, label]) => (
@@ -254,6 +258,7 @@ export const Market = observer(() => {
                   {a.shortName}
                 </span>
                 <span className="mk-asset__name">{a.name}</span>
+                {a.gem ? <span style={{ marginLeft: 'auto' }}>💎</span> : null}
               </span>
               <span className="mk-asset__price">{price(a.price, a.kind)} $</span>
               {/* Une souscription ne se revend pas avant la cotation, et elle

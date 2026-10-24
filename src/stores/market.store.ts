@@ -14,6 +14,7 @@ const MARKET_ASSETS = gql`
       name
       shortName
       kind
+      gem
       price
       change24h
       ipoPrice
@@ -89,6 +90,8 @@ export interface IMarketAsset {
   name: string;
   shortName: string;
   kind: string;
+  /** Pépite : mis en avant dans le filtre « Pépites ». */
+  gem?: boolean;
   /** null quand le fournisseur n'a pas répondu : l'actif reste listé. */
   price: number | null;
   /** Variation sur 24 h en %, null pour une souscription ou si inconnue. */
