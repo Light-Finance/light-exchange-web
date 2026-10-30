@@ -112,11 +112,6 @@ export const Market = observer(() => {
         {/* L'historique est en bas de page, apres toute la liste des actifs :
             il fallait faire defiler une centaine de lignes pour y arriver.
             Masque quand il n'y a rien a voir. */}
-        <span style={{ display: 'flex', gap: 8 }}>
-        {/* La prop firm : toujours visible, c'est un produit et non une liste. */}
-        <button type="button" className="mk-histbtn mk-propbtn" onClick={() => navigate('/market/prop')}>
-          🏆 Trader sans capital
-        </button>
         {marketStore.trades.length > 0 ? (
           <button
             type="button"
@@ -126,8 +121,15 @@ export const Market = observer(() => {
             <FontAwesomeIcon icon={faClockRotateLeft} /> Historique
           </button>
         ) : null}
-        </span>
       </div>
+
+      {/* Trader sans capital : sa propre ligne, sous le solde. A cote du
+          solde, le libelle long se melangeait au montant. */}
+      <button type="button" className="mk-propbanner" onClick={() => navigate('/market/prop')}>
+        <strong>🏆 Trader sans capital</strong>
+        <span>Tradez notre capital, gardez 70 % des profits</span>
+        <b>›</b>
+      </button>
 
       {/* Un solde vide bloque tout achat : le dire ici, avec le chemin pour le
           regler, plutot que de laisser l'utilisateur buter sur un refus au
