@@ -34,7 +34,7 @@ export const PropHome = observer(() => {
 
   return (
     <div className="stack">
-      <h1 className="screen-title">Prop firm</h1>
+      <h1 className="screen-title">Trader sans capital</h1>
 
       <section className="pr-hero">
         <strong>🏆 Tradez notre capital</strong>

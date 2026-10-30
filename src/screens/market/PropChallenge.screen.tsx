@@ -62,7 +62,7 @@ export const PropChallenge = observer(() => {
 
   return (
     <div className="stack">
-      <button type="button" className="pr-back" onClick={() => navigate('/market/prop')}>← Prop firm</button>
+      <button type="button" className="pr-back" onClick={() => navigate('/market/prop')}>← Trader sans capital</button>
       <h1 className="screen-title" style={{ marginTop: 0 }}>{c.name} · {money(c.size, 0)} $</h1>
 
       <section className="pr-hero pr-hero--center">

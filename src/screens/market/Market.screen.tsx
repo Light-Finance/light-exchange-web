@@ -115,7 +115,7 @@ export const Market = observer(() => {
         <span style={{ display: 'flex', gap: 8 }}>
         {/* La prop firm : toujours visible, c'est un produit et non une liste. */}
         <button type="button" className="mk-histbtn mk-propbtn" onClick={() => navigate('/market/prop')}>
-          🏆 Prop
+          🏆 Trader sans capital
         </button>
         {marketStore.trades.length > 0 ? (
           <button
