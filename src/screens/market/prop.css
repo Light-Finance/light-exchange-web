@@ -1,0 +1,56 @@
+/* ── Prop firm ──────────────────────────────────────────────────────────── */
+.pr-hero { display: flex; flex-direction: column; gap: 4px; padding: var(--space-medium); border-radius: 18px; background: var(--color-secondary); color: #fff; }
+.pr-hero strong { font-size: 18px; }
+.pr-hero p { margin: 0; font-size: 13.5px; line-height: 1.5; color: rgba(255, 255, 255, .88); }
+.pr-hero--center { align-items: center; text-align: center; }
+.pr-hero__label { font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: rgba(255, 255, 255, .8); }
+.pr-hero__value { font-size: 30px; font-weight: 800; }
+.pr-h { margin: var(--space-medium) 0 8px; font-size: 15px; font-weight: 800; }
+.pr-card { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 14px; margin-bottom: 10px; border: 1px solid var(--color-border); border-radius: 14px; background: var(--color-surface); color: inherit; font: inherit; font-size: 13.5px; text-align: left; cursor: pointer; }
+.pr-card:hover { border-color: var(--color-secondary); }
+.pr-card.is-off { opacity: .6; }
+.pr-card__top { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 15px; }
+.pr-chip { padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 800; background: color-mix(in srgb, var(--color-secondary) 12%, transparent); color: var(--color-secondary-dark, var(--color-secondary)); }
+.pr-chip.is-good { background: color-mix(in srgb, var(--color-up) 14%, transparent); color: var(--color-up); }
+.pr-chip.is-bad { background: color-mix(in srgb, var(--color-down) 12%, transparent); color: var(--color-down); }
+.pr-bar { display: block; height: 6px; margin-top: 6px; border-radius: 3px; background: var(--color-border); overflow: hidden; }
+.pr-bar i { display: block; height: 6px; border-radius: 3px; background: var(--color-secondary); }
+.pr-sub { font-size: 12px; color: var(--color-text-muted); }
+.pr-up { color: var(--color-up); font-weight: 700; }
+.pr-down { color: var(--color-down); font-weight: 700; }
+.pr-tier { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 14px; margin-bottom: 10px; border: 1px solid color-mix(in srgb, var(--color-secondary) 40%, transparent); border-radius: 14px; background: var(--color-surface); color: inherit; font: inherit; text-align: left; cursor: pointer; }
+.pr-tier strong { display: block; font-size: 15px; color: var(--color-secondary-dark, var(--color-secondary)); }
+.pr-tier small { font-size: 13px; color: var(--color-text-muted); }
+.pr-tier b { padding: 8px 16px; border-radius: 999px; background: var(--color-secondary); color: #fff; font-size: 15px; }
+.pr-rules { padding: 14px; border-radius: 14px; background: color-mix(in srgb, var(--color-secondary) 6%, transparent); font-size: 13px; line-height: 1.55; }
+.pr-rules h3 { margin: 0 0 6px; font-size: 14px; }
+.pr-rules ul { margin: 0 0 8px; padding-left: 18px; }
+.pr-rules p { margin: 0; font-size: 12px; color: var(--color-text-muted); }
+.pr-back { align-self: flex-start; padding: 0; border: 0; background: none; color: var(--color-secondary-dark, var(--color-secondary)); font-weight: 700; cursor: pointer; }
+.pr-bad { margin: 0; padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--color-down) 8%, transparent); color: var(--color-down); font-size: 13px; }
+.pr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pr-tile { display: flex; flex-direction: column; gap: 2px; padding: 10px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); }
+.pr-tile small { font-size: 11px; color: var(--color-text-muted); }
+.pr-tile b { font-size: 15px; }
+.pr-pay { padding: 14px; border: 0; border-radius: 14px; background: var(--color-up); color: #fff; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.pr-pay:disabled, .pr-go:disabled { opacity: .45; cursor: not-allowed; }
+.pr-form { padding: 14px; border-radius: 14px; background: color-mix(in srgb, var(--color-secondary) 6%, transparent); }
+.pr-form .pr-h { margin-top: 0; }
+.pr-syms { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 4px; }
+.pr-sym { display: flex; flex-direction: column; align-items: center; flex: 0 0 auto; padding: 7px 12px; border: 1px solid color-mix(in srgb, var(--color-secondary) 30%, transparent); border-radius: 10px; background: var(--color-surface); color: var(--color-secondary-dark, var(--color-secondary)); font: inherit; cursor: pointer; }
+.pr-sym small { font-size: 10.5px; color: var(--color-text-muted); }
+.pr-sym.is-on { background: var(--color-secondary); border-color: var(--color-secondary); color: #fff; }
+.pr-sym.is-on small { color: #fff; }
+.pr-sides { display: flex; gap: 8px; margin: 6px 0 8px; }
+.pr-side { flex: 1; padding: 10px; border: 1px solid var(--color-border); border-radius: 10px; background: var(--color-surface); color: inherit; font: inherit; font-weight: 800; cursor: pointer; }
+.pr-side.is-long { background: var(--color-up); border-color: var(--color-up); color: #fff; }
+.pr-side.is-short { background: var(--color-down); border-color: var(--color-down); color: #fff; }
+.pr-input { width: 100%; box-sizing: border-box; padding: 11px 12px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); color: inherit; font: inherit; font-size: 16px; }
+.pr-go { width: 100%; margin-top: 10px; padding: 13px; border: 0; border-radius: 12px; background: var(--color-secondary); color: #fff; font: inherit; font-weight: 800; font-size: 15px; cursor: pointer; }
+.pr-pos { display: flex; align-items: center; gap: 10px; padding: 12px; margin-bottom: 8px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); }
+.pr-pos__main { display: flex; flex-direction: column; flex: 1; gap: 2px; font-size: 13.5px; }
+.pr-pos__main small { font-size: 11.5px; color: var(--color-text-muted); }
+.pr-close { padding: 7px 10px; border: 1px solid var(--color-border); border-radius: 8px; background: none; color: inherit; font: inherit; font-size: 12px; font-weight: 800; cursor: pointer; }
+.pr-trade { display: flex; justify-content: space-between; gap: 8px; padding: 8px 0; border-top: 1px solid var(--color-border); font-size: 12.5px; color: var(--color-text-muted); }
+.mk-propbtn { background: var(--color-secondary) !important; border-color: var(--color-secondary) !important; color: #fff !important; }
+@media (max-width: 560px) { .pr-grid { grid-template-columns: 1fr 1fr; } .pr-grid .pr-tile:first-child { grid-column: 1 / -1; } }

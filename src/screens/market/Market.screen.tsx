@@ -10,6 +10,7 @@ import { Modal } from '../../components/ui/Modal';
 import { ToastService } from '../../services/toast.service';
 import { colorOf } from './assetColors';
 import './market.css';
+import './prop.css';
 
 type Dialog = null | { symbol: string; side: 'buy' | 'sell' };
 
@@ -111,6 +112,11 @@ export const Market = observer(() => {
         {/* L'historique est en bas de page, apres toute la liste des actifs :
             il fallait faire defiler une centaine de lignes pour y arriver.
             Masque quand il n'y a rien a voir. */}
+        <span style={{ display: 'flex', gap: 8 }}>
+        {/* La prop firm : toujours visible, c'est un produit et non une liste. */}
+        <button type="button" className="mk-histbtn mk-propbtn" onClick={() => navigate('/market/prop')}>
+          🏆 Prop
+        </button>
         {marketStore.trades.length > 0 ? (
           <button
             type="button"
@@ -120,6 +126,7 @@ export const Market = observer(() => {
             <FontAwesomeIcon icon={faClockRotateLeft} /> Historique
           </button>
         ) : null}
+        </span>
       </div>
 
       {/* Un solde vide bloque tout achat : le dire ici, avec le chemin pour le
