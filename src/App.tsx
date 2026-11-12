@@ -21,6 +21,7 @@ import { MarketHistory } from './screens/market/MarketHistory.screen';
 import { PropHome } from './screens/market/PropHome.screen';
 import { PropChallenge } from './screens/market/PropChallenge.screen';
 import { LearnList } from './screens/tutorials/LearnList.screen';
+import { ShareEarn } from './screens/tutorials/ShareEarn.screen';
 import { Lesson } from './screens/tutorials/Lesson.screen';
 import { WalletDeposit } from './screens/wallet/WalletDeposit.screen';
 import { WalletWithdraw } from './screens/wallet/WalletWithdraw.screen';
@@ -116,6 +117,7 @@ export const App = observer(() => {
           <Route path="/tutorials" element={<TutorialList />} />
           <Route path="/academy" element={<LearnList />} />
           <Route path="/academy/lesson" element={<Lesson />} />
+          <Route path="/academy/share" element={<ShareEarn />} />
           <Route path="/tutorials/detail" element={<TutorialDetail />} />
           <Route path="/notifications" element={<NotificationList />} />
           <Route path="/profile" element={<Profil />} />

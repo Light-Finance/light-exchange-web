@@ -80,6 +80,15 @@ export const LearnList = observer(() => {
         ) : null}
       </section>
 
+      {/* Les partages rapportent les memes credits que les lecons. */}
+      <button type="button" className="ln-share" onClick={() => navigate('/academy/share')}>
+        <span>
+          <strong>📣 Partager et gagner</strong>
+          Parlez de l'app sur vos réseaux : +1 crédit par partage validé.
+        </span>
+        <b>›</b>
+      </button>
+
       {tracks.map((track, ti) => (
         <div key={track}>
           <h3 className="ln-track">Parcours {ti + 1} · {track}</h3>

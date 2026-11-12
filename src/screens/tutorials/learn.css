@@ -112,3 +112,30 @@
 /* ── Payer l'abonnement avec ce qu'on a deja gagne ── */
 .bot-paywith { display: flex; flex-direction: column; gap: 6px; margin-bottom: var(--space-small); }
 .bot-paywith label { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+/* ── Partager et gagner ──────────────────────────────────────────────── */
+.sh-back { padding: 0; border: 0; background: none; color: var(--color-secondary); font-weight: 700; cursor: pointer; align-self: flex-start; }
+.sh-hero { display: flex; flex-direction: column; gap: 6px; padding: var(--space-medium); border-radius: 18px; background: var(--color-secondary); color: #fff; }
+.sh-hero strong { font-size: 18px; }
+.sh-hero p { margin: 0; font-size: 13.5px; line-height: 1.5; color: rgba(255, 255, 255, .9); }
+.sh-h { margin: var(--space-medium) 0 0; font-size: 15px; font-weight: 800; }
+.sh-msg { margin: 0; padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--color-secondary) 8%, transparent); font: inherit; font-size: 13px; line-height: 1.5; white-space: pre-wrap; word-break: break-word; }
+.sh-row { display: flex; gap: 8px; }
+.sh-row .sh-btn { flex: 1; }
+.sh-btn { display: block; padding: 12px; border: 0; border-radius: 12px; background: var(--color-secondary); color: #fff; font: inherit; font-weight: 800; text-align: center; cursor: pointer; }
+.sh-btn:disabled { opacity: .5; cursor: not-allowed; }
+.sh-btn--ghost { border: 1px solid var(--color-secondary); background: none; color: var(--color-secondary); }
+.sh-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sh-chip { padding: 6px 12px; border: 1px solid color-mix(in srgb, var(--color-secondary) 35%, transparent); border-radius: 999px; background: none; color: var(--color-secondary); font: inherit; font-size: 12.5px; font-weight: 700; cursor: pointer; }
+.sh-chip.is-on { background: var(--color-secondary); color: #fff; }
+.sh-input { width: 100%; box-sizing: border-box; padding: 11px 12px; border: 1px solid var(--color-border); border-radius: 12px; background: var(--color-surface); color: inherit; font: inherit; font-size: 16px; }
+.sh-preview { width: 100%; max-height: 260px; object-fit: contain; border-radius: 12px; background: var(--color-border); }
+.sh-claim { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px; border: 1px solid var(--color-border); border-radius: 12px; font-size: 13.5px; }
+.sh-claim small { display: block; font-size: 12px; color: var(--color-text-muted); }
+.sh-claim .is-wait { color: #b7791f; }
+.sh-claim .is-ok { color: var(--color-up); }
+.sh-claim .is-ko { color: var(--color-down); }
+.ln-share { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 14px; border: 1px solid #F5C77E; border-radius: 14px; background: #FFF4E5; color: #7a4a00; font: inherit; text-align: left; cursor: pointer; }
+.ln-share strong { display: block; font-size: 15px; }
+.ln-share span { font-size: 12.5px; }
+.ln-share b { font-size: 24px; }
