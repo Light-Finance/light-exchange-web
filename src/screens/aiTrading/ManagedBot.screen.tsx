@@ -17,6 +17,7 @@ import { Input } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
 import { BtcSparkline } from './BtcSparkline';
 import { BotBillingCard, BotPlans } from './BotBillingCard';
+import { PastPerformance } from './PastPerformance';
 import { botSinceLabel } from '../../helpers/botUptime';
 import { ToastService } from '../../services/toast.service';
 import { DEMO_START_BALANCE } from '../../helpers/demoBot';
@@ -292,6 +293,8 @@ export const ManagedBot = observer(() => {
       ) : (
         <BotBillingCard onChangePlan={() => setAskPlans(true)} />
       )}
+
+      <PastPerformance />
 
       {askPlans ? (
         <Modal onClose={() => setAskPlans(false)} label="Abonnement au robot">
