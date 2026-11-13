@@ -139,3 +139,7 @@
 .ln-share strong { display: block; font-size: 15px; }
 .ln-share span { font-size: 12.5px; }
 .ln-share b { font-size: 24px; }
+.sh-kind { flex: 1; padding: 10px; border-radius: 10px; font-weight: 800; }
+.sh-ideas { padding: 12px; border-radius: 12px; background: color-mix(in srgb, var(--color-secondary) 8%, transparent); font-size: 13px; }
+.sh-ideas ul { margin: 6px 0; padding-left: 18px; line-height: 1.6; }
+.sh-ideas small { color: var(--color-text-muted); }

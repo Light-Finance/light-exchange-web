@@ -18,9 +18,14 @@ const SHARE_STATUS = gql`
       perMonth
       canSubmit
       approvedThisMonth
+      videoReward
+      videoPerMonth
+      videosThisMonth
+      canSubmitVideo
       claims {
         id
         network
+        kind
         status
         reward
         note
@@ -30,8 +35,8 @@ const SHARE_STATUS = gql`
   }
 `;
 const SHARE_SUBMIT = gql`
-  mutation shareSubmit($userId: ID!, $network: String!, $link: String, $imageBase64: String) {
-    shareSubmit(userId: $userId, network: $network, link: $link, imageBase64: $imageBase64) {
+  mutation shareSubmit($userId: ID!, $network: String!, $kind: String, $link: String, $imageBase64: String) {
+    shareSubmit(userId: $userId, network: $network, kind: $kind, link: $link, imageBase64: $imageBase64) {
       id
     }
   }
@@ -41,11 +46,22 @@ const NETWORKS: [string, string][] = [
   ['whatsapp', 'WhatsApp'],
   ['facebook', 'Facebook'],
   ['tiktok', 'TikTok'],
+  ['youtube', 'YouTube'],
   ['instagram', 'Instagram'],
   ['telegram', 'Telegram'],
   ['x', 'X'],
   ['autre', 'Autre'],
 ];
+// Idees de videos : un sujet concret fait une video plus vite qu'une page blanche.
+const VIDEO_IDEAS = [
+  'Tutoriel : comment déposer avec Mobile Money',
+  'Mon premier retrait, de la demande à la réception',
+  'Je teste le robot de trading IA pendant une semaine',
+  "Acheter des actions américaines depuis l'Afrique",
+  "Les formations rémunérées : j'apprends et je gagne des crédits",
+];
+const VIDEO_NETWORKS = ['tiktok', 'youtube', 'facebook', 'instagram', 'autre'];
+
 const STATUS: Record<string, [string, string]> = {
   pending: ['En attente', 'is-wait'],
   approved: ['Validé', 'is-ok'],
@@ -58,13 +74,18 @@ interface IStatus {
   perMonth: number;
   canSubmit: boolean;
   approvedThisMonth: number;
-  claims: { id: string; network: string; status: string; reward: number; note: string; createdAt: string }[];
+  videoReward: number;
+  videoPerMonth: number;
+  videosThisMonth: number;
+  canSubmitVideo: boolean;
+  claims: { id: string; network: string; kind: string; status: string; reward: number; note: string; createdAt: string }[];
 }
 
 export const ShareEarn = observer(() => {
   const navigate = useNavigate();
   const userId = appRootStore.authStore.user?.id;
   const [s, setS] = useState<IStatus | null>(null);
+  const [kind, setKind] = useState<'post' | 'video'>('post');
   const [network, setNetwork] = useState('whatsapp');
   const [link, setLink] = useState('');
   const [image, setImage] = useState<string | null>(null);
@@ -110,12 +131,16 @@ export const ShareEarn = observer(() => {
   };
   const submit = async () => {
     if (busy || !userId) return;
+    if (kind === 'video' && !/^https?:\/\//i.test(link.trim())) {
+      ToastService.show('Collez le lien de votre vidéo (YouTube, TikTok…)', ToastService.ERROR);
+      return;
+    }
     if (!link.trim() && !image) {
       ToastService.show("Ajoutez le lien de votre publication ou une capture d'écran", ToastService.ERROR);
       return;
     }
     setBusy(true);
-    const r: any = await Service.mutation({ userId, network, link: link.trim(), imageBase64: image }, SHARE_SUBMIT, true);
+    const r: any = await Service.mutation({ userId, network, kind, link: link.trim(), imageBase64: kind === 'video' ? null : image }, SHARE_SUBMIT, true);
     setBusy(false);
     if (r?.data?.shareSubmit) {
       setLink('');
@@ -124,6 +149,10 @@ export const ShareEarn = observer(() => {
       load(false);
     }
   };
+
+  const video = kind === 'video';
+  const networks = video ? NETWORKS.filter(([k]) => VIDEO_NETWORKS.includes(k)) : NETWORKS;
+  const blocked = s ? (video ? !s.canSubmitVideo : !s.canSubmit) : false;
 
   return (
     <div className="stack">
@@ -137,6 +166,10 @@ export const ShareEarn = observer(() => {
           Chaque partage validé = +{s?.reward ?? 1} crédit robot (1 $ sur l'abonnement). Un partage par jour,{' '}
           {s?.perMonth ?? 10} par mois.
         </p>
+        <p>
+          🎬 Vous faites des vidéos ? Une vidéo YouTube ou TikTok sur l'app rapporte +{s?.videoReward ?? 5} crédits
+          ({s?.videoPerMonth ?? 4} par mois).
+        </p>
         <b>Ce mois-ci : {s?.approvedThisMonth ?? 0} / {s?.perMonth ?? 10} validés</b>
       </section>
 
@@ -148,23 +181,44 @@ export const ShareEarn = observer(() => {
       </div>
 
       <h2 className="sh-h">2. Envoyez la preuve</h2>
-      {s && !s.canSubmit ? (
-        <p className="ln-info">Vous avez déjà envoyé votre partage du jour (ou atteint le maximum du mois). Revenez demain !</p>
+      <div className="sh-row">
+        <button type="button" className={`sh-chip sh-kind${!video ? ' is-on' : ''}`} onClick={() => { setKind('post'); setNetwork('whatsapp'); }}>
+          Statut / publication · +{s?.reward ?? 1}
+        </button>
+        <button type="button" className={`sh-chip sh-kind${video ? ' is-on' : ''}`} onClick={() => { setKind('video'); setNetwork('tiktok'); setImage(null); }}>
+          🎬 Vidéo · +{s?.videoReward ?? 5}
+        </button>
+      </div>
+      {video ? (
+        <div className="sh-ideas">
+          <b>Idées de vidéos ({s?.videosThisMonth ?? 0} / {s?.videoPerMonth ?? 4} ce mois-ci)</b>
+          <ul>{VIDEO_IDEAS.map(i => <li key={i}>{i}</li>)}</ul>
+          <small>Montrez l'app à l'écran, citez votre code de parrainage, et mettez le lien en description.</small>
+        </div>
+      ) : null}
+      {blocked ? (
+        <p className="ln-info">
+          {video
+            ? 'Maximum de vidéos atteint ce mois-ci. Merci, revenez le mois prochain !'
+            : 'Vous avez déjà envoyé votre partage du jour (ou atteint le maximum du mois). Revenez demain !'}
+        </p>
       ) : (
         <div className="stack" style={{ gap: 8 }}>
           <div className="sh-chips">
-            {NETWORKS.map(([k, label]) => (
+            {networks.map(([k, label]) => (
               <button key={k} type="button" className={`sh-chip${network === k ? ' is-on' : ''}`} onClick={() => setNetwork(k)}>
                 {label}
               </button>
             ))}
           </div>
-          <input className="sh-input" value={link} onChange={e => setLink(e.target.value)} placeholder="Lien de la publication (facultatif)" />
-          <label className="sh-btn sh-btn--ghost">
-            {image ? 'Changer la capture' : "📷 Ajouter une capture d'écran"}
-            <input type="file" accept="image/*" hidden onChange={pickImage} />
-          </label>
-          {image ? <img src={image} alt="Capture" className="sh-preview" /> : null}
+          <input className="sh-input" value={link} onChange={e => setLink(e.target.value)} placeholder={video ? 'Lien de la vidéo (obligatoire)' : 'Lien de la publication (facultatif)'} />
+          {video ? null : (
+            <label className="sh-btn sh-btn--ghost">
+              {image ? 'Changer la capture' : "📷 Ajouter une capture d'écran"}
+              <input type="file" accept="image/*" hidden onChange={pickImage} />
+            </label>
+          )}
+          {image && !video ? <img src={image} alt="Capture" className="sh-preview" /> : null}
           <button type="button" className="sh-btn" disabled={busy} onClick={submit}>
             {busy ? 'Envoi…' : 'Envoyer pour validation'}
           </button>
@@ -177,7 +231,7 @@ export const ShareEarn = observer(() => {
         return (
           <div key={c.id} className="sh-claim">
             <span>
-              <b>{NETWORKS.find(([k]) => k === c.network)?.[1] ?? c.network}</b> · {new Date(c.createdAt).toLocaleDateString('fr-FR')}
+              <b>{c.kind === 'video' ? '🎬 ' : ''}{NETWORKS.find(([k]) => k === c.network)?.[1] ?? c.network}</b> · {new Date(c.createdAt).toLocaleDateString('fr-FR')}
               {c.note ? <small>{c.note}</small> : null}
             </span>
             <b className={cls}>{label}{c.status === 'approved' ? ` +${c.reward}` : ''}</b>
