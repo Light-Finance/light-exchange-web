@@ -1,3 +1,4 @@
+import { TERMS_SECTIONS } from '../../consts/terms';
 import { useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
@@ -24,14 +25,17 @@ export const SignUp = observer(() => {
         <Modal onClose={() => setTermsVisible(false)} label={translate('signUp.conditionTxt')}>
           {/* Mobile renders the hosted terms in a WebView; the browser can just
               link out to the same page. */}
-          <p className="stack">{translate('signUp.conditionTxt')}</p>
-          <a
-            href={`https://${lightexchange.app.INFO.WEB_SITE ?? 'lightexchange.io'}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {lightexchange.app.INFO.WEB_SITE ?? 'lightexchange.io'}
-          </a>
+          <p className="stack">
+            En vous inscrivant sur Light Exchange, vous acceptez l'intégralité des présentes conditions d'utilisation.
+          </p>
+          <div style={{ maxHeight: '60vh', overflowY: 'auto' }}>
+            {TERMS_SECTIONS.map(sec => (
+              <div key={sec.t} style={{ marginBottom: 12 }}>
+                <strong>{sec.t}</strong>
+                <p style={{ margin: '4px 0 0' }}>{sec.b}</p>
+              </div>
+            ))}
+          </div>
         </Modal>
       ) : null}
 
