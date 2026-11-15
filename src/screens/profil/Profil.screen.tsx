@@ -251,6 +251,7 @@ const IdVerification = observer(() => {
     <div className="card profil-card">
       <div className="profil-cardtitle">{translate('profil.idVerification')}</div>
       <p className="muted">{translate('profil.idAccepted')}</p>
+      <p style={{ color: '#b45309', fontWeight: 600, margin: '4px 0 10px' }}>{translate('profil.idPhotoWarning')}</p>
       <div className="profil-idslots">
         <IdSlot type="front" url={user?.idFrontUrl} />
         <IdSlot type="back" url={user?.idBackUrl} />

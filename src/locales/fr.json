@@ -70,6 +70,7 @@
     "signOutBtn": "Se déconnecter",
     "idVerification": "Vérification d'identité",
     "idAccepted": "Carte nationale d'identité, permis de conduire, passeport, carte d'électeur…",
+    "idPhotoWarning": "⚠️ Chacune des 3 photos doit être exactement ce qui est demandé : le recto de votre pièce, le verso de votre pièce, et un selfie de vous tenant cette même pièce. Toute autre photo sera refusée.",
     "idVerified": "Identité vérifiée",
     "idPending": "En attente de vérification",
     "id_front": "Recto ID",

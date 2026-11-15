@@ -70,6 +70,7 @@
     "signOutBtn": "Sign Out",
     "idVerification": "ID Verification",
     "idAccepted": "National ID card, driver's licence, passport, electoral card…",
+    "idPhotoWarning": "⚠️ Each of the 3 photos must be exactly what is asked: the front of your ID, the back of your ID, and a selfie of you holding that same ID. Any other picture will be rejected.",
     "idVerified": "Identity verified",
     "idPending": "Pending admin verification",
     "id_front": "ID front",
