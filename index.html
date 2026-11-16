@@ -9,6 +9,39 @@
     <link rel="apple-touch-icon" href="%BASE_URL%apple-touch-icon.png" />
     <meta name="theme-color" content="#8039dd" />
     <title>Light Exchange</title>
+    <script>
+      // Android : on propose l'application (Play Store) ou la version web.
+      // « Rester sur le web » est retenu 7 jours sur cet appareil.
+      (function () {
+        var KEY = 'lx_stay_web_until';
+        var PLAY = 'https://play.google.com/store/apps/details?id=com.lightexchangemobile';
+        try {
+          if (!/android/i.test(navigator.userAgent)) return;
+          if (Number(localStorage.getItem(KEY) || 0) > Date.now()) return;
+        } catch (e) {}
+        function show() {
+          var d = document.createElement('div');
+          d.id = 'lx-app-choice';
+          d.setAttribute('role', 'dialog');
+          d.setAttribute('aria-label', "Choisir entre l'application et le site");
+          d.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(10,8,30,.72);display:flex;align-items:flex-end;justify-content:center;padding:16px;font-family:system-ui,sans-serif';
+          d.innerHTML =
+            '<div style="background:#fff;color:#1e1b4b;border-radius:18px;padding:22px 20px;max-width:420px;width:100%;box-sizing:border-box;box-shadow:0 10px 40px rgba(0,0,0,.3)">' +
+            '<div style="font-size:19px;font-weight:700;margin-bottom:6px">Light Exchange sur Android</div>' +
+            '<div style="font-size:15px;line-height:1.45;color:#4b5563;margin-bottom:18px">L\'application est plus rapide et vous envoie des notifications pour vos dépôts, retraits et le robot.</div>' +
+            '<a id="lx-go-play" href="' + PLAY + '" style="display:block;text-align:center;background:#7c3aed;color:#fff;text-decoration:none;font-weight:700;font-size:16px;padding:14px;border-radius:12px;margin-bottom:10px">📲 Télécharger l\'application</a>' +
+            '<button id="lx-stay-web" type="button" style="display:block;width:100%;box-sizing:border-box;background:none;border:1px solid #d1d5db;color:#374151;font-size:15px;padding:12px;border-radius:12px;cursor:pointer">Rester sur le site web</button>' +
+            '</div>';
+          document.body.appendChild(d);
+          document.getElementById('lx-stay-web').onclick = function () {
+            try { localStorage.setItem(KEY, String(Date.now() + 7 * 24 * 3600 * 1000)); } catch (e) {}
+            d.remove();
+          };
+        }
+        if (document.body) show();
+        else document.addEventListener('DOMContentLoaded', show);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
