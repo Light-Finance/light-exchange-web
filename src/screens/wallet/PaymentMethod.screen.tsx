@@ -1,3 +1,4 @@
+import { WithdrawCodeBox } from '../../components/wallet/WithdrawCodeBox';
 import { observer } from 'mobx-react-lite';
 import lightexchange from 'light-exchange';
 import { appRootStore } from '../../stores/root.store';
@@ -109,12 +110,14 @@ const WithdrawForm = observer(() => {
         <InfoBanner>{translate('fiatWitdraw.networkNote')}</InfoBanner>
       )}
 
+      <WithdrawCodeBox />
       <Button
         block
         disabled={notEnough}
-        onClick={() =>
-          tradeStore.transactionCreate(lightexchange.app.TRANSACTION.TYPE.withdrawalCrypto)
-        }
+        onClick={async () => {
+          if (!(await tradeStore.verifyWithdrawCode())) return;
+          tradeStore.transactionCreate(lightexchange.app.TRANSACTION.TYPE.withdrawalCrypto);
+        }}
       >
         {translate('fiatWitdraw.withdrawBtn')}
       </Button>

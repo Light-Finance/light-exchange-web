@@ -1,3 +1,4 @@
+import { WithdrawCodeBox } from '../../components/wallet/WithdrawCodeBox';
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
@@ -89,6 +90,7 @@ export const WalletWithdraw = observer(() => {
     if (!selectedWallet?.id || !method?.id || busy) return;
     setBusy(true);
     try {
+      if (!(await tradeStore.verifyWithdrawCode())) return;
       const ok = await tradeStore.withdrawalRequest(
         String(selectedWallet.id),
         amount,
@@ -220,6 +222,7 @@ export const WalletWithdraw = observer(() => {
           </WalletCard>
           {/* Dire avant de confirmer que le solde part tout de suite. */}
           <InfoBanner>{translate('walletWithdraw.debitNote')}</InfoBanner>
+          <WithdrawCodeBox />
           <Button block disabled={account.trim().length < 4 || busy} onClick={confirm}>
             {busy ? translate('walletWithdraw.sending') : translate('walletWithdraw.confirmBtn')}
           </Button>

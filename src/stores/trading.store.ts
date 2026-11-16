@@ -71,6 +71,16 @@ export interface IDepositOptions {
 
 // Retrait par Mobile Money ou virement : le serveur debite et ouvre une
 // transaction en attente que l'admin traite.
+const WITHDRAWAL_CODE_SEND = gql`
+  mutation withdrawalCodeSend($userId: ID!) {
+    withdrawalCodeSend(userId: $userId)
+  }
+`;
+const WITHDRAWAL_CODE_VERIFY = gql`
+  mutation withdrawalCodeVerify($userId: ID!, $code: String!) {
+    withdrawalCodeVerify(userId: $userId, code: $code)
+  }
+`;
 const WITHDRAWAL_REQUEST = gql`
   mutation withdrawalRequest(
     $userId: ID!
@@ -374,6 +384,47 @@ export class TradeStore {
    * est debite tout de suite ; la transaction reste en attente jusqu'a ce
    * que l'admin la valide, ou l'annule et rembourse.
    */
+  // ── Code de retrait (double authentification par email) ──
+  @observable withdrawCode = '';
+  @observable withdrawCodeSent = false;
+  @observable withdrawCodeSending = false;
+  @action setWithdrawCode(v: string) {
+    this.withdrawCode = v.replace(/[^0-9]/g, '').slice(0, 6);
+  }
+  @action async sendWithdrawCode() {
+    const userId = this.rootStore!.authStore.user?.id;
+    if (!userId || this.withdrawCodeSending) return;
+    this.withdrawCodeSending = true;
+    try {
+      const r = await Service.mutation({ userId }, WITHDRAWAL_CODE_SEND, true);
+      if (r?.data?.withdrawalCodeSend) {
+        this.withdrawCodeSent = true;
+        ToastService.show('Code envoyé par email', ToastService.SUCCESS);
+      }
+    } finally {
+      this.withdrawCodeSending = false;
+    }
+  }
+  /** Verifie le code avant un retrait. Faux (avec un message) s'il manque ou est faux. */
+  @action async verifyWithdrawCode(): Promise<boolean> {
+    const userId = this.rootStore!.authStore.user?.id;
+    if (!userId) return false;
+    if (this.withdrawCode.length !== 6) {
+      ToastService.show(
+        this.withdrawCodeSent
+          ? 'Saisissez le code à 6 chiffres reçu par email'
+          : 'Appuyez sur « Recevoir le code » puis saisissez le code reçu par email',
+        ToastService.ERROR,
+      );
+      return false;
+    }
+    const r = await Service.mutation({ userId, code: this.withdrawCode }, WITHDRAWAL_CODE_VERIFY, true);
+    if (!r?.data?.withdrawalCodeVerify) return false;
+    this.withdrawCode = '';
+    this.withdrawCodeSent = false;
+    return true;
+  }
+
   @action async withdrawalRequest(
     walletId: string,
     amount: number,
