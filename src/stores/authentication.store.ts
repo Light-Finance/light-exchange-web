@@ -60,7 +60,14 @@ export class AuthStore {
   }
   /* modifiers */
   @action async setUser(user: IUser) {
-    this.user = user;
+    // Le jeton de session n'arrive qu'a la connexion : un rafraichissement du
+    // profil (userById) ne doit pas l'effacer.
+    const prev: any = this.user;
+    const next: any = user;
+    if (next && prev?.sessionToken && !next.sessionToken && String(prev.id) === String(next.id)) {
+      next.sessionToken = prev.sessionToken;
+    }
+    this.user = next;
   }
   share = async () => {
     try {
