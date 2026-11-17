@@ -145,7 +145,7 @@ export const ShareEarn = observer(() => {
     if (r?.data?.shareSubmit) {
       setLink('');
       setImage(null);
-      ToastService.show('Envoyé ! Vous serez notifié dès la validation.', ToastService.SUCCESS);
+      ToastService.show('Envoyé ! La vérification prend entre 15 min et 72 h. Vous serez notifié dès la validation.', ToastService.SUCCESS);
       load(false);
     }
   };
@@ -222,6 +222,7 @@ export const ShareEarn = observer(() => {
           <button type="button" className="sh-btn" disabled={busy} onClick={submit}>
             {busy ? 'Envoi…' : 'Envoyer pour validation'}
           </button>
+          <small style={{ textAlign: 'center', opacity: 0.7 }}>⏱ La vérification prend entre 15 min et 72 h.</small>
         </div>
       )}
 
