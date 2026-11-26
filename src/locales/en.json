@@ -298,6 +298,7 @@
     "contactBtn": "Contact us",
     "otherPaymentTitle": "Pay another way?",
     "otherPaymentText": "Pick a payment method: we send you the details to use on WhatsApp, and credit your account as soon as we receive it.",
+    "creditDelayNote": "Credit time: 1 h to 72 h. It does not depend on Light Exchange but on the operator's confirmation (Orange, MTN, bank…).",
     "scanHint": "Scan this code from your wallet",
     "instantCredit": "⚡ Credited automatically on arrival",
     "chooseCountryText": "Choose your country to see the payment methods available to you.",

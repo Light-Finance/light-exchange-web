@@ -44,6 +44,8 @@ export const SignIn = observer(() => {
       </form>
       <GoogleButton>{translate('googleButton.logInGoogleBtn')}</GoogleButton>
       <TextLink onClick={() => navigate('/signup')}>{translate('signIn.signUpBtn')}</TextLink>
+      {/* Un compte bloque ne peut plus se connecter, mais garde le support. */}
+      <TextLink onClick={() => navigate('/blocked-support')}>Compte bloqué ? Contacter le support</TextLink>
     </AuthLayout>
   );
 });

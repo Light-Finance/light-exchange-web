@@ -227,6 +227,9 @@ export const WalletDeposit = observer(() => {
                   </button>
                 ))}
               </div>
+              {options.methods.length > 0 ? (
+                <p className="mk-note">{translate('walletDeposit.creditDelayNote')}</p>
+              ) : null}
 
               {/* La liste des moyens de paiement est la notre, pas celle du
                   monde : quelqu'un qui n'y trouve pas le sien repartait sans

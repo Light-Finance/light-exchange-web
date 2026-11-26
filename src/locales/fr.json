@@ -300,6 +300,7 @@
     "contactBtn": "Contactez-nous",
     "otherPaymentTitle": "Payer autrement ?",
     "otherPaymentText": "Choisissez un moyen de paiement : nous vous envoyons les coordonnées à utiliser sur WhatsApp, et créditons votre compte dès réception.",
+    "creditDelayNote": "Délai de crédit : 1 h à 72 h. Il ne dépend pas de Light Exchange mais de la confirmation de l'opérateur (Orange, MTN, banque…).",
     "scanHint": "Scannez ce code depuis votre portefeuille",
     "instantCredit": "⚡ Crédité automatiquement dès réception",
     "chooseCountryText": "Choisissez votre pays pour voir les moyens de paiement disponibles chez vous.",

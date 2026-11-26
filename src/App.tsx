@@ -11,6 +11,7 @@ import { Welcome } from './screens/auth/Welcome.screen';
 import { SignIn } from './screens/auth/SignIn.screen';
 import { SignUp } from './screens/auth/SignUp.screen';
 import { ForgotPassword } from './screens/auth/ForgotPassword.screen';
+import { BlockedSupport } from './screens/auth/BlockedSupport.screen';
 import { EmailConfirmation } from './screens/auth/EmailConfirmation.screen';
 import { Splash } from './screens/auth/Splash.screen';
 import { WalletHome } from './screens/wallet/WalletHome.screen';
@@ -88,6 +89,7 @@ export const App = observer(() => {
         <Route path="/signin" element={<PublicOnly><SignIn /></PublicOnly>} />
         <Route path="/signup" element={<PublicOnly><SignUp /></PublicOnly>} />
         <Route path="/forgot-password" element={<PublicOnly><ForgotPassword /></PublicOnly>} />
+        <Route path="/blocked-support" element={<PublicOnly><BlockedSupport /></PublicOnly>} />
         {/* Reached mid-signup, before `connected` is set — not PublicOnly. */}
         <Route path="/email-confirmation" element={<EmailConfirmation />} />
 
