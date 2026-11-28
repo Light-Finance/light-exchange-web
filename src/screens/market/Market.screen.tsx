@@ -9,6 +9,7 @@ import { Input } from '../../components/ui/Field';
 import { Modal } from '../../components/ui/Modal';
 import { ToastService } from '../../services/toast.service';
 import { colorOf } from './assetColors';
+import { CryptoDepositPanel } from './CryptoDepositPanel';
 import './market.css';
 import './prop.css';
 
@@ -211,6 +212,8 @@ export const Market = observer(() => {
           ))}
         </section>
       ) : null}
+
+      <CryptoDepositPanel />
 
       <h2 className="mk-heading">Acheter</h2>
 

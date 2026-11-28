@@ -19,6 +19,9 @@ const MARKET_ASSETS = gql`
       change24h
       ipoPrice
       ipoEndsAt
+      depositAddress
+      depositNetwork
+      depositMemo
     }
   }
 `;
@@ -100,6 +103,10 @@ export interface IMarketAsset {
   ipoPrice: number | null;
   /** Clôture de la souscription (ISO), null si elle reste ouverte. */
   ipoEndsAt: string | null;
+  /** Depot sur le reseau natif : adresse fournie par l'admin, sinon ferme. */
+  depositAddress?: string | null;
+  depositNetwork?: string | null;
+  depositMemo?: string | null;
 }
 
 export interface IMarketPosition {

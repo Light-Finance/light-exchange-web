@@ -34,7 +34,7 @@ const when = (iso: string) =>
  * pouvoir la reconnaitre dans son historique.
  */
 const sideLabel = (t: { side: string; ipo: boolean }) =>
-  t.side === 'sell' ? 'Vente' : t.ipo ? 'Souscription' : 'Achat';
+  t.side === 'sell' ? 'Vente' : t.side === 'deposit' ? 'Dépôt' : t.ipo ? 'Souscription' : 'Achat';
 
 const kindLabel = (t: { kind: string; ipo: boolean }) =>
   t.ipo ? 'IPO' : t.kind === 'stock' ? 'Action' : 'Crypto';
